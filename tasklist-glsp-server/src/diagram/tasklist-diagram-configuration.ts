@@ -15,7 +15,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
 import {
-    DefaultTypes,
     DiagramConfiguration,
     EdgeTypeHint,
     getDefaultMapping,
@@ -39,11 +38,25 @@ export class TaskListDiagramConfiguration implements DiagramConfiguration {
     get shapeTypeHints(): ShapeTypeHint[] {
         return [
             {
-                elementTypeId: DefaultTypes.NODE,
+                elementTypeId: 'node:relation',
                 deletable: true,
                 reparentable: false,
                 repositionable: true,
                 resizable: true
+            },
+            {
+                elementTypeId: 'node:inline-attributes',
+                deletable: true,
+                reparentable: false,
+                repositionable: false,
+                resizable: false
+            },
+            {
+                elementTypeId: 'node:attribute',
+                deletable: true,     
+                reparentable: true, 
+                repositionable: false,
+                resizable: false 
             }
         ];
     }
@@ -51,12 +64,12 @@ export class TaskListDiagramConfiguration implements DiagramConfiguration {
     get edgeTypeHints(): EdgeTypeHint[] {
         return [
             {
-                elementTypeId: DefaultTypes.EDGE,
+                elementTypeId: 'edge:transition',
                 deletable: true,
-                repositionable: false,
-                routable: false,
-                sourceElementTypeIds: [DefaultTypes.NODE],
-                targetElementTypeIds: [DefaultTypes.NODE]
+                repositionable: true,
+                routable: true,
+                sourceElementTypeIds: ['node:relation'],
+                targetElementTypeIds: ['node:relation']
             }
         ];
     }

@@ -31,8 +31,8 @@ export class CreateTransitionHandler extends JsonCreateEdgeOperationHandler {
         return this.commandOf(() => {
             const transition: Transition = {
                 id: uuid.v4(),
-                sourceTaskId: operation.sourceElementId,
-                targetTaskId: operation.targetElementId
+                sourceId: operation.sourceElementId,
+                targetId: operation.targetElementId
             };
             this.modelState.sourceModel.transitions.push(transition);
         });

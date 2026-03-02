@@ -16,22 +16,27 @@
  ********************************************************************************/
 import { GModelIndex } from '@eclipse-glsp/server';
 import { injectable } from 'inversify';
-import { Task, TaskList, Transition } from './tasklist-model';
+import { Attribute, Relation, TaskList, Transition } from './tasklist-model';
 
 @injectable()
 export class TaskListModelIndex extends GModelIndex {
-    protected idToTaskListElements = new Map<string, Task | Transition>();
+    protected idToTaskListElements = new Map<string, Relation | Transition>();
 
     indexTaskList(taskList: TaskList): void {
         this.idToTaskListElements.clear();
-        for (const element of [...taskList.tasks, ...taskList.transitions]) {
+        for (const element of [...taskList.relations, ...taskList.transitions]) {
             this.idToTaskListElements.set(element.id, element);
         }
     }
 
-    findTask(id: string): Task | undefined {
+    findRelation(id: string): Relation | undefined {
         const element = this.findTaskOrTransition(id);
-        return Task.is(element) ? element : undefined;
+        return Relation.is(element) ? element : undefined;
+    }
+
+    findAttribute(id: string): Attribute | undefined {
+        const element = this.findTaskOrTransition(id);
+        return Attribute.is(element) ? element : undefined;
     }
 
     findTransition(id: string): Transition | undefined {
@@ -39,7 +44,7 @@ export class TaskListModelIndex extends GModelIndex {
         return Transition.is(element) ? element : undefined;
     }
 
-    findTaskOrTransition(id: string): Task | Transition | undefined {
+    findTaskOrTransition(id: string): Relation | Attribute | Transition | undefined {
         return this.idToTaskListElements.get(id);
     }
 }

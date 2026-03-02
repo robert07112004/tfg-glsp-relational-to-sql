@@ -18,18 +18,17 @@ import {
     Command,
     CreateNodeOperation,
     DefaultTypes,
-    GNode,
     JsonCreateNodeOperationHandler,
     MaybePromise,
     Point
 } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
 import * as uuid from 'uuid';
-import { Task } from '../model/tasklist-model';
+import { Relation } from '../model/tasklist-model';
 import { TaskListModelState } from '../model/tasklist-model-state';
 
 @injectable()
-export class CreateTaskHandler extends JsonCreateNodeOperationHandler {
+export class CreateRelationHandler extends JsonCreateNodeOperationHandler {
     readonly elementTypeIds = [DefaultTypes.NODE];
 
     @inject(TaskListModelState)
@@ -38,22 +37,23 @@ export class CreateTaskHandler extends JsonCreateNodeOperationHandler {
     override createCommand(operation: CreateNodeOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
             const relativeLocation = this.getRelativeLocation(operation) ?? Point.ORIGIN;
-            const task = this.createTask(relativeLocation);
+            const relation = this.createRelation(relativeLocation);
             const taskList = this.modelState.sourceModel;
-            taskList.tasks.push(task);
+            taskList.relations.push(relation);
         });
     }
 
-    protected createTask(position: Point): Task {
-        const nodeCounter = this.modelState.index.getAllByClass(GNode).length;
+    protected createRelation(position: Point): Relation {
+        const relationCounter = this.modelState.sourceModel.relations.length;
         return {
             id: uuid.v4(),
-            name: `NewTaskNode${nodeCounter}`,
+            type: 'relation',
+            name: `NewRelationNode${relationCounter + 1}`,
             position
         };
     }
 
     get label(): string {
-        return 'Task';
+        return 'Relation';
     }
 }

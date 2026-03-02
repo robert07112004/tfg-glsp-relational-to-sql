@@ -15,16 +15,73 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
 
+/* Fondo general del lienzo de dibujo */
 svg {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #bbb;
+    background-color: #f4f6f8;
 }
 
-.sprotty-node {
-    fill: inherit;
+/* --- RELATION --- */
+.relation-node > .sprotty-node {
+    fill: #ffffff;             
+    stroke: #4a90e2;           
+    stroke-width: 2px;
+    rx: 6px;                  
+    ry: 6px;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1)); 
+    transition: all 0.2s ease-in-out;
 }
 
-.tasklist-node > .sprotty-node {
-    fill: #f1bd6c;
+/* Relation title */
+.relation-node > text {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    fill: #2c3e50;        
+}
+
+/* Relation selected state */
+.relation-node.selected > .sprotty-node {
+    stroke: #e67e22;          
+    stroke-width: 3px;
+    filter: drop-shadow(0px 4px 10px rgba(230, 126, 34, 0.3));
+}
+
+/* --- INLINE ATTRIBUTES OF RELATION --- */
+.attributes-compartment > .sprotty-node {
+    fill: #fafbfc;            
+    stroke: #e1e4e8;       
+    stroke-width: 1px;
+    rx: 4px;
+    ry: 4px;
+}
+
+/* --- ATTRIBUTES --- */
+.attribute > .sprotty-node {
+    fill: transparent;         
+    stroke: none;             
+}
+
+/* Attribute text */
+.attribute > text {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    fill: #5c6bc0;      
+}
+
+/* Hover effect on attribute */
+.attribute:hover > .sprotty-node {
+    fill: #e8eaed;            
+    border-radius: 3px;
+}
+
+/* --- TRANSITIONS --- */
+.transition {
+    stroke: #7f8c8d;          
+    stroke-width: 2px;
+}
+
+/* Transition selected */
+.transition.selected {
+    stroke: #e67e22;
+    stroke-width: 3px;
 }

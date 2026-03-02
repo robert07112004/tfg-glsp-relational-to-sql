@@ -23,33 +23,72 @@ import { AnyObject, hasArrayProp, hasObjectProp, hasStringProp } from '@eclipse-
  */
 export interface TaskList {
     id: string;
-    tasks: Task[];
+    relations: Relation[];
+    attributes: Attribute[];
     transitions: Transition[];
 }
 
 export namespace TaskList {
     export function is(object: any): object is TaskList {
-        return AnyObject.is(object) && hasStringProp(object, 'id') && hasArrayProp(object, 'tasks');
+        return (
+            AnyObject.is(object) && 
+            hasStringProp(object, 'id') && 
+            hasArrayProp(object, 'relations') && 
+            hasArrayProp(object, 'attributes') &&
+            hasArrayProp(object, 'transitions')
+        );
     }
 }
 
-export interface Task {
+export interface Relation {
     id: string;
+    type: 'relation';
+    name: string;
+    attributes?: Attribute[];
+    position: { x: number; y: number };
+    size?: { width: number; height: number };
+}
+
+export namespace Relation {
+    export function is(object: any): object is Relation {
+        let isValid = AnyObject.is(object) && 
+                      hasStringProp(object, 'id') && 
+                      hasStringProp(object, 'type') && (object as Relation).type === 'relation' &&          
+                      hasStringProp(object, 'name') && 
+                      hasObjectProp(object, 'position');
+        
+        if (isValid && object.attributes !== undefined) {
+            isValid = hasArrayProp(object, 'attributes') && 
+                      object.attributes.every(Attribute.is);
+        }
+        return isValid;
+    }
+}
+
+export interface Attribute {
+    id: string;
+    type: 'attribute';
     name: string;
     position: { x: number; y: number };
     size?: { width: number; height: number };
 }
 
-export namespace Task {
-    export function is(object: any): object is Task {
-        return AnyObject.is(object) && hasStringProp(object, 'id') && hasStringProp(object, 'name') && hasObjectProp(object, 'position');
+export namespace Attribute {
+    export function is(object: any): object is Attribute {
+        return (
+            AnyObject.is(object) && 
+            hasStringProp(object, 'id') && 
+            hasStringProp(object, 'type') && (object as Attribute).type === 'attribute' &&
+            hasStringProp(object, 'name') && 
+            hasObjectProp(object, 'position')
+        );
     }
 }
 
 export interface Transition {
     id: string;
-    sourceTaskId: string;
-    targetTaskId: string;
+    sourceId: string;
+    targetId: string;
 }
 
 export namespace Transition {
@@ -57,8 +96,8 @@ export namespace Transition {
         return (
             AnyObject.is(object) &&
             hasStringProp(object, 'id') &&
-            hasStringProp(object, 'sourceTaskId') &&
-            hasStringProp(object, 'targetTaskId')
+            hasStringProp(object, 'sourceId') &&
+            hasStringProp(object, 'targetId')
         );
     }
 }

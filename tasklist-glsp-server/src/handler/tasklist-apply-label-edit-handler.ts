@@ -29,15 +29,19 @@ export class TaskListApplyLabelEditHandler extends JsonOperationHandler {
     override createCommand(operation: ApplyLabelEditOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
             const index = this.modelState.index;
-            // Retrieve the parent node of the label that should be edited
-            const taskNode = index.findParentElement(operation.labelId, toTypeGuard(GNode));
-            if (taskNode) {
-                const task = index.findTask(taskNode.id);
-                if (!task) {
-                    throw new GLSPServerError(`Could not retrieve the parent task for the label with id ${operation.labelId}`);
-                }
-                task.name = operation.text;
-            }
+            const parentNode = index.findParentElement(operation.labelId, toTypeGuard(GNode));
+            
+            if (!parentNode) throw new GLSPServerError(`Could not find parent node for label with id ${operation.labelId}`);
+
+            if (parentNode.type === 'node:relation') {                                                                      // padre === relation
+                const relation = index.findRelation(parentNode.id);
+                if (!relation) throw new GLSPServerError(`Could not retrieve the Relation with id ${parentNode.id}`);
+                relation.name = operation.text;
+            } else if (parentNode.type === 'node:attribute') {                                                              // padre === attribute
+                const attribute = index.findAttribute(parentNode.id);
+                if (!attribute) throw new GLSPServerError(`Could not retrieve the Attribute with id ${parentNode.id}`);
+                attribute.name = operation.text;
+            } else throw new GLSPServerError(`Editing labels for node type '${parentNode.type}' is not supported.`);        // Tipo no soportado
         });
     }
 }

@@ -1,0 +1,32 @@
+A relation is the basic structure of the relational model; it is a set of tuples and is represented by a table. 
+Tuples are occurrences of the relation and are represented by rows; the number of tuples or rows defines the cardinality of the relation. 
+An attribute represents the properties of the relation and is represented by a column. 
+The domain is the set of valid values that an attribute can take, and the degree is the number of attributes or columns within the relation.
+
+Relations possess certain properties, all of which are immediate consequences of their definition:
+- No duplicate tuples: This property arises because the body of the relation is a mathematical set, and mathematical sets do not include duplicate elements.
+- The order of tuples is irrelevant: This property also stems from the fact that the relation is based on a mathematical set, 
+  which is inherently unordered. If tuples 1 and 2 in Figure 2.4 were interchanged, the table would contain the same information and remain the same relation.
+- The table is flat: Each tuple contains exactly one value for each attribute.
+- The order of attributes is not significant: This property arises because the heading of the relation is also a set—in this case, 
+  a set of attributes—which could be interchanged without modifying the relation itself.
+
+In the relational graph, a relation is denoted by its name in uppercase, 
+followed by all its attribute names in lowercase within parentheses:
+
+        RELATION (attribute1, attribute2, attribute3, ..., attributeN)
+
+Considering the different properties of attributes, several style modifiers are used:
+- Primary Key Attribute: underlined.
+- Alternative Key Attribute: dashed underlined.
+- Optional Attribute: Asterisk*.
+- Foreign Key Attribute: italics.
+
+To indicate a foreign key, an arrow is drawn pointing to the referenced table. 
+When changes occur in values affecting foreign keys—specifically 
+for deletion (ON DELETE, denoted by a d) and modification (ON UPDATE, denoted by an m)
+there are four behavioral options:
+- No action (RESTRICT): denoted by an r.
+- Cascade update (CASCADE): denoted by a c.
+- Set to null (SET NULL): denoted by an n.
+- Set to default (SET DEFAULT): denoted by a d.

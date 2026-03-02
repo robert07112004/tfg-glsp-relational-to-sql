@@ -28,18 +28,30 @@ export class TaskListChangeBoundsHandler extends JsonOperationHandler {
 
     override createCommand(operation: ChangeBoundsOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
-            operation.newBounds.forEach(element => this.changeElementBounds(element.elementId, element.newSize, element.newPosition));
+            operation.newBounds.forEach(element => 
+                this.changeElementBounds(element.elementId, element.newSize, element.newPosition)
+            );
         });
     }
 
     protected changeElementBounds(elementId: string, newSize: Dimension, newPosition?: Point): void {
         const index = this.modelState.index;
-        const taskNode = index.findByClass(elementId, GNode);
-        const task = taskNode ? index.findTask(taskNode.id) : undefined;
-        if (task) {
-            task.size = newSize;
-            if (newPosition) {
-                task.position = newPosition;
+        
+        // Buscamos el nodo gráfico afectado
+        const node = index.findByClass(elementId, GNode);
+        if (!node) return;
+
+        if (node.type === 'node:relation') {                                // Si es una relación, actualizamos la Relation
+            const relation = index.findRelation(node.id);
+            if (relation) {
+                relation.size = newSize;
+                if (newPosition) relation.position = newPosition;
+            }
+        } else if (node.type === 'node:attribute') {                        // Si es un atributo, actualizamos el Attribute
+            const attribute = index.findAttribute(node.id);
+            if (attribute) {
+                attribute.size = newSize;
+                if (newPosition) attribute.position = newPosition;
             }
         }
     }

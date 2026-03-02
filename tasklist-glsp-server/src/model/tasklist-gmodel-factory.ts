@@ -14,9 +14,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
-import { GEdge, GGraph, GLabel, GModelFactory, GNode } from '@eclipse-glsp/server';
+import { GCompartment, GEdge, GGraph, GLabel, GModelFactory, GNode } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { Task, Transition } from './tasklist-model';
+import { Attribute, Relation, Transition } from './tasklist-model';
 import { TaskListModelState } from './tasklist-model-state';
 
 @injectable()
@@ -27,9 +27,12 @@ export class TaskListGModelFactory implements GModelFactory {
     createModel(): void {
         const taskList = this.modelState.sourceModel;
         this.modelState.index.indexTaskList(taskList);
-        const childNodes = taskList.tasks.map(task => this.createTaskNode(task));
+        const childNodes = [
+            ...taskList.relations.map(relation => this.createRelationNode(relation)),
+            ...taskList.attributes.map(attribute => this.createAttributeNode(attribute))
+        ];
         const childEdges = taskList.transitions.map(transition => this.createTransitionEdge(transition));
-        const newRoot = GGraph.builder() //
+        const newRoot = GGraph.builder() 
             .id(taskList.id)
             .addChildren(childNodes)
             .addChildren(childEdges)
@@ -37,28 +40,60 @@ export class TaskListGModelFactory implements GModelFactory {
         this.modelState.updateRoot(newRoot);
     }
 
-    protected createTaskNode(task: Task): GNode {
+    protected createRelationNode(relation: Relation): GNode {
         const builder = GNode.builder()
-            .id(task.id)
-            .addCssClass('tasklist-node')
-            .add(GLabel.builder().text(task.name).id(`${task.id}_label`).build())
-            .layout('hbox')
-            .addLayoutOption('paddingLeft', 5)
-            .position(task.position);
+            .id(relation.id)
+            .type('node:relation')
+            .addCssClass('relation-node') 
+            .layout('vbox') // 'vbox' apila el título y los atributos verticalmente
+            .addLayoutOption('padding', 5)
+            .position(relation.position)
+            .add(GLabel.builder()
+                .text(relation.name)
+                .id(`${relation.id}_label`)
+                .build()
+            );
 
-        if (task.size) {
-            builder.addLayoutOptions({ prefWidth: task.size.width, prefHeight: task.size.height });
+        // Lógica para anidar los atributos
+        if (relation.attributes && relation.attributes.length > 0) {
+            const attrCompartment = GCompartment.builder()                  // Creamos un compartimento para agrupar los atributos
+                .id(`${relation.id}_attributes_comp`)
+                .type('node:inline-attributes')
+                .layout('vbox')
+                .addCssClass('attributes-compartment');
+
+            relation.attributes.forEach(attr => {                           // Creamos un nodo por cada atributo y lo metemos en el compartimento
+                attrCompartment.add(this.createAttributeNode(attr));
+            });
+
+            builder.add(attrCompartment.build());                           // Añadimos el compartimento entero al nodo de la relación
         }
 
+        if (relation.size) builder.addLayoutOptions({ prefWidth: relation.size.width, prefHeight: relation.size.height });
+        
         return builder.build();
     }
 
+    protected createAttributeNode(attribute: Attribute): GNode {
+        return GNode.builder()
+            .id(attribute.id)
+            .type('node:attribute')
+            .addCssClass('attribute')
+            .add(GLabel.builder()
+                .text(attribute.name)
+                .id(`${attribute.id}_label`)
+                .build()
+            )
+            .build();
+    }
+
     protected createTransitionEdge(transition: Transition): GEdge {
-        return GEdge.builder() //
+        return GEdge.builder() 
             .id(transition.id)
-            .addCssClass('tasklist-transition')
-            .sourceId(transition.sourceTaskId)
-            .targetId(transition.targetTaskId)
+            .type('edge:transition')
+            .addCssClass('transition')
+            .sourceId(transition.sourceId)
+            .targetId(transition.targetId)
             .build();
     }
 }
