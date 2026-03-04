@@ -1,27 +1,11 @@
 {
-  "name": "tasklist-vscode",
-  "displayName": "Tasklist GLSP Diagram Editor",
+  "name": "relational-vscode",
+  "displayName": "Relational GLSP Diagram Editor",
   "version": "2.6.0",
   "private": "true",
-  "description": "Extension for Tasklist GLSP diagrams",
+  "description": "Extension for Relational GLSP diagrams",
   "categories": [
     "Programming Languages"
-  ],
-  "homepage": "https://www.eclipse.org/glsp/",
-  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/eclipse-glsp/glsp-examples.git"
-  },
-  "author": {
-    "name": "EclipseGLSP"
-  },
-  "contributors": [
-    {
-      "name": "Eclipse GLSP Project",
-      "email": "glsp-dev@eclipse.org",
-      "url": "https://projects.eclipse.org/projects/ecd.glsp"
-    }
   ],
   "publisher": "Eclipse-GLSP",
   "main": "dist/tasklist-extension.js",
@@ -30,12 +14,6 @@
     "server",
     "webview"
   ],
-  "workspaces": {
-    "nohoist": [
-      "**/@vscode/codicons",
-      "**/@vscode/codicons/**"
-    ]
-  },
   "scripts": {
     "build": "tsc -b && yarn bundle",
     "bundle": "webpack",
@@ -49,37 +27,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "tasklist.fit",
+        "command": "relational.fit",
         "title": "Fit to Screen",
-        "category": "Tasklist Diagram",
-        "enablement": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "category": "Relational Diagram",
+        "enablement": "activeCustomEditorId == 'relational.glspDiagram'"
       },
       {
-        "command": "tasklist.center",
+        "command": "relational.center",
         "title": "Center selection",
-        "category": "Tasklist Diagram",
-        "enablement": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "category": "Relational Diagram",
+        "enablement": "activeCustomEditorId == 'relational.glspDiagram'"
       },
       {
-        "command": "tasklist.layout",
+        "command": "relational.layout",
         "title": "Layout diagram",
-        "category": "Tasklist Diagram",
-        "enablement": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "category": "Relational Diagram",
+        "enablement": "activeCustomEditorId == 'relational.glspDiagram'"
       },
       {
-        "command": "tasklist.exportAsSVG",
+        "command": "relational.exportAsSVG",
         "title": "Export as SVG",
-        "category": "Tasklist Diagram",
-        "enablement": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "category": "Relational Diagram",
+        "enablement": "activeCustomEditorId == 'relational.glspDiagram'"
       }
     ],
     "customEditors": [
       {
-        "viewType": "tasklist.glspDiagram",
-        "displayName": "Tasklist Diagram Editor",
+        "viewType": "relational.glspDiagram",
+        "displayName": "Relational Diagram Editor",
         "selector": [
           {
-            "filenamePattern": "*.tasklist"
+            "filenamePattern": "*.rmodel"
           }
         ]
       }
@@ -87,68 +65,58 @@
     "keybindings": [
       {
         "key": "alt+f",
-        "mac": "alt+f",
-        "command": "tasklist.fit",
-        "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "command": "relational.fit",
+        "when": "activeCustomEditorId == 'relational.glspDiagram'"
       },
       {
         "key": "alt+c",
-        "mac": "alt+c",
-        "command": "tasklist.center",
-        "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "command": "relational.center",
+        "when": "activeCustomEditorId == 'relational.glspDiagram'"
       },
       {
         "key": "alt+l",
-        "mac": "alt+l",
-        "command": "tasklist.layout",
-        "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
-      },
-      {
-        "key": "ctrl+a",
-        "mac": "ctrl+a",
-        "command": "tasklist.selectAll",
-        "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "command": "relational.layout",
+        "when": "activeCustomEditorId == 'relational.glspDiagram'"
       },
       {
         "key": "alt+e",
-        "mac": "alt+e",
-        "command": "tasklist.exportAsSVG",
-        "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+        "command": "relational.exportAsSVG",
+        "when": "activeCustomEditorId == 'relational.glspDiagram'"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "submenu": "tasklist.editor.title",
+          "submenu": "relational.editor.title",
           "group": "bookmarks"
         }
       ],
-      "tasklist.editor.title": [
+      "relational.editor.title": [
         {
-          "command": "tasklist.fit",
+          "command": "relational.fit",
           "group": "navigation",
-          "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+          "when": "activeCustomEditorId == 'relational.glspDiagram'"
         },
         {
-          "command": "tasklist.center",
+          "command": "relational.center",
           "group": "navigation",
-          "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+          "when": "activeCustomEditorId == 'relational.glspDiagram'"
         },
         {
-          "command": "tasklist.layout",
+          "command": "relational.layout",
           "group": "navigation",
-          "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+          "when": "activeCustomEditorId == 'relational.glspDiagram'"
         },
         {
-          "command": "tasklist.exportAsSVG",
-          "when": "activeCustomEditorId == 'tasklist.glspDiagram'"
+          "command": "relational.exportAsSVG",
+          "when": "activeCustomEditorId == 'relational.glspDiagram'"
         }
       ]
     },
     "submenus": [
       {
-        "id": "tasklist.editor.title",
-        "label": "Diagram"
+        "id": "relational.editor.title",
+        "label": "Relational Diagram"
       }
     ]
   },
@@ -167,7 +135,6 @@
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.3",
-    "tasklist-webview": "2.6.0",
     "ts-loader": "^6.2.1",
     "ts-node": "^9.1.1",
     "webpack-merge": "^5.9.0"

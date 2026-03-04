@@ -16,22 +16,22 @@
  ********************************************************************************/
 import { DefaultModelState, JsonModelState } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { TaskList } from './tasklist-model';
-import { TaskListModelIndex } from './tasklist-model-index';
+import { RelationalModel } from './model';
+import { RelationalModelIndex } from './model-index';
 
 @injectable()
-export class TaskListModelState extends DefaultModelState implements JsonModelState<TaskList> {
-    @inject(TaskListModelIndex)
-    override readonly index: TaskListModelIndex;
+export class RelationalModelState extends DefaultModelState implements JsonModelState<RelationalModel> {
+    @inject(RelationalModelIndex)
+    override readonly index: RelationalModelIndex;
 
-    protected _taskList: TaskList;
+    protected _relationalModel: RelationalModel;
 
-    get sourceModel(): TaskList {
-        return this._taskList;
+    get sourceModel(): RelationalModel {
+        return this._relationalModel;
     }
 
-    updateSourceModel(taskList: TaskList): void {
-        this._taskList = taskList;
-        this.index.indexTaskList(taskList);
+    updateSourceModel(model: RelationalModel): void {
+        this._relationalModel = model;
+        this.index.indexRelationalModel(model); 
     }
 }

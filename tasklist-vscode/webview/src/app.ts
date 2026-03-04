@@ -20,11 +20,11 @@ import { ContainerConfiguration } from '@eclipse-glsp/client';
 import { GLSPStarter } from '@eclipse-glsp/vscode-integration-webview';
 import '@eclipse-glsp/vscode-integration-webview/css/glsp-vscode.css';
 import { Container } from 'inversify';
-import { initializeTasklistDiagramContainer } from 'tasklist-glsp-client';
+import { initializeRelationalDiagramContainer } from 'tasklist-glsp-client';
 
 class TaskListStarter extends GLSPStarter {
     createContainer(...containerConfiguration: ContainerConfiguration): Container {
-        return initializeTasklistDiagramContainer(new Container(), ...containerConfiguration);
+        return initializeRelationalDiagramContainer(new Container(), ...containerConfiguration);
     }
 }
 

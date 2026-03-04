@@ -48,8 +48,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
     // Wrap server with quickstart component
     const minimalServer = new SocketGlspVscodeServer({
-        clientId: 'glsp.tasklist',
-        clientName: 'tasklist',
+        clientId: 'glsp.relational',
+        clientName: 'relational',
         connectionOptions: { port: serverProcess?.getPort() || JSON.parse(process.env.TASKLIST_SERVER_PORT || DEFAULT_SERVER_PORT) }
     });
 
@@ -60,7 +60,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     });
 
     const customEditorProvider = vscode.window.registerCustomEditorProvider(
-        'tasklist.glspDiagram',
+        'relational.glspDiagram',
         new TaskListEditorProvider(context, glspVscodeConnector),
         {
             webviewOptions: { retainContextWhenHidden: true },
@@ -71,5 +71,5 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     context.subscriptions.push(minimalServer, glspVscodeConnector, customEditorProvider);
     minimalServer.start();
 
-    configureDefaultCommands({ extensionContext: context, connector: glspVscodeConnector, diagramPrefix: 'tasklist' });
+    configureDefaultCommands({ extensionContext: context, connector: glspVscodeConnector, diagramPrefix: 'relational' });
 }

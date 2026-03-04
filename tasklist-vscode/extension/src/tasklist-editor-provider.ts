@@ -17,7 +17,7 @@ import { GlspEditorProvider, GlspVscodeConnector } from '@eclipse-glsp/vscode-in
 import * as vscode from 'vscode';
 
 export default class TaskListEditorProvider extends GlspEditorProvider {
-    diagramType = 'tasklist-diagram';
+    diagramType = 'relational-diagram';
 
     constructor(
         protected readonly extensionContext: vscode.ExtensionContext,

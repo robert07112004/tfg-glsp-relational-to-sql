@@ -29,37 +29,38 @@ import {
     SourceModelStorage
 } from '@eclipse-glsp/server';
 import { injectable } from 'inversify';
+import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-handler';
+import { RelationalChangeBoundsHandler } from '../handler/change-bounds-handler';
 import { CreateAttributeHandler } from '../handler/create-attribute-node-handler';
 import { CreateRelationHandler } from '../handler/create-relation-node-handler';
 import { CreateTransitionHandler } from '../handler/create-transition-handler';
-import { DeleteElementHandler } from '../handler/delete-element-handler';
-import { TaskListApplyLabelEditHandler } from '../handler/tasklist-apply-label-edit-handler';
-import { TaskListChangeBoundsHandler } from '../handler/tasklist-change-bounds-handler';
-import { TaskListLabelEditValidator } from '../handler/tasklist-label-edit-validator';
-import { TaskListGModelFactory } from '../model/tasklist-gmodel-factory';
-import { TaskListModelIndex } from '../model/tasklist-model-index';
-import { TaskListModelState } from '../model/tasklist-model-state';
-import { TaskListStorage } from '../model/tasklist-storage';
-import { TaskListDiagramConfiguration } from './tasklist-diagram-configuration';
+import { RelationalDeleteElementHandler } from '../handler/delete-element-handler'; // Le he puesto el prefijo Relational por consistencia
+import { RelationalLabelEditValidator } from '../handler/label-edit-validator';
+import { RelationalGModelFactory } from '../model/gmodel-factory';
+import { RelationalModelIndex } from '../model/model-index';
+import { RelationalModelState } from '../model/model-state';
+import { RelationalModelStorage } from '../model/storage';
+import { RelationalDiagramConfiguration } from './diagram-configuration';
 
 @injectable()
-export class TaskListDiagramModule extends DiagramModule {
-    readonly diagramType = 'tasklist-diagram';
+export class RelationalDiagramModule extends DiagramModule {
+    // CRÍTICO: Este string debe coincidir EXACTAMENTE con el tipo de diagrama que registres en el cliente web/theia/vscode.
+    readonly diagramType = 'relational-diagram';
 
     protected bindDiagramConfiguration(): BindingTarget<DiagramConfiguration> {
-        return TaskListDiagramConfiguration;
+        return RelationalDiagramConfiguration;
     }
 
     protected bindSourceModelStorage(): BindingTarget<SourceModelStorage> {
-        return TaskListStorage;
+        return RelationalModelStorage;
     }
 
     protected bindModelState(): BindingTarget<ModelState> {
-        return { service: TaskListModelState };
+        return { service: RelationalModelState };
     }
 
     protected bindGModelFactory(): BindingTarget<GModelFactory> {
-        return TaskListGModelFactory;
+        return RelationalGModelFactory;
     }
 
     protected override configureActionHandlers(binding: InstanceMultiBinding<ActionHandlerConstructor>): void {
@@ -72,17 +73,17 @@ export class TaskListDiagramModule extends DiagramModule {
         binding.add(CreateRelationHandler);
         binding.add(CreateAttributeHandler);
         binding.add(CreateTransitionHandler);
-        binding.add(TaskListChangeBoundsHandler);
-        binding.add(TaskListApplyLabelEditHandler);
-        binding.add(DeleteElementHandler);
+        binding.add(RelationalChangeBoundsHandler);
+        binding.add(RelationalApplyLabelEditHandler);
+        binding.add(RelationalDeleteElementHandler);
     }
 
     protected override bindGModelIndex(): BindingTarget<GModelIndex> {
-        this.context.bind(TaskListModelIndex).toSelf().inSingletonScope();
-        return { service: TaskListModelIndex };
+        this.context.bind(RelationalModelIndex).toSelf().inSingletonScope();
+        return { service: RelationalModelIndex };
     }
 
     protected override bindLabelEditValidator(): BindingTarget<LabelEditValidator> | undefined {
-        return TaskListLabelEditValidator;
+        return RelationalLabelEditValidator;
     }
 }

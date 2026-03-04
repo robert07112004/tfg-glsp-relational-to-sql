@@ -16,27 +16,29 @@
  ********************************************************************************/
 import { GCompartment, GEdge, GGraph, GLabel, GModelFactory, GNode } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { Attribute, Relation, Transition } from './tasklist-model';
-import { TaskListModelState } from './tasklist-model-state';
+import { Attribute, Relation, Transition } from './model';
+import { RelationalModelState } from './model-state';
 
 @injectable()
-export class TaskListGModelFactory implements GModelFactory {
-    @inject(TaskListModelState)
-    protected modelState: TaskListModelState;
+export class RelationalGModelFactory implements GModelFactory {
+    @inject(RelationalModelState)
+    protected modelState: RelationalModelState;
 
     createModel(): void {
-        const taskList = this.modelState.sourceModel;
-        this.modelState.index.indexTaskList(taskList);
+        const model = this.modelState.sourceModel;
+        this.modelState.index.indexRelationalModel(model); 
+        
         const childNodes = [
-            ...taskList.relations.map(relation => this.createRelationNode(relation)),
-            ...taskList.attributes.map(attribute => this.createAttributeNode(attribute))
+            ...model.relations.map(relation => this.createRelationNode(relation))
         ];
-        const childEdges = taskList.transitions.map(transition => this.createTransitionEdge(transition));
+        const childEdges = model.transitions.map(transition => this.createTransitionEdge(transition));
+        
         const newRoot = GGraph.builder() 
-            .id(taskList.id)
+            .id(model.id)
             .addChildren(childNodes)
             .addChildren(childEdges)
             .build();
+            
         this.modelState.updateRoot(newRoot);
     }
 
@@ -56,7 +58,7 @@ export class TaskListGModelFactory implements GModelFactory {
 
         const attrCompartment = GCompartment.builder()                  
             .id(`${relation.id}_attributes_comp`)
-            .type('node:inline-attributes')
+            .type('comp:attributes') 
             .layout('vbox')
             .addCssClass('attributes-compartment');
 
@@ -77,6 +79,7 @@ export class TaskListGModelFactory implements GModelFactory {
             .id(attribute.id)
             .type('node:attribute')
             .addCssClass('attribute')
+            .layout('hbox') 
             .add(GLabel.builder()
                 .text(attribute.name)
                 .id(`${attribute.id}_label`)
@@ -88,7 +91,7 @@ export class TaskListGModelFactory implements GModelFactory {
     protected createTransitionEdge(transition: Transition): GEdge {
         return GEdge.builder() 
             .id(transition.id)
-            .type('edge:transition')
+            .type('edge:transition') 
             .addCssClass('transition')
             .sourceId(transition.sourceId)
             .targetId(transition.targetId)

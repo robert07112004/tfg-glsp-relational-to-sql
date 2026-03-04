@@ -17,14 +17,14 @@
 import { ApplyLabelEditOperation } from '@eclipse-glsp/protocol';
 import { Command, GLSPServerError, GNode, JsonOperationHandler, MaybePromise, toTypeGuard } from '@eclipse-glsp/server/node';
 import { inject, injectable } from 'inversify';
-import { TaskListModelState } from '../model/tasklist-model-state';
+import { RelationalModelState } from '../model/model-state';
 
 @injectable()
-export class TaskListApplyLabelEditHandler extends JsonOperationHandler {
+export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
     readonly operationType = ApplyLabelEditOperation.KIND;
 
-    @inject(TaskListModelState)
-    protected override readonly modelState: TaskListModelState;
+    @inject(RelationalModelState)
+    protected override readonly modelState: RelationalModelState;
 
     override createCommand(operation: ApplyLabelEditOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
@@ -33,15 +33,17 @@ export class TaskListApplyLabelEditHandler extends JsonOperationHandler {
             
             if (!parentNode) throw new GLSPServerError(`Could not find parent node for label with id ${operation.labelId}`);
 
-            if (parentNode.type === 'node:relation') {                                                                      // padre === relation
+            if (parentNode.type === 'node:relation') {                      // padre === relation
                 const relation = index.findRelation(parentNode.id);
                 if (!relation) throw new GLSPServerError(`Could not retrieve the Relation with id ${parentNode.id}`);
                 relation.name = operation.text;
-            } else if (parentNode.type === 'node:attribute') {                                                              // padre === attribute
+                
+            } else if (parentNode.type === 'node:attribute') {              // padre === attribute
                 const attribute = index.findAttribute(parentNode.id);
                 if (!attribute) throw new GLSPServerError(`Could not retrieve the Attribute with id ${parentNode.id}`);
                 attribute.name = operation.text;
-            } else throw new GLSPServerError(`Editing labels for node type '${parentNode.type}' is not supported.`);        // Tipo no soportado
+                
+            } else throw new GLSPServerError(`Editing labels for node type '${parentNode.type}' is not supported.`);
         });
     }
 }

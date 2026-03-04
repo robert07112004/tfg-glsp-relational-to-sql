@@ -19,66 +19,44 @@ import {
     CreateNodeOperation,
     GLSPServerError,
     JsonCreateNodeOperationHandler,
-    MaybePromise,
-    Point
+    MaybePromise
 } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
 import * as uuid from 'uuid';
-import { Attribute } from '../model/tasklist-model';
-import { TaskListModelState } from '../model/tasklist-model-state';
+import { Attribute } from '../model/model';
+import { RelationalModelState } from '../model/model-state';
 
 @injectable()
 export class CreateAttributeHandler extends JsonCreateNodeOperationHandler {
     readonly elementTypeIds = ['node:attribute'];
 
     get containerElementTypeIds(): string[] {
-        return ['node:relation', 'node:inline-attributes'];
+        return ['node:relation', 'comp:attributes'];
     }
 
-    @inject(TaskListModelState)
-    protected override modelState: TaskListModelState;
+    @inject(RelationalModelState)
+    protected override modelState: RelationalModelState;
 
     override createCommand(operation: CreateNodeOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
             const containerId = operation.containerId;
-            
-            // ERROR 1 SOLUCIONADO: Comprobamos que containerId no sea undefined
-            if (!containerId) {
-                throw new GLSPServerError("Los atributos deben soltarse dentro de una Relación, no en el lienzo vacío.");
-            }
-
+            if (!containerId) throw new GLSPServerError("Los atributos deben soltarse dentro de una Relación, no en el lienzo vacío.");
             const sourceModel = this.modelState.sourceModel;
-            
-            // Buscamos a qué relación pertenece ese contenedor.
-            const targetRelation = sourceModel.relations.find(r => 
-                r.id === containerId || containerId.includes(r.id)
-            );
+            const targetRelation = sourceModel.relations.find(r => r.id === containerId || containerId.includes(r.id));
 
-            if (!targetRelation) {
-                throw new GLSPServerError(`No se encontró la Relación destino para el contenedor: ${containerId}`);
-            }
+            if (!targetRelation) throw new GLSPServerError(`No se encontró la Relación destino para el contenedor: ${containerId}`);
+            if (!targetRelation.attributes) targetRelation.attributes = [];
 
-            // Inicializamos el array de atributos de esa relación si aún no existe
-            if (!targetRelation.attributes) {
-                targetRelation.attributes = [];
-            }
-
-            // Obtenemos la posición relativa (por si es necesaria en el futuro, aunque en vbox se ignora)
-            const relativeLocation = this.getRelativeLocation(operation) ?? Point.ORIGIN;
-
-            // ERROR 2 SOLUCIONADO: Pasamos la posición y la cantidad actual para generar el nombre
-            const attribute = this.createAttribute(relativeLocation, targetRelation.attributes.length);
-            
+            const attribute = this.createAttribute(targetRelation.attributes.length);            
             targetRelation.attributes.push(attribute);
         });
     }
 
-    protected createAttribute(position: Point, currentAttributeCount: number): Attribute {
+    protected createAttribute(currentAttributeCount: number): Attribute {
         return {
             id: uuid.v4(),
             type: 'attribute',
-            name: `NewAttributeNode${currentAttributeCount + 1}`,
-            position
+            name: `new_column_${currentAttributeCount + 1}: VARCHAR`
         };
     }
 

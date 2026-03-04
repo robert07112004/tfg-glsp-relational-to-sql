@@ -16,35 +16,46 @@
  ********************************************************************************/
 import { GModelIndex } from '@eclipse-glsp/server';
 import { injectable } from 'inversify';
-import { Attribute, Relation, TaskList, Transition } from './tasklist-model';
+import { Attribute, Relation, RelationalModel, Transition } from './model';
 
 @injectable()
-export class TaskListModelIndex extends GModelIndex {
-    protected idToTaskListElements = new Map<string, Relation | Transition>();
+export class RelationalModelIndex extends GModelIndex {
+    protected idToElements = new Map<string, Relation | Attribute | Transition>();
 
-    indexTaskList(taskList: TaskList): void {
-        this.idToTaskListElements.clear();
-        for (const element of [...taskList.relations, ...taskList.transitions]) {
-            this.idToTaskListElements.set(element.id, element);
+    indexRelationalModel(model: RelationalModel): void {
+        this.idToElements.clear();
+        
+        for (const transition of model.transitions) {
+            this.idToElements.set(transition.id, transition);
+        }
+
+        for (const relation of model.relations) {
+            this.idToElements.set(relation.id, relation);
+            
+            if (relation.attributes) {
+                for (const attribute of relation.attributes) {
+                    this.idToElements.set(attribute.id, attribute);
+                }
+            }
         }
     }
 
     findRelation(id: string): Relation | undefined {
-        const element = this.findTaskOrTransition(id);
+        const element = this.findElement(id);
         return Relation.is(element) ? element : undefined;
     }
 
     findAttribute(id: string): Attribute | undefined {
-        const element = this.findTaskOrTransition(id);
+        const element = this.findElement(id);
         return Attribute.is(element) ? element : undefined;
     }
 
     findTransition(id: string): Transition | undefined {
-        const element = this.findTaskOrTransition(id);
+        const element = this.findElement(id);
         return Transition.is(element) ? element : undefined;
     }
 
-    findTaskOrTransition(id: string): Relation | Attribute | Transition | undefined {
-        return this.idToTaskListElements.get(id);
+    findElement(id: string): Relation | Attribute | Transition | undefined {
+        return this.idToElements.get(id);
     }
 }

@@ -14,17 +14,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
-
 import { ChangeBoundsOperation, Command, Dimension, GNode, JsonOperationHandler, MaybePromise, Point } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { TaskListModelState } from '../model/tasklist-model-state';
+import { RelationalModelState } from '../model/model-state';
 
 @injectable()
-export class TaskListChangeBoundsHandler extends JsonOperationHandler {
+export class RelationalChangeBoundsHandler extends JsonOperationHandler {
     readonly operationType = ChangeBoundsOperation.KIND;
 
-    @inject(TaskListModelState)
-    protected override modelState: TaskListModelState;
+    @inject(RelationalModelState)
+    protected override modelState: RelationalModelState;
 
     override createCommand(operation: ChangeBoundsOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
@@ -36,23 +35,15 @@ export class TaskListChangeBoundsHandler extends JsonOperationHandler {
 
     protected changeElementBounds(elementId: string, newSize: Dimension, newPosition?: Point): void {
         const index = this.modelState.index;
-        
-        // Buscamos el nodo gráfico afectado
         const node = index.findByClass(elementId, GNode);
         if (!node) return;
 
-        if (node.type === 'node:relation') {                                // Si es una relación, actualizamos la Relation
+        if (node.type === 'node:relation') {                                
             const relation = index.findRelation(node.id);
             if (relation) {
                 relation.size = newSize;
                 if (newPosition) relation.position = newPosition;
             }
-        } else if (node.type === 'node:attribute') {                        // Si es un atributo, actualizamos el Attribute
-            const attribute = index.findAttribute(node.id);
-            if (attribute) {
-                attribute.size = newSize;
-                if (newPosition) attribute.position = newPosition;
-            }
-        }
+        } 
     }
 }

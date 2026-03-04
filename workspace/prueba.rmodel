@@ -1,0 +1,40 @@
+{
+  "id": "a9aae145-f022-455e-bcd1-c54bd2bbb1ae",
+  "relations": [
+    {
+      "id": "97f76a29-907a-4ab4-9823-429ae5116e65",
+      "type": "relation",
+      "name": "Persona",
+      "position": {
+        "x": 197,
+        "y": 200
+      },
+      "attributes": [],
+      "size": {
+        "width": 173.13750457763672,
+        "height": 158.20000076293945
+      }
+    },
+    {
+      "id": "63d5967f-0282-4abc-8517-c2f7f99dc430",
+      "type": "relation",
+      "name": "Camion",
+      "position": {
+        "x": 507,
+        "y": 194
+      },
+      "attributes": [],
+      "size": {
+        "width": 224.481689453125,
+        "height": 143.20000076293945
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "39884dd3-8ec1-4b6e-8a97-3142af68c9af",
+      "sourceId": "97f76a29-907a-4ab4-9823-429ae5116e65",
+      "targetId": "63d5967f-0282-4abc-8517-c2f7f99dc430"
+    }
+  ]
+}

@@ -18,7 +18,7 @@ import 'reflect-metadata';
 
 import { createAppModule, createSocketCliParser, ServerModule, SocketServerLauncher } from '@eclipse-glsp/server/node';
 import { Container } from 'inversify';
-import { TaskListDiagramModule } from './diagram/tasklist-diagram-module';
+import { RelationalDiagramModule } from './diagram/diagram-module';
 
 export async function launch(argv?: string[]): Promise<void> {
     const options = createSocketCliParser().parse(argv);
@@ -26,7 +26,7 @@ export async function launch(argv?: string[]): Promise<void> {
     appContainer.load(createAppModule(options));
 
     const launcher = appContainer.resolve(SocketServerLauncher);
-    const serverModule = new ServerModule().configureDiagramModule(new TaskListDiagramModule());
+    const serverModule = new ServerModule().configureDiagramModule(new RelationalDiagramModule());
 
     launcher.configure(serverModule);
     launcher.start({ port: options.port, host: options.host });

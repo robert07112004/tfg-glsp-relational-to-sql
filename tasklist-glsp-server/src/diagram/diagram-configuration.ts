@@ -26,7 +26,7 @@ import {
 import { injectable } from 'inversify';
 
 @injectable()
-export class TaskListDiagramConfiguration implements DiagramConfiguration {
+export class RelationalDiagramConfiguration implements DiagramConfiguration {
     layoutKind = ServerLayoutKind.MANUAL;
     needsClientLayout = true;
     animatedUpdate = true;
@@ -45,17 +45,17 @@ export class TaskListDiagramConfiguration implements DiagramConfiguration {
                 resizable: true
             },
             {
-                elementTypeId: 'node:inline-attributes',
-                deletable: true,
+                elementTypeId: 'comp:attributes',
+                deletable: false, 
                 reparentable: false,
                 repositionable: false,
                 resizable: false
             },
             {
                 elementTypeId: 'node:attribute',
-                deletable: true,     
+                deletable: true,                            // permitirá arrastrar un atributo de una tabla a otra en el lienzo
                 reparentable: true, 
-                repositionable: false,
+                repositionable: false,                      // la posicion la dicta el layout 'vbox'
                 resizable: false 
             }
         ];

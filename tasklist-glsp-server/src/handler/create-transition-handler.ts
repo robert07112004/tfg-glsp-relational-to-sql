@@ -14,18 +14,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
-import { Command, CreateEdgeOperation, DefaultTypes, JsonCreateEdgeOperationHandler, MaybePromise } from '@eclipse-glsp/server';
+import { Command, CreateEdgeOperation, JsonCreateEdgeOperationHandler, MaybePromise } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
 import * as uuid from 'uuid';
-import { Transition } from '../model/tasklist-model';
-import { TaskListModelState } from '../model/tasklist-model-state';
+import { Transition } from '../model/model';
+import { RelationalModelState } from '../model/model-state';
 
 @injectable()
 export class CreateTransitionHandler extends JsonCreateEdgeOperationHandler {
-    readonly elementTypeIds = [DefaultTypes.EDGE];
+    readonly elementTypeIds = ['edge:transition'];      // Usamos el mismo tipo que definimos en la factoría (GModelFactory)
 
-    @inject(TaskListModelState)
-    protected override modelState: TaskListModelState;
+    @inject(RelationalModelState)
+    protected override modelState: RelationalModelState;
 
     override createCommand(operation: CreateEdgeOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
@@ -39,6 +39,6 @@ export class CreateTransitionHandler extends JsonCreateEdgeOperationHandler {
     }
 
     get label(): string {
-        return 'Transition';
+        return 'Transition'; 
     }
 }

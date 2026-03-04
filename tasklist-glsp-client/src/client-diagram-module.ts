@@ -42,31 +42,30 @@ import 'balloon-css/balloon.min.css';
 import { Container, ContainerModule } from 'inversify';
 import '../css/diagram.css';
 
-const taskListDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
     const context = { bind, unbind, isBound, rebind };
-    configureDefaultModelElements(context);                                                                     // Configura elementos base por defecto
-    configureModelElement(context, DefaultTypes.LABEL, GLabel, GLabelView, { enable: [editLabelFeature] });     // Configura el label para que acepte la herramienta de edición de texto
+    configureDefaultModelElements(context);       
 
-    
+    // Nodes
     configureModelElement(context, 'node:relation', GNode, RectangularNodeView, {
         enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, selectFeature, hoverFeedbackFeature]
     });
-    
-    configureModelElement(context, 'node:inline-attributes', GCompartment, GCompartmentView, {
+    configureModelElement(context, 'comp:attributes', GCompartment, GCompartmentView, {
         enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, hoverFeedbackFeature]
     });
-    
-    configureModelElement(context, 'node:attribute', GNode, RectangularNodeView, {
+    configureModelElement(context, 'node:attribute', GNode, RectangularNodeView, { 
         enable: [boundsFeature, layoutableChildFeature, selectFeature]
     });
     
-    configureModelElement(context, 'edge:transition', GEdge, PolylineEdgeView, {
-        enable: [selectFeature]
-    });
+    // Edges
+    configureModelElement(context, 'edge:transition', GEdge, PolylineEdgeView, { enable: [selectFeature] });
+
+    // Labels
+    configureModelElement(context, DefaultTypes.LABEL, GLabel, GLabelView, { enable: [editLabelFeature] });
 });
 
-export function initializeTasklistDiagramContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
-    return initializeDiagramContainer(container, taskListDiagramModule, ...containerConfiguration);
+export function initializeRelationalDiagramContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
+    return initializeDiagramContainer(container, relationalDiagramModule, ...containerConfiguration);
 }

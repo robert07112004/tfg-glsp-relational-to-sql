@@ -21,20 +21,18 @@ import { AnyObject, hasArrayProp, hasObjectProp, hasStringProp } from '@eclipse-
  * The source model for `tasklist` GLSP diagrams. A `TaskList` is a
  * plain JSON objects that contains a set of {@link Task tasks} and {@link Transition transitions}.
  */
-export interface TaskList {
+export interface RelationalModel {
     id: string;
     relations: Relation[];
-    attributes: Attribute[];
     transitions: Transition[];
 }
 
-export namespace TaskList {
-    export function is(object: any): object is TaskList {
+export namespace RelationalModel {
+    export function is(object: any): object is RelationalModel {
         return (
             AnyObject.is(object) && 
             hasStringProp(object, 'id') && 
-            hasArrayProp(object, 'relations') && 
-            hasArrayProp(object, 'attributes') &&
+            hasArrayProp(object, 'relations') &&
             hasArrayProp(object, 'transitions')
         );
     }
@@ -69,8 +67,6 @@ export interface Attribute {
     id: string;
     type: 'attribute';
     name: string;
-    position: { x: number; y: number };
-    size?: { width: number; height: number };
 }
 
 export namespace Attribute {
@@ -79,8 +75,7 @@ export namespace Attribute {
             AnyObject.is(object) && 
             hasStringProp(object, 'id') && 
             hasStringProp(object, 'type') && (object as Attribute).type === 'attribute' &&
-            hasStringProp(object, 'name') && 
-            hasObjectProp(object, 'position')
+            hasStringProp(object, 'name')
         );
     }
 }

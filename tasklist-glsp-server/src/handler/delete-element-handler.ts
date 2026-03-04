@@ -25,15 +25,15 @@ import {
     toTypeGuard
 } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { Attribute, Relation, Transition } from '../model/tasklist-model';
-import { TaskListModelState } from '../model/tasklist-model-state';
+import { Attribute, Relation, Transition } from '../model/model';
+import { RelationalModelState } from '../model/model-state';
 
 @injectable()
-export class DeleteElementHandler extends JsonOperationHandler {
+export class RelationalDeleteElementHandler extends JsonOperationHandler {
     readonly operationType = DeleteElementOperation.KIND;
 
-    @inject(TaskListModelState)
-    protected override modelState: TaskListModelState;
+    @inject(RelationalModelState)
+    protected override modelState: RelationalModelState;
 
     override createCommand(operation: DeleteElementOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
@@ -48,16 +48,14 @@ export class DeleteElementHandler extends JsonOperationHandler {
         const gEdgeIds = this.getIncomingAndOutgoingEdgeIds(gModelElement);
 
         [...gEdgeIds, gModelElementId]
-            .map(id => index.findTaskOrTransition(id))
+            .map(id => index.findElement(id))
             .forEach(modelElement => this.deleteModelElement(modelElement));
     }
 
     private getGModelElementToDelete(elementId: string): GNode | GEdge | undefined {
         const index = this.modelState.index;
         const element = index.get(elementId);
-        if (element instanceof GNode || element instanceof GEdge) {
-            return element;
-        }
+        if (element instanceof GNode || element instanceof GEdge) return element;
         return index.findParentElement(elementId, toTypeGuard(GNode)) ?? index.findParentElement(elementId, toTypeGuard(GEdge));
     }
 
@@ -66,17 +64,22 @@ export class DeleteElementHandler extends JsonOperationHandler {
     }
 
     protected getIncomingAndOutgoingEdges(node: GNode | GEdge | undefined): GEdge[] {
-        if (node instanceof GNode) {
-            return [...this.modelState.index.getIncomingEdges(node), ...this.modelState.index.getOutgoingEdges(node)];
-        }
+        if (node instanceof GNode) return [...this.modelState.index.getIncomingEdges(node), ...this.modelState.index.getOutgoingEdges(node)];
         return [];
     }
 
     private deleteModelElement(modelElement: Relation | Attribute | Transition | undefined): void {
-        if (Relation.is(modelElement)) {
-            remove(this.modelState.sourceModel.relations, modelElement);
-        } else if (Transition.is(modelElement)) {
-            remove(this.modelState.sourceModel.transitions, modelElement);
+        if (!modelElement) return;
+
+        if (Relation.is(modelElement)) remove(this.modelState.sourceModel.relations, modelElement);
+        else if (Transition.is(modelElement)) remove(this.modelState.sourceModel.transitions, modelElement);
+        else if (Attribute.is(modelElement)) {
+            for (const relation of this.modelState.sourceModel.relations) {
+                if (relation.attributes && relation.attributes.includes(modelElement)) {
+                    remove(relation.attributes, modelElement);
+                    break;
+                }
+            }
         }
     }
 }
