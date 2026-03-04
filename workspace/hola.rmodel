@@ -1,0 +1,46 @@
+{
+  "id": "6e00d462-e677-47de-8ac8-1020425f502f",
+  "relations": [
+    {
+      "id": "83be71e1-1693-46ae-80d1-a3b69c6bd925",
+      "type": "relation",
+      "name": "Hola",
+      "position": {
+        "x": 222,
+        "y": 164
+      },
+      "attributes": [
+        {
+          "id": "30c208ee-68a8-4e91-994f-bb989ea843f8",
+          "type": "attribute",
+          "name": "dskjnf: varchar(20)"
+        }
+      ],
+      "size": {
+        "width": 155.3625030517578,
+        "height": 156.20000076293945
+      }
+    },
+    {
+      "id": "f2c439f8-ba66-480d-8293-ea196359e11e",
+      "type": "relation",
+      "name": "NewRelation2",
+      "position": {
+        "x": 517,
+        "y": 254
+      },
+      "attributes": [
+        {
+          "id": "de50d2bb-24ec-4e48-ae8d-6272ce615e74",
+          "type": "attribute",
+          "name": "new_column_1: VARCHAR"
+        }
+      ],
+      "size": {
+        "width": 102.481689453125,
+        "height": 29.200000762939453
+      }
+    }
+  ],
+  "transitions": []
+}

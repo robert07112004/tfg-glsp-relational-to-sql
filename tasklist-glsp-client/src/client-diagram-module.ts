@@ -56,7 +56,7 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
         enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, hoverFeedbackFeature]
     });
     configureModelElement(context, 'node:attribute', GNode, RectangularNodeView, { 
-        enable: [boundsFeature, layoutableChildFeature, selectFeature]
+        enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature]
     });
     
     // Edges

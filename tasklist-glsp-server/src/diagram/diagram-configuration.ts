@@ -42,14 +42,16 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
                 deletable: true,
                 reparentable: false,
                 repositionable: true,
-                resizable: true
+                resizable: true,
+                containableElementTypeIds: ['node:attribute']
             },
             {
                 elementTypeId: 'comp:attributes',
                 deletable: false, 
                 reparentable: false,
                 repositionable: false,
-                resizable: false
+                resizable: false,
+                containableElementTypeIds: ['node:attribute']
             },
             {
                 elementTypeId: 'node:attribute',
