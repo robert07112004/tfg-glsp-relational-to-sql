@@ -17,7 +17,6 @@
 import {
     Command,
     CreateNodeOperation,
-    DefaultTypes,
     JsonCreateNodeOperationHandler,
     MaybePromise,
     Point
@@ -29,7 +28,7 @@ import { TaskListModelState } from '../model/tasklist-model-state';
 
 @injectable()
 export class CreateRelationHandler extends JsonCreateNodeOperationHandler {
-    readonly elementTypeIds = [DefaultTypes.NODE];
+    readonly elementTypeIds = ['node:relation'];
 
     @inject(TaskListModelState)
     protected override modelState: TaskListModelState;

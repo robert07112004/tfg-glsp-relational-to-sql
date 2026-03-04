@@ -28,6 +28,7 @@ import {
     GLabel,
     GLabelView,
     GNode,
+    hoverFeedbackFeature,
     initializeDiagramContainer,
     layoutableChildFeature,
     layoutContainerFeature,
@@ -50,11 +51,11 @@ const taskListDiagramModule = new ContainerModule((bind, unbind, isBound, rebind
 
     
     configureModelElement(context, 'node:relation', GNode, RectangularNodeView, {
-        enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, selectFeature]
+        enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, selectFeature, hoverFeedbackFeature]
     });
     
     configureModelElement(context, 'node:inline-attributes', GCompartment, GCompartmentView, {
-        enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature]
+        enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, hoverFeedbackFeature]
     });
     
     configureModelElement(context, 'node:attribute', GNode, RectangularNodeView, {

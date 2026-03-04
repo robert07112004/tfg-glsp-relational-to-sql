@@ -45,7 +45,7 @@ export class TaskListGModelFactory implements GModelFactory {
             .id(relation.id)
             .type('node:relation')
             .addCssClass('relation-node') 
-            .layout('vbox') // 'vbox' apila el título y los atributos verticalmente
+            .layout('vbox') 
             .addLayoutOption('padding', 5)
             .position(relation.position)
             .add(GLabel.builder()
@@ -54,21 +54,19 @@ export class TaskListGModelFactory implements GModelFactory {
                 .build()
             );
 
-        // Lógica para anidar los atributos
-        if (relation.attributes && relation.attributes.length > 0) {
-            const attrCompartment = GCompartment.builder()                  // Creamos un compartimento para agrupar los atributos
-                .id(`${relation.id}_attributes_comp`)
-                .type('node:inline-attributes')
-                .layout('vbox')
-                .addCssClass('attributes-compartment');
+        const attrCompartment = GCompartment.builder()                  
+            .id(`${relation.id}_attributes_comp`)
+            .type('node:inline-attributes')
+            .layout('vbox')
+            .addCssClass('attributes-compartment');
 
-            relation.attributes.forEach(attr => {                           // Creamos un nodo por cada atributo y lo metemos en el compartimento
+        if (relation.attributes && relation.attributes.length > 0) {
+            relation.attributes.forEach(attr => {                           
                 attrCompartment.add(this.createAttributeNode(attr));
             });
-
-            builder.add(attrCompartment.build());                           // Añadimos el compartimento entero al nodo de la relación
         }
 
+        builder.add(attrCompartment.build());                           
         if (relation.size) builder.addLayoutOptions({ prefWidth: relation.size.width, prefHeight: relation.size.height });
         
         return builder.build();
