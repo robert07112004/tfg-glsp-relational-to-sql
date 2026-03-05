@@ -74,6 +74,14 @@ svg {
     border-radius: 3px;
 }
 
+.attribute-primary-key text { 
+    text-decoration: underline solid; 
+}
+
+.attribute-foreign-key text { 
+    font-style: italic; 
+}
+
 /* --- TRANSITIONS --- */
 .transition {
     stroke: #7f8c8d;          

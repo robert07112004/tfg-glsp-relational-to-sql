@@ -36,6 +36,14 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
     }
 
     get shapeTypeHints(): ShapeTypeHint[] {
+        const attributeTypeIds = [
+            'node:attribute-primary-key',
+            'node:attribute-alternative-key',
+            'node:attribute-normal',
+            'node:attribute-optional',
+            'node:attribute-foreign-key'
+        ];
+
         return [
             {
                 elementTypeId: 'node:relation',
@@ -53,13 +61,13 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
                 resizable: false,
                 containableElementTypeIds: ['node:attribute']
             },
-            {
-                elementTypeId: 'node:attribute',
-                deletable: true,                            // permitirá arrastrar un atributo de una tabla a otra en el lienzo
-                reparentable: true, 
-                repositionable: false,                      // la posicion la dicta el layout 'vbox'
-                resizable: false 
-            }
+            ...attributeTypeIds.map(typeId => ({
+                elementTypeId: typeId,
+                deletable: true,
+                reparentable: true,
+                repositionable: false,
+                resizable: false
+            }))
         ];
     }
 
@@ -70,8 +78,8 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
                 deletable: true,
                 repositionable: true,
                 routable: true,
-                sourceElementTypeIds: ['node:relation'],
-                targetElementTypeIds: ['node:relation']
+                sourceElementTypeIds: ['node:attribute-primary-key', 'node:attribute-foreign-key'],
+                targetElementTypeIds: ['node:attribute-primary-key', 'node:attribute-foreign-key']
             }
         ];
     }

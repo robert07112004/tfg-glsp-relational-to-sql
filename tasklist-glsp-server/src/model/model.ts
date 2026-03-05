@@ -67,6 +67,7 @@ export interface Attribute {
     id: string;
     type: 'attribute';
     name: string;
+    kind: 'primary-key' | 'alternative-key' | 'normal-attribute' | 'optional-attribute' | 'foreign-key';
 }
 
 export namespace Attribute {
@@ -75,6 +76,7 @@ export namespace Attribute {
             AnyObject.is(object) && 
             hasStringProp(object, 'id') && 
             hasStringProp(object, 'type') && (object as Attribute).type === 'attribute' &&
+            hasStringProp(object, 'kind') &&
             hasStringProp(object, 'name')
         );
     }

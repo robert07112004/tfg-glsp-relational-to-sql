@@ -27,9 +27,7 @@ import { Attribute } from '../model/model';
 import { RelationalModelState } from '../model/model-state';
 
 @injectable()
-export class CreateAttributeHandler extends JsonCreateNodeOperationHandler {
-    readonly elementTypeIds = ['node:attribute'];
-
+export abstract class CreateAttributeBaseHandler extends JsonCreateNodeOperationHandler {
     get containerElementTypeIds(): string[] {
         return ['node:relation', 'comp:attributes'];
     }
@@ -37,30 +35,64 @@ export class CreateAttributeHandler extends JsonCreateNodeOperationHandler {
     @inject(RelationalModelState)
     protected override modelState: RelationalModelState;
 
+    protected abstract get attributeType(): Attribute['kind'];
+    protected abstract get attributeLabel(): string;
+
     override createCommand(operation: CreateNodeOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
             const containerId = operation.containerId;
-            if (!containerId) throw new GLSPServerError("Los atributos deben soltarse dentro de una Relación, no en el lienzo vacío.");
-            const sourceModel = this.modelState.sourceModel;
-            const targetRelation = sourceModel.relations.find(r => r.id === containerId || containerId.includes(r.id));
+            if (!containerId) throw new GLSPServerError('Los atributos deben soltarse dentro de una Relación.');
 
-            if (!targetRelation) throw new GLSPServerError(`No se encontró la Relación destino para el contenedor: ${containerId}`);
+            const sourceModel = this.modelState.sourceModel;
+            const targetRelation = sourceModel.relations.find(
+                r => r.id === containerId || containerId.includes(r.id)
+            );
+            if (!targetRelation) throw new GLSPServerError(`Relación destino no encontrada: ${containerId}`);
             if (!targetRelation.attributes) targetRelation.attributes = [];
 
-            const attribute = this.createAttribute(targetRelation.attributes.length);            
-            targetRelation.attributes.push(attribute);
+            targetRelation.attributes.push({
+                id: uuid.v4(),
+                type: 'attribute',
+                kind: this.attributeType,
+                name: `new_${this.attributeType}_${targetRelation.attributes.length + 1}`
+            });
         });
     }
 
-    protected createAttribute(currentAttributeCount: number): Attribute {
-        return {
-            id: uuid.v4(),
-            type: 'attribute',
-            name: `new_column_${currentAttributeCount + 1}: VARCHAR`
-        };
-    }
+    get label(): string { return this.attributeLabel; }
+}
 
-    get label(): string {
-        return 'Attribute';
-    }
+@injectable()
+export class CreatePrimaryKeyAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-primary-key'];
+    protected get attributeType(): Attribute['kind'] { return 'primary-key'; }
+    protected get attributeLabel(): string { return 'Primary Key'; }
+}
+
+@injectable()
+export class CreateAlternativeKeyAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-alternative-key'];
+    protected get attributeType(): Attribute['kind'] { return 'alternative-key'; }
+    protected get attributeLabel(): string { return 'Alternative Key'; }
+}
+
+@injectable()
+export class CreateNormalAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-normal'];
+    protected get attributeType(): Attribute['kind'] { return 'normal-attribute'; }
+    protected get attributeLabel(): string { return 'Normal Attribute'; }
+}
+
+@injectable()
+export class CreateOptionalAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-optional'];
+    protected get attributeType(): Attribute['kind'] { return 'optional-attribute'; }
+    protected get attributeLabel(): string { return 'Optional Attribute'; }
+}
+
+@injectable()
+export class CreateForeignKeyAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-foreign-key'];
+    protected get attributeType(): Attribute['kind'] { return 'foreign-key'; }
+    protected get attributeLabel(): string { return 'Foreign Key'; }
 }

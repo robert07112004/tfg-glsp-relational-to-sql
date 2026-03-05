@@ -3,10 +3,13 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "reactNamespace": "JSX",
     "skipLibCheck": true,
     "types": [],
-    "composite": true
+    "composite": true,
+    "jsx": "react",
+    "jsxFactory": "svg"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

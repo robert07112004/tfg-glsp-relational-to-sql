@@ -38,7 +38,7 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
                 if (!relation) throw new GLSPServerError(`Could not retrieve the Relation with id ${parentNode.id}`);
                 relation.name = operation.text;
                 
-            } else if (parentNode.type === 'node:attribute') {              // padre === attribute
+            } else if (parentNode.type.includes('node:attribute')) {              // padre === attribute
                 const attribute = index.findAttribute(parentNode.id);
                 if (!attribute) throw new GLSPServerError(`Could not retrieve the Attribute with id ${parentNode.id}`);
                 attribute.name = operation.text;

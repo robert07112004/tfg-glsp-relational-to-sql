@@ -31,10 +31,10 @@ import {
 import { injectable } from 'inversify';
 import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-handler';
 import { RelationalChangeBoundsHandler } from '../handler/change-bounds-handler';
-import { CreateAttributeHandler } from '../handler/create-attribute-node-handler';
+import { CreateAlternativeKeyAttributeHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/create-attribute-node-handler';
 import { CreateRelationHandler } from '../handler/create-relation-node-handler';
 import { CreateTransitionHandler } from '../handler/create-transition-handler';
-import { RelationalDeleteElementHandler } from '../handler/delete-element-handler'; // Le he puesto el prefijo Relational por consistencia
+import { RelationalDeleteElementHandler } from '../handler/delete-element-handler';
 import { RelationalLabelEditValidator } from '../handler/label-edit-validator';
 import { RelationalGModelFactory } from '../model/gmodel-factory';
 import { RelationalModelIndex } from '../model/model-index';
@@ -71,7 +71,11 @@ export class RelationalDiagramModule extends DiagramModule {
     protected override configureOperationHandlers(binding: InstanceMultiBinding<OperationHandlerConstructor>): void {
         super.configureOperationHandlers(binding);
         binding.add(CreateRelationHandler);
-        binding.add(CreateAttributeHandler);
+        binding.add(CreatePrimaryKeyAttributeHandler);
+        binding.add(CreateAlternativeKeyAttributeHandler);
+        binding.add(CreateNormalAttributeHandler);
+        binding.add(CreateOptionalAttributeHandler);
+        binding.add(CreateForeignKeyAttributeHandler);
         binding.add(CreateTransitionHandler);
         binding.add(RelationalChangeBoundsHandler);
         binding.add(RelationalApplyLabelEditHandler);

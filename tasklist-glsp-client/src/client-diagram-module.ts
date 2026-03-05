@@ -18,6 +18,7 @@ import {
     boundsFeature,
     configureDefaultModelElements,
     configureModelElement,
+    connectableFeature,
     ConsoleLogger,
     ContainerConfiguration,
     DefaultTypes,
@@ -41,6 +42,7 @@ import {
 import 'balloon-css/balloon.min.css';
 import { Container, ContainerModule } from 'inversify';
 import '../css/diagram.css';
+import { AlternativeKeyAttributeView } from './attribute-views';
 
 const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -55,12 +57,20 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
     configureModelElement(context, 'comp:attributes', GCompartment, GCompartmentView, {
         enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, hoverFeedbackFeature]
     });
-    configureModelElement(context, 'node:attribute', GNode, RectangularNodeView, { 
+    
+    const attributeFeatures = {
+        enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature, connectableFeature]
+    };
+    configureModelElement(context, 'node:attribute-primary-key',     GNode, RectangularNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-alternative-key', GNode, AlternativeKeyAttributeView, {
         enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature]
     });
+    configureModelElement(context, 'node:attribute-normal',          GNode, RectangularNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-optional',        GNode, RectangularNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-foreign-key',     GNode, RectangularNodeView, attributeFeatures);
     
     // Edges
-    configureModelElement(context, 'edge:transition', GEdge, PolylineEdgeView, { enable: [selectFeature] });
+    configureModelElement(context, 'edge:transition', GEdge, PolylineEdgeView, { enable: [selectFeature, hoverFeedbackFeature] });
 
     // Labels
     configureModelElement(context, DefaultTypes.LABEL, GLabel, GLabelView, { enable: [editLabelFeature] });

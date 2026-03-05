@@ -75,17 +75,34 @@ export class RelationalGModelFactory implements GModelFactory {
     }
 
     protected createAttributeNode(attribute: Attribute): GNode {
-        return GNode.builder()
+        const typeMap: Record<string, string> = {
+            'primary-key':        'node:attribute-primary-key',
+            'alternative-key':    'node:attribute-alternative-key',
+            'normal-attribute':   'node:attribute-normal',
+            'optional-attribute': 'node:attribute-optional',
+            'foreign-key':        'node:attribute-foreign-key'
+        };
+        const nodeType = typeMap[attribute.kind];
+
+        const builder = GNode.builder()
             .id(attribute.id)
-            .type('node:attribute')
+            .type(nodeType)
             .addCssClass('attribute')
-            .layout('hbox') 
-            .add(GLabel.builder()
-                .text(attribute.name)
-                .id(`${attribute.id}_label`)
-                .build()
-            )
-            .build();
+            .addCssClass(`attribute-${attribute.kind}`)
+            .layout('hbox')
+
+        let displayName: string;
+        if (attribute.kind === 'optional-attribute') displayName = `${attribute.name} *`;
+        else if (attribute.kind === 'foreign-key')   displayName = `FK ${attribute.name}`;
+        else displayName = attribute.name;
+
+        builder.add(GLabel.builder()
+            .text(displayName)
+            .id(`${attribute.id}_label`)
+            .build()
+        );
+        
+        return builder.build();
     }
 
     protected createTransitionEdge(transition: Transition): GEdge {
