@@ -86,6 +86,7 @@ export interface Transition {
     id: string;
     sourceId: string;
     targetId: string;
+    kind: 'one-to-one' | 'one-to-many' | 'zero-or-one-to-many' | 'one-to-one-or-many' | 'zero-or-one-to-one';
 }
 
 export namespace Transition {
@@ -94,7 +95,8 @@ export namespace Transition {
             AnyObject.is(object) &&
             hasStringProp(object, 'id') &&
             hasStringProp(object, 'sourceId') &&
-            hasStringProp(object, 'targetId')
+            hasStringProp(object, 'targetId') &&
+            hasStringProp(object, 'kind')
         );
     }
 }

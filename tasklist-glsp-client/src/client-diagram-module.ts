@@ -22,6 +22,7 @@ import {
     ConsoleLogger,
     ContainerConfiguration,
     DefaultTypes,
+    deletableFeature,
     editLabelFeature,
     GCompartment,
     GCompartmentView,
@@ -34,7 +35,6 @@ import {
     layoutableChildFeature,
     layoutContainerFeature,
     LogLevel,
-    PolylineEdgeView,
     RectangularNodeView,
     selectFeature,
     TYPES
@@ -43,6 +43,7 @@ import 'balloon-css/balloon.min.css';
 import { Container, ContainerModule } from 'inversify';
 import '../css/diagram.css';
 import { AlternativeKeyAttributeView } from './attribute-views';
+import { OneToManyEdgeView, OneToOneEdgeView, OneToOneOrManyEdgeView, ZeroOrOneToManyEdgeView, ZeroOrOneToOneEdgeView } from './crow-foot-edge-view';
 
 const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -52,14 +53,14 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
 
     // Nodes
     configureModelElement(context, 'node:relation', GNode, RectangularNodeView, {
-        enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, selectFeature, hoverFeedbackFeature]
+        enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, selectFeature, hoverFeedbackFeature, deletableFeature]
     });
     configureModelElement(context, 'comp:attributes', GCompartment, GCompartmentView, {
         enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, hoverFeedbackFeature]
     });
     
     const attributeFeatures = {
-        enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature, connectableFeature]
+        enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature, connectableFeature, deletableFeature]
     };
     configureModelElement(context, 'node:attribute-primary-key',     GNode, RectangularNodeView, attributeFeatures);
     configureModelElement(context, 'node:attribute-alternative-key', GNode, AlternativeKeyAttributeView, {
@@ -70,7 +71,12 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
     configureModelElement(context, 'node:attribute-foreign-key',     GNode, RectangularNodeView, attributeFeatures);
     
     // Edges
-    configureModelElement(context, 'edge:transition', GEdge, PolylineEdgeView, { enable: [selectFeature, hoverFeedbackFeature] });
+    const edgeFeatures = { enable: [selectFeature, hoverFeedbackFeature, deletableFeature] };
+    configureModelElement(context, 'edge:one-to-one',           GEdge, OneToOneEdgeView,          edgeFeatures);
+    configureModelElement(context, 'edge:one-to-many',          GEdge, OneToManyEdgeView,         edgeFeatures);
+    configureModelElement(context, 'edge:zero-or-one-to-many',  GEdge, ZeroOrOneToManyEdgeView,   edgeFeatures);
+    configureModelElement(context, 'edge:one-to-one-or-many',   GEdge, OneToOneOrManyEdgeView,    edgeFeatures);
+    configureModelElement(context, 'edge:zero-or-one-to-one',   GEdge, ZeroOrOneToOneEdgeView,    edgeFeatures);
 
     // Labels
     configureModelElement(context, DefaultTypes.LABEL, GLabel, GLabelView, { enable: [editLabelFeature] });

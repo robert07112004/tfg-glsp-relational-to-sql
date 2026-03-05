@@ -106,10 +106,11 @@ export class RelationalGModelFactory implements GModelFactory {
     }
 
     protected createTransitionEdge(transition: Transition): GEdge {
-        return GEdge.builder() 
+        return GEdge.builder()
             .id(transition.id)
-            .type('edge:transition') 
+            .type(`edge:${transition.kind}`)
             .addCssClass('transition')
+            .addCssClass(`edge-${transition.kind}`)
             .sourceId(transition.sourceId)
             .targetId(transition.targetId)
             .build();

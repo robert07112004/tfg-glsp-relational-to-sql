@@ -21,24 +21,59 @@ import { Transition } from '../model/model';
 import { RelationalModelState } from '../model/model-state';
 
 @injectable()
-export class CreateTransitionHandler extends JsonCreateEdgeOperationHandler {
-    readonly elementTypeIds = ['edge:transition'];      // Usamos el mismo tipo que definimos en la factoría (GModelFactory)
-
+export abstract class CreateTransitionBaseHandler extends JsonCreateEdgeOperationHandler {
     @inject(RelationalModelState)
     protected override modelState: RelationalModelState;
+
+    protected abstract get relationType(): Transition['kind'];
+    protected abstract get transitionLabel(): string;
 
     override createCommand(operation: CreateEdgeOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
             const transition: Transition = {
                 id: uuid.v4(),
                 sourceId: operation.sourceElementId,
-                targetId: operation.targetElementId
+                targetId: operation.targetElementId,
+                kind: this.relationType
             };
             this.modelState.sourceModel.transitions.push(transition);
         });
     }
 
-    get label(): string {
-        return 'Transition'; 
-    }
+    get label(): string { return this.transitionLabel; }
+}
+
+@injectable()
+export class CreateOneToOneHandler extends CreateTransitionBaseHandler {
+    readonly elementTypeIds = ['edge:one-to-one'];
+    protected get relationType(): Transition['kind'] { return 'one-to-one'; }
+    protected get transitionLabel(): string { return 'One to One'; }
+}
+
+@injectable()
+export class CreateOneToManyHandler extends CreateTransitionBaseHandler {
+    readonly elementTypeIds = ['edge:one-to-many'];
+    protected get relationType(): Transition['kind'] { return 'one-to-many'; }
+    protected get transitionLabel(): string { return 'One to Many'; }
+}
+
+@injectable()
+export class CreateZeroOrOneToManyHandler extends CreateTransitionBaseHandler {
+    readonly elementTypeIds = ['edge:zero-or-one-to-many'];
+    protected get relationType(): Transition['kind'] { return 'zero-or-one-to-many'; }
+    protected get transitionLabel(): string { return 'Zero or One to Many'; }
+}
+
+@injectable()
+export class CreateOneToOneOrManyHandler extends CreateTransitionBaseHandler {
+    readonly elementTypeIds = ['edge:one-to-one-or-many'];
+    protected get relationType(): Transition['kind'] { return 'one-to-one-or-many'; }
+    protected get transitionLabel(): string { return 'One to One or Many'; }
+}
+
+@injectable()
+export class CreateZeroOrOneToOneHandler extends CreateTransitionBaseHandler {
+    readonly elementTypeIds = ['edge:zero-or-one-to-one'];
+    protected get relationType(): Transition['kind'] { return 'zero-or-one-to-one'; }
+    protected get transitionLabel(): string { return 'Zero or One to One'; }
 }

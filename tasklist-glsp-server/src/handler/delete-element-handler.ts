@@ -47,9 +47,13 @@ export class RelationalDeleteElementHandler extends JsonOperationHandler {
         const gModelElementId = gModelElement?.id ?? elementId;
         const gEdgeIds = this.getIncomingAndOutgoingEdgeIds(gModelElement);
 
-        [...gEdgeIds, gModelElementId]
-            .map(id => index.findElement(id))
-            .forEach(modelElement => this.deleteModelElement(modelElement));
+        gEdgeIds.forEach(edgeId => {
+            const transition = index.findTransition(edgeId);
+            if (transition) this.deleteModelElement(transition);
+        });
+
+        const sourceElement = index.findElement(gModelElementId);
+        this.deleteModelElement(sourceElement);
     }
 
     private getGModelElementToDelete(elementId: string): GNode | GEdge | undefined {
@@ -71,11 +75,24 @@ export class RelationalDeleteElementHandler extends JsonOperationHandler {
     private deleteModelElement(modelElement: Relation | Attribute | Transition | undefined): void {
         if (!modelElement) return;
 
-        if (Relation.is(modelElement)) remove(this.modelState.sourceModel.relations, modelElement);
-        else if (Transition.is(modelElement)) remove(this.modelState.sourceModel.transitions, modelElement);
-        else if (Attribute.is(modelElement)) {
-            for (const relation of this.modelState.sourceModel.relations) {
-                if (relation.attributes && relation.attributes.includes(modelElement)) {
+        if (Relation.is(modelElement)) {
+            const model = this.modelState.sourceModel;
+            const relatedTransitions = model.transitions.filter(
+                t => t.sourceId === modelElement.id || t.targetId === modelElement.id
+            );
+            relatedTransitions.forEach(t => remove(model.transitions, t));
+            remove(model.relations, modelElement);
+        } else if (Transition.is(modelElement)) {
+            remove(this.modelState.sourceModel.transitions, modelElement);
+        } else if (Attribute.is(modelElement)) {
+            const model = this.modelState.sourceModel;
+            const relatedTransitions = model.transitions.filter(
+                t => t.sourceId === modelElement.id || t.targetId === modelElement.id
+            );
+            relatedTransitions.forEach(t => remove(model.transitions, t));
+
+            for (const relation of model.relations) {
+                if (relation.attributes?.includes(modelElement)) {
                     remove(relation.attributes, modelElement);
                     break;
                 }

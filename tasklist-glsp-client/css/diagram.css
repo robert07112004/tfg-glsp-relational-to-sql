@@ -83,13 +83,29 @@ svg {
 }
 
 /* --- TRANSITIONS --- */
-.transition {
+/*.transition {
     stroke: #7f8c8d;          
     stroke-width: 2px;
 }
 
-/* Transition selected */
+ Transition selected 
 .transition.selected {
     stroke: #e67e22;
     stroke-width: 3px;
-}
+} */
+
+.sprotty-edge { stroke: #555; stroke-width: 1.5px; fill: none; }
+.sprotty-edge.selected  { stroke: #e67e22; stroke-width: 3px; }
+.sprotty-edge:hover     { stroke-width: 2.5px; }
+
+.sprotty-edge.edge-one-to-one           { stroke: #2196F3; }
+.sprotty-edge.edge-one-to-many          { stroke: #4CAF50; }
+.sprotty-edge.edge-zero-or-one-to-many  { stroke: #FF9800; }
+.sprotty-edge.edge-one-to-one-or-many   { stroke: #9C27B0; }
+.sprotty-edge.edge-zero-or-one-to-one   { stroke: #F44336; }
+
+.crow-mark     { stroke: inherit; stroke-width: 1.5px; fill: none; }
+.crow-optional { fill: white; stroke: inherit; }
+
+.sprotty-edge:hover .crow-mark,
+.sprotty-edge.selected .crow-mark { stroke-width: 2.5px; }
