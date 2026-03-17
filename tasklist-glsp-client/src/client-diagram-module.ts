@@ -73,9 +73,7 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
         enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature, connectableFeature, deletableFeature]
     };
     configureModelElement(context, 'node:attribute-primary-key',     GNode, AttributeNodeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-alternative-key', GNode, AlternativeKeyAttributeView, {
-        enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature]
-    });
+    configureModelElement(context, 'node:attribute-alternative-key', GNode, AlternativeKeyAttributeView, attributeFeatures);
     configureModelElement(context, 'node:attribute-normal',          GNode, AttributeNodeView, attributeFeatures);
     configureModelElement(context, 'node:attribute-optional',        GNode, AttributeNodeView, attributeFeatures);
     configureModelElement(context, 'node:attribute-foreign-key',     GNode, AttributeNodeView, attributeFeatures);

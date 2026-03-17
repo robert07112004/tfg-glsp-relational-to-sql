@@ -41,51 +41,6 @@
           "name": "new_primary-key_5"
         }
       ]
-    },
-    {
-      "id": "c25617c6-b1bf-49f0-be95-e4f3e4ae2b70",
-      "type": "relation",
-      "name": "NewRelation2",
-      "position": {
-        "x": 588,
-        "y": 321
-      },
-      "attributes": [
-        {
-          "id": "78c3d7ca-6e11-4332-8ae3-bd02c8a5eba1",
-          "type": "attribute",
-          "kind": "primary-key",
-          "name": "new_primary-key_1"
-        },
-        {
-          "id": "b096e127-61e2-4f77-b600-c3d44941d708",
-          "type": "attribute",
-          "kind": "primary-key",
-          "name": "new_primary-key_2"
-        },
-        {
-          "id": "47c4f9d3-bfd8-4f73-8654-59491dba178f",
-          "type": "attribute",
-          "kind": "primary-key",
-          "name": "new_primary-key_3"
-        },
-        {
-          "id": "3b590934-8e71-4773-af21-73354df94a10",
-          "type": "attribute",
-          "kind": "primary-key",
-          "name": "new_primary-key_4"
-        },
-        {
-          "id": "894b6eee-2be8-4077-87b4-fb3671b80493",
-          "type": "attribute",
-          "kind": "primary-key",
-          "name": "new_primary-key_5"
-        }
-      ],
-      "size": {
-        "width": 168.76250457763672,
-        "height": 64.60000133514404
-      }
     }
   ],
   "transitions": []

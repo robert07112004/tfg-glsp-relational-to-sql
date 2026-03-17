@@ -1,6 +1,6 @@
 {
   "name": "parent",
-  "version": "2.6.0",
+  "version": "2.5.0",
   "private": true,
   "homepage": "https://www.eclipse.org/glsp/",
   "bugs": "https://github.com/eclipse-glsp/glsp/issues",
@@ -42,7 +42,7 @@
     "webview": "yarn --cwd tasklist-vscode/webview"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "2.6.0",
+    "@eclipse-glsp/config": "2.5.0",
     "@types/node": "20.x",
     "concurrently": "^8.2.2",
     "lerna": "^8.1.7",

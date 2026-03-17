@@ -1,7 +1,7 @@
 {
   "name": "relational-vscode",
   "displayName": "Relational GLSP Diagram Editor",
-  "version": "2.6.0",
+  "version": "2.5.0",
   "private": "true",
   "description": "Extension for Relational GLSP diagrams",
   "categories": [
@@ -127,7 +127,7 @@
     "@vscode/codicons": "^0.0.25"
   },
   "devDependencies": {
-    "@eclipse-glsp/vscode-integration": "2.6.0",
+    "@eclipse-glsp/vscode-integration": "2.5.0",
     "@types/node": "20.x",
     "@types/vscode": "^1.54.0",
     "@vscode/vsce": "^2.24.0",

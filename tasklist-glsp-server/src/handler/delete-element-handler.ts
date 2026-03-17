@@ -77,10 +77,10 @@ export class RelationalDeleteElementHandler extends JsonOperationHandler {
 
         if (Relation.is(modelElement)) {
             const model = this.modelState.sourceModel;
-            const relatedTransitions = model.transitions.filter(
-                t => t.sourceId === modelElement.id || t.targetId === modelElement.id
-            );
-            relatedTransitions.forEach(t => remove(model.transitions, t));
+            if (modelElement.attributes) {
+                const childAttributes = [...modelElement.attributes];
+                childAttributes.forEach(attr => this.deleteModelElement(attr));
+            }
             remove(model.relations, modelElement);
         } else if (Transition.is(modelElement)) {
             remove(this.modelState.sourceModel.transitions, modelElement);
