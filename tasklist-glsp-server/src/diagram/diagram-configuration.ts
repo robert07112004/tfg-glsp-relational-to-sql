@@ -72,10 +72,6 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
     }
 
     get edgeTypeHints(): EdgeTypeHint[] {
-        const pkAndFk = [
-            'node:attribute-primary-key',
-            'node:attribute-foreign-key'
-        ];
 
         const relationTypes = [
             'one-to-one',
@@ -90,8 +86,8 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
             deletable: true,
             repositionable: true,
             routable: true,
-            sourceElementTypeIds: pkAndFk,
-            targetElementTypeIds: pkAndFk
+            sourceElementTypeIds: ['port'],
+            targetElementTypeIds: ['port']
         }));
     }
 }

@@ -14,7 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
-import { GCompartment, GEdge, GGraph, GLabel, GModelFactory, GNode } from '@eclipse-glsp/server';
+import { GCompartment, GEdge, GGraph, GLabel, GModelFactory, GNode, GPort } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
 import { Attribute, Relation, Transition } from './model';
 import { RelationalModelState } from './model-state';
@@ -90,15 +90,37 @@ export class RelationalGModelFactory implements GModelFactory {
             .addCssClass('attribute')
             .addCssClass(`attribute-${attribute.kind}`)
             .layout('hbox')
+            .addLayoutOption('paddingLeft', 8)
+            .addLayoutOption('paddingRight', 8);
 
         let displayName: string;
         if (attribute.kind === 'optional-attribute') displayName = `${attribute.name} *`;
         else if (attribute.kind === 'foreign-key')   displayName = `FK ${attribute.name}`;
         else displayName = attribute.name;
 
+        builder.add(GPort.builder()
+            .id(`${attribute.id}_port_left`)
+            .type('port')
+            .size({ width: 10, height: 10 })
+            .addCssClass('port-left')
+            .addLayoutOption('position', 'absolute') 
+            .position({ x: -5, y: 0 })             
+            .build()
+        );
+
         builder.add(GLabel.builder()
             .text(displayName)
             .id(`${attribute.id}_label`)
+            .build()
+        );
+
+        builder.add(GPort.builder()
+            .id(`${attribute.id}_port_right`)
+            .type('port')
+            .size({ width: 10, height: 10 })
+            .addCssClass('port-right')
+            .addLayoutOption('position', 'absolute') 
+            .position({ x: 9999, y: 0 })             
             .build()
         );
         
@@ -111,8 +133,8 @@ export class RelationalGModelFactory implements GModelFactory {
             .type(`edge:${transition.kind}`)
             .addCssClass('transition')
             .addCssClass(`edge-${transition.kind}`)
-            .sourceId(transition.sourceId)
-            .targetId(transition.targetId)
+            .sourceId(transition.sourcePortId || transition.sourceId)
+            .targetId(transition.targetPortId || transition.targetId)
             .build();
     }
 }

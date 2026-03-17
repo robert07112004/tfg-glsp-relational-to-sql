@@ -30,6 +30,7 @@ import {
     GLabel,
     GLabelView,
     GNode,
+    GPort,
     hoverFeedbackFeature,
     initializeDiagramContainer,
     layoutableChildFeature,
@@ -42,7 +43,7 @@ import {
 import 'balloon-css/balloon.min.css';
 import { Container, ContainerModule } from 'inversify';
 import '../css/diagram.css';
-import { AlternativeKeyAttributeView } from './attribute-views';
+import { AlternativeKeyAttributeView, AttributeNodeView } from './attribute-views';
 import { OneToManyEdgeView, OneToOneEdgeView, OneToOneOrManyEdgeView, ZeroOrOneToManyEdgeView, ZeroOrOneToOneEdgeView } from './crow-foot-edge-view';
 
 const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -58,17 +59,26 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
     configureModelElement(context, 'comp:attributes', GCompartment, GCompartmentView, {
         enable: [boundsFeature, layoutContainerFeature, layoutableChildFeature, hoverFeedbackFeature]
     });
-    
+
+    configureModelElement(context, 'port', GPort, RectangularNodeView, {
+        enable: [
+            boundsFeature, 
+            connectableFeature,
+            layoutableChildFeature,
+            hoverFeedbackFeature
+        ]
+    });
+
     const attributeFeatures = {
         enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature, connectableFeature, deletableFeature]
     };
-    configureModelElement(context, 'node:attribute-primary-key',     GNode, RectangularNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-primary-key',     GNode, AttributeNodeView, attributeFeatures);
     configureModelElement(context, 'node:attribute-alternative-key', GNode, AlternativeKeyAttributeView, {
         enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature]
     });
-    configureModelElement(context, 'node:attribute-normal',          GNode, RectangularNodeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-optional',        GNode, RectangularNodeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-foreign-key',     GNode, RectangularNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-normal',          GNode, AttributeNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-optional',        GNode, AttributeNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute-foreign-key',     GNode, AttributeNodeView, attributeFeatures);
     
     // Edges
     const edgeFeatures = { enable: [selectFeature, hoverFeedbackFeature, deletableFeature] };

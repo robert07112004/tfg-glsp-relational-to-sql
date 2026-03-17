@@ -22,7 +22,7 @@ function perp(p: Point, angle: number, dist: number): [Point, Point] {
 const BAR_HALF = 7;
 const CROW_LEN = 12;
 const CIRCLE_R = 5;
-const GAP      = 4;
+const GAP      = -1;
 
 function renderBar(tip: Point, angle: number): VNode {
     const [p1, p2] = perp(tip, angle, BAR_HALF);
@@ -48,32 +48,33 @@ function renderCrowFoot(tip: Point, angle: number): VNode {
 
 type EndMarker = 'one' | 'many' | 'zero-or-one' | 'one-or-many' | 'zero-or-many';
 
-function renderEndMarker(marker: EndMarker, tip: Point, angle: number): VNode {
+function renderEndMarker(marker: EndMarker, tip: Point, angle: number, startMargin: number = 0): VNode {
     const out = angle + Math.PI;
+    const offsetTip = offset(tip, out, startMargin);
     switch (marker) {
         case 'one':
             return renderBar(offset(tip, out, GAP), out);
         case 'many':
-            return renderCrowFoot(tip, out);
+            return renderCrowFoot(offsetTip, out);
         case 'zero-or-one':
             return (
                 <g>
                     {renderBar(offset(tip, out, GAP), out)}
-                    {renderCircle(offset(tip, out, GAP * 2 + CIRCLE_R * 2), out)}
+                    {renderCircle(offset(offsetTip, out, GAP * 2 + CIRCLE_R * 2), out)}
                 </g>
             );
         case 'one-or-many':
             return (
                 <g>
-                    {renderCrowFoot(tip, out)}
+                    {renderCrowFoot(offsetTip, out)}
                     {renderBar(offset(tip, out, CROW_LEN + GAP), out)}
                 </g>
             );
         case 'zero-or-many':
             return (
                 <g>
-                    {renderCrowFoot(tip, out)}
-                    {renderCircle(offset(tip, out, CROW_LEN + GAP + CIRCLE_R), out)}
+                    {renderCrowFoot(offsetTip, out)}
+                    {renderCircle(offset(offsetTip, out, CROW_LEN + GAP + CIRCLE_R), out)}
                 </g>
             );
     }
@@ -95,9 +96,11 @@ export abstract class CrowsFootEdgeView extends PolylineEdgeView {
         const tgtPrev  = segments[segments.length - 2];
         const tgtAngle = getAngle(tgtTip, tgtPrev);
 
+        const MARKER_MARGIN = 0;
+
         return [
-            renderEndMarker(this.sourceMarker, srcTip, srcAngle),
-            renderEndMarker(this.targetMarker, tgtTip, tgtAngle)
+            renderEndMarker(this.sourceMarker, srcTip, srcAngle, MARKER_MARGIN),
+            renderEndMarker(this.targetMarker, tgtTip, tgtAngle, MARKER_MARGIN)
         ];
     }
 }

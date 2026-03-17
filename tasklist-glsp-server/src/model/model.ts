@@ -86,6 +86,8 @@ export interface Transition {
     id: string;
     sourceId: string;
     targetId: string;
+    sourcePortId?: string; 
+    targetPortId?: string;
     kind: 'one-to-one' | 'one-to-many' | 'zero-or-one-to-many' | 'one-to-one-or-many' | 'zero-or-one-to-one';
 }
 

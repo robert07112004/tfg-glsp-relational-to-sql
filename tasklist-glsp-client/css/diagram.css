@@ -82,17 +82,30 @@ svg {
     font-style: italic; 
 }
 
-/* --- TRANSITIONS --- */
-/*.transition {
-    stroke: #7f8c8d;          
-    stroke-width: 2px;
+.port-left, .port-right {
+    min-width: 10px;
+    min-height: 10px;
+    /* Dibuja un pequeño círculo o cuadrado */
+    background-color: #61afef; /* Color azul, cámbialo al de tu tema */
+    border-radius: 5px; /* Para hacerlo redondo */
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.2s;
 }
 
- Transition selected 
-.transition.selected {
-    stroke: #e67e22;
-    stroke-width: 3px;
-} */
+/* Margen para que no se peguen a la etiqueta */
+.port-left {
+    margin-right: 5px;
+}
+.port-right {
+    margin-left: 5px;
+}
+
+/* Mostrar los puertos solo al pasar el ratón por el atributo (opcional pero recomendado) */
+.attribute:hover .port-left,
+.attribute:hover .port-right {
+    opacity: 1;
+    cursor: crosshair; /* Cambia el cursor para invitar a crear conexión */
+}
 
 .sprotty-edge { stroke: #555; stroke-width: 1.5px; fill: none; }
 .sprotty-edge.selected  { stroke: #e67e22; stroke-width: 3px; }

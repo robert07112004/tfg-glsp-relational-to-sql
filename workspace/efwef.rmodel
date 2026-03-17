@@ -1,0 +1,91 @@
+{
+  "id": "44fa7ac3-0032-4a3b-a154-5cdf7a4a0485",
+  "relations": [
+    {
+      "id": "35a7bb01-697a-4ef3-afa6-a1eed5898eff",
+      "type": "relation",
+      "name": "NewRelation1",
+      "position": {
+        "x": 488,
+        "y": 227
+      },
+      "attributes": [
+        {
+          "id": "50979d51-5f9d-4d01-be98-69362652f513",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_1"
+        },
+        {
+          "id": "e93d9234-1bc5-441a-b852-c85a70096a7b",
+          "type": "attribute",
+          "kind": "normal-attribute",
+          "name": "new_normal-attribute_2"
+        },
+        {
+          "id": "055a46fa-23e8-4c2f-94d4-ffa37a21b33d",
+          "type": "attribute",
+          "kind": "optional-attribute",
+          "name": "new_optional-attribute_3"
+        },
+        {
+          "id": "8085359b-e023-4c06-90b3-340ede8b77e2",
+          "type": "attribute",
+          "kind": "foreign-key",
+          "name": "new_foreign-key_4"
+        }
+      ],
+      "size": {
+        "width": 201.54376220703125,
+        "height": 140.8000030517578
+      }
+    },
+    {
+      "id": "4074e341-fe75-48c5-9e99-607ca6a87203",
+      "type": "relation",
+      "name": "NewRelation2",
+      "position": {
+        "x": 91.12117162102973,
+        "y": 199.73876815267627
+      },
+      "attributes": [
+        {
+          "id": "11e85d37-c90e-4635-b64f-72a87763edd3",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_1"
+        },
+        {
+          "id": "9fc8ebef-4943-4cf8-a1b7-adb1560d0e84",
+          "type": "attribute",
+          "kind": "normal-attribute",
+          "name": "new_normal-attribute_2"
+        },
+        {
+          "id": "a448296e-399f-4111-8239-15027af7e317",
+          "type": "attribute",
+          "kind": "optional-attribute",
+          "name": "new_optional-attribute_3"
+        },
+        {
+          "id": "0dda081a-b8a1-4b0a-930b-03f75e555fd4",
+          "type": "attribute",
+          "kind": "foreign-key",
+          "name": "new_foreign-key_4"
+        }
+      ],
+      "size": {
+        "width": 201.54376220703125,
+        "height": 140.8000030517578
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "69566338-bba4-4800-9662-b9a3d8388dd5",
+      "sourceId": "11e85d37-c90e-4635-b64f-72a87763edd3",
+      "targetId": "50979d51-5f9d-4d01-be98-69362652f513",
+      "kind": "one-to-one"
+    }
+  ]
+}

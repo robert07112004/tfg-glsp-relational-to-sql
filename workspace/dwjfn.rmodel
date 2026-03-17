@@ -1,0 +1,92 @@
+{
+  "id": "da38a3b9-bae5-4fbd-83f5-72ae35883644",
+  "relations": [
+    {
+      "id": "849a9810-97a1-41a2-8552-3ec33dc6793a",
+      "type": "relation",
+      "name": "NewRelation1",
+      "position": {
+        "x": 312,
+        "y": 316
+      },
+      "attributes": [
+        {
+          "id": "33b25b3a-1fe5-45e3-a483-c2980e1b9315",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_1"
+        },
+        {
+          "id": "0b2a8e7e-bbea-44ae-8f4e-dd0135ec3390",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_2"
+        },
+        {
+          "id": "afca20bf-b505-4971-a1a0-aff6b3793821",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_3"
+        },
+        {
+          "id": "f5002a7d-518f-4634-bc02-430eabe899f3",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_4"
+        },
+        {
+          "id": "cf90d363-4e29-4135-a616-61901faa17cc",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_5"
+        }
+      ]
+    },
+    {
+      "id": "c25617c6-b1bf-49f0-be95-e4f3e4ae2b70",
+      "type": "relation",
+      "name": "NewRelation2",
+      "position": {
+        "x": 588,
+        "y": 321
+      },
+      "attributes": [
+        {
+          "id": "78c3d7ca-6e11-4332-8ae3-bd02c8a5eba1",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_1"
+        },
+        {
+          "id": "b096e127-61e2-4f77-b600-c3d44941d708",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_2"
+        },
+        {
+          "id": "47c4f9d3-bfd8-4f73-8654-59491dba178f",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_3"
+        },
+        {
+          "id": "3b590934-8e71-4773-af21-73354df94a10",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_4"
+        },
+        {
+          "id": "894b6eee-2be8-4077-87b4-fb3671b80493",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_5"
+        }
+      ],
+      "size": {
+        "width": 168.76250457763672,
+        "height": 64.60000133514404
+      }
+    }
+  ],
+  "transitions": []
+}

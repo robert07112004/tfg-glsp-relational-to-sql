@@ -30,10 +30,16 @@ export abstract class CreateTransitionBaseHandler extends JsonCreateEdgeOperatio
 
     override createCommand(operation: CreateEdgeOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
+            // Limpiamos los sufijos de los puertos para obtener el ID real del atributo
+            const cleanSourceId = operation.sourceElementId.replace(/_port_(left|right)$/, '');
+            const cleanTargetId = operation.targetElementId.replace(/_port_(left|right)$/, '');
+            
             const transition: Transition = {
                 id: uuid.v4(),
-                sourceId: operation.sourceElementId,
-                targetId: operation.targetElementId,
+                sourceId: cleanSourceId,
+                targetId: cleanTargetId,
+                sourcePortId: operation.sourceElementId,
+                targetPortId: operation.targetElementId,
                 kind: this.relationType
             };
             this.modelState.sourceModel.transitions.push(transition);
