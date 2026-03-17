@@ -61,7 +61,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
     const customEditorProvider = vscode.window.registerCustomEditorProvider(
         'relational.glspDiagram',
-        new TaskListEditorProvider(context, glspVscodeConnector),
+        new TaskListEditorProvider(context, glspVscodeConnector) as any,
         {
             webviewOptions: { retainContextWhenHidden: true },
             supportsMultipleEditorsPerDocument: false
@@ -72,4 +72,11 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     minimalServer.start();
 
     configureDefaultCommands({ extensionContext: context, connector: glspVscodeConnector, diagramPrefix: 'relational' });
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('relational.generateSql', () => {
+            // Usamos la función clásica para enviar la acción directamente al editor activo
+            glspVscodeConnector.sendActionToActiveClient({ kind: 'generateSqlAction' });
+        })
+    );
 }

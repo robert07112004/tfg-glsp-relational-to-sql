@@ -35,7 +35,10 @@ import { CreateAlternativeKeyAttributeHandler, CreateForeignKeyAttributeHandler,
 import { CreateRelationHandler } from '../handler/create-relation-node-handler';
 import { CreateOneToManyHandler, CreateOneToOneHandler, CreateOneToOneOrManyHandler, CreateZeroOrOneToManyHandler, CreateZeroOrOneToOneHandler } from '../handler/create-transition-handler';
 import { RelationalDeleteElementHandler } from '../handler/delete-element-handler';
+import { GenerateSqlActionHandler } from '../handler/generate-sql-handler';
+import { SQLGenerator } from '../handler/generator/sql-generator';
 import { RelationalLabelEditValidator } from '../handler/label-edit-validator';
+import { RelationalModelValidator } from '../handler/model-validator';
 import { RelationalGModelFactory } from '../model/gmodel-factory';
 import { RelationalModelIndex } from '../model/model-index';
 import { RelationalModelState } from '../model/model-state';
@@ -66,6 +69,7 @@ export class RelationalDiagramModule extends DiagramModule {
     protected override configureActionHandlers(binding: InstanceMultiBinding<ActionHandlerConstructor>): void {
         super.configureActionHandlers(binding);
         binding.add(ComputedBoundsActionHandler);
+        binding.add(GenerateSqlActionHandler);
     }
 
     protected override configureOperationHandlers(binding: InstanceMultiBinding<OperationHandlerConstructor>): void {
@@ -84,6 +88,12 @@ export class RelationalDiagramModule extends DiagramModule {
         binding.add(RelationalChangeBoundsHandler);
         binding.add(RelationalApplyLabelEditHandler);
         binding.add(RelationalDeleteElementHandler);
+    }
+
+    protected override bindModelValidator(): BindingTarget<RelationalModelValidator> | undefined {
+        this.context.bind(RelationalModelValidator).toSelf().inSingletonScope();
+        this.context.bind(SQLGenerator).toSelf().inSingletonScope();
+        return RelationalModelValidator;
     }
 
     protected override bindGModelIndex(): BindingTarget<GModelIndex> {

@@ -27,6 +27,13 @@
   "contributes": {
     "commands": [
       {
+        "command": "relational.generateSql",
+        "title": "Generar SQL",
+        "icon": "$(database)",
+        "category": "Relational Diagram",
+        "enablement": "activeCustomEditorId == 'relational.glspDiagram'"
+      },
+      {
         "command": "relational.fit",
         "title": "Fit to Screen",
         "category": "Relational Diagram",
@@ -86,6 +93,11 @@
     ],
     "menus": {
       "editor/title": [
+        {
+          "command": "relational.generateSql",
+          "group": "navigation",
+          "when": "activeCustomEditorId == 'relational.glspDiagram'"
+        },
         {
           "submenu": "relational.editor.title",
           "group": "bookmarks"
