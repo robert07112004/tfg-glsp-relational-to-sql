@@ -41,7 +41,16 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
                 if (parentNode.type.includes('node:attribute')) {
                     const attribute = index.findAttribute(parentNode.id);
                     if (!attribute) throw new GLSPServerError(`Attribute not found: ${parentNode.id}`);
-                    attribute.name = operation.text;
+
+                    let raw = operation.text.trim();
+                    if (raw.startsWith('FK ')) raw = raw.slice(3).trim();
+                    if (raw.endsWith(' *'))    raw = raw.slice(0, -2).trim();
+
+                    const colonIndex = raw.indexOf(':');
+                    if (colonIndex === -1) throw new GLSPServerError('Formato inválido. Usa "nombreAtributo: TIPO"');
+
+                    attribute.name     = raw.slice(0, colonIndex).trim();
+                    attribute.dataType = raw.slice(colonIndex + 1).trim().toUpperCase();
                     return;
                 }
             }

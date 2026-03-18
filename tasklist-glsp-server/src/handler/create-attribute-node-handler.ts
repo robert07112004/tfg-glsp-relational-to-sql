@@ -51,10 +51,11 @@ export abstract class CreateAttributeBaseHandler extends JsonCreateNodeOperation
             if (!targetRelation.attributes) targetRelation.attributes = [];
 
             targetRelation.attributes.push({
-                id: uuid.v4(),
-                type: 'attribute',
-                kind: this.attributeType,
-                name: `new_${this.attributeType}_${targetRelation.attributes.length + 1}`
+                id:       uuid.v4(),
+                type:     'attribute',
+                kind:     this.attributeType,
+                name:     `new_attr_${targetRelation.attributes.length + 1}`,
+                dataType: 'VARCHAR(255)'
             });
         });
     }

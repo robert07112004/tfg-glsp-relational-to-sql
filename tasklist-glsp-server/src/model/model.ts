@@ -17,10 +17,61 @@
 
 import { AnyObject, hasArrayProp, hasObjectProp, hasStringProp } from '@eclipse-glsp/server';
 
-/**
- * The source model for `tasklist` GLSP diagrams. A `TaskList` is a
- * plain JSON objects that contains a set of {@link Task tasks} and {@link Transition transitions}.
- */
+export type ReferentialAction = 'c' | 'n' | 'r' | 'd';
+export type SqlDataType = string;
+
+export namespace SqlDataType {
+    export const LENGTH_TYPES           = new Set<string>(['VARCHAR', 'CHAR', 'BINARY', 'VARBINARY']);
+    export const PRECISION_TYPES        = new Set<string>(['DECIMAL', 'NUMERIC']);
+    export const SINGLE_PRECISION_TYPES = new Set<string>(['FLOAT', 'DOUBLE', 'BIT']);
+    export const BASE_TYPES             = new Set<string>([
+        'TINYINT', 'SMALLINT', 'MEDIUMINT', 'INT', 'BIGINT',
+        'REAL', 'BOOLEAN', 'TINYTEXT', 'TEXT', 'MEDIUMTEXT', 'LONGTEXT',
+        'BLOB', 'DATE', 'TIME', 'DATETIME', 'TIMESTAMP', 'YEAR',
+        'JSON', 'UUID', 'ENUM', 'SET'
+    ]);
+    export const ALL_BASE_NAMES = new Set<string>([
+        ...LENGTH_TYPES, ...PRECISION_TYPES, ...SINGLE_PRECISION_TYPES, ...BASE_TYPES
+    ]);
+
+    export function validate(raw: string): string | null {
+        const match = raw.match(/^([A-Z]+)(\((.+)\))?$/);
+        if (!match) return 'Formato inválido. Usa "TIPO" o "TIPO(n)"';
+
+        const baseName = match[1];
+        const params   = match[3];
+
+        if (!ALL_BASE_NAMES.has(baseName)) {
+            return `Tipo "${baseName}" no reconocido`;
+        }
+
+        if (LENGTH_TYPES.has(baseName)) {
+            if (params === undefined) return `${baseName} requiere longitud. Ej: ${baseName}(255)`;
+            const n = Number(params);
+            if (!Number.isInteger(n) || n < 1) return `${baseName}(n): n debe ser un entero positivo`;
+        }
+
+        if (PRECISION_TYPES.has(baseName)) {
+            if (params === undefined) return `${baseName} requiere precisión. Ej: ${baseName}(10,2)`;
+            const parts = params.split(',');
+            if (parts.length > 2) return `${baseName} acepta máximo dos parámetros: (precisión, escala)`;
+            const p = Number(parts[0]);
+            const s = parts[1] !== undefined ? Number(parts[1]) : 0;
+            if (!Number.isInteger(p) || p < 1) return `${baseName}(p,s): precisión debe ser entero positivo`;
+            if (!Number.isInteger(s) || s < 0 || s > p) return `${baseName}(p,s): escala debe ser entre 0 y ${p}`;
+        }
+
+        if (SINGLE_PRECISION_TYPES.has(baseName)) {
+            if (params === undefined) return `${baseName} requiere precisión. Ej: ${baseName}(24)`;
+            const n = Number(params);
+            if (!Number.isInteger(n) || n < 1) return `${baseName}(p): p debe ser un entero positivo`;
+        }
+
+        if (BASE_TYPES.has(baseName) && params !== undefined) return `${baseName} no acepta parámetros`;
+        return null;
+    }
+}
+
 export interface RelationalModel {
     id: string;
     relations: Relation[];
@@ -67,6 +118,7 @@ export interface Attribute {
     id: string;
     type: 'attribute';
     name: string;
+    dataType: SqlDataType;
     kind: 'primary-key' | 'alternative-key' | 'normal-attribute' | 'optional-attribute' | 'foreign-key';
 }
 
@@ -77,12 +129,11 @@ export namespace Attribute {
             hasStringProp(object, 'id') && 
             hasStringProp(object, 'type') && (object as Attribute).type === 'attribute' &&
             hasStringProp(object, 'kind') &&
-            hasStringProp(object, 'name')
+            hasStringProp(object, 'name') &&
+            hasStringProp(object, 'dataType')
         );
     }
 }
-
-export type ReferentialAction = 'c' | 'n' | 'r' | 'd';
 
 export interface Transition {
     id: string;

@@ -1,0 +1,24 @@
+{
+  "id": "129474d7-ff12-4cde-98b8-f56e33a1a023",
+  "relations": [
+    {
+      "id": "f8f6036d-168b-49c9-9cc1-7453f244057f",
+      "type": "relation",
+      "name": "NewRelation1",
+      "position": {
+        "x": 507,
+        "y": 226
+      },
+      "attributes": [
+        {
+          "id": "92883821-c6b2-438a-8556-55999a30c0f7",
+          "type": "attribute",
+          "kind": "alternative-key",
+          "name": "hola",
+          "dataType": "VARCHAR(2)"
+        }
+      ]
+    }
+  ],
+  "transitions": []
+}

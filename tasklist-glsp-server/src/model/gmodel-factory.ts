@@ -93,10 +93,12 @@ export class RelationalGModelFactory implements GModelFactory {
             .addLayoutOption('paddingLeft', 8)
             .addLayoutOption('paddingRight', 8);
 
-        let displayName: string;
-        if (attribute.kind === 'optional-attribute') displayName = `${attribute.name} *`;
-        else if (attribute.kind === 'foreign-key')   displayName = `FK ${attribute.name}`;
-        else displayName = attribute.name;
+        let baseName: string;
+        if (attribute.kind === 'optional-attribute') baseName = `${attribute.name} *`;
+        else if (attribute.kind === 'foreign-key')   baseName = `FK ${attribute.name}`;
+        else                                         baseName = attribute.name;
+
+        const displayName = `${baseName}: ${attribute.dataType}`;
 
         builder.add(GPort.builder()
             .id(`${attribute.id}_port_left`)

@@ -16,6 +16,7 @@
  ********************************************************************************/
 import { GModelElement, LabelEditValidator, ValidationStatus } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
+import { Attribute, SqlDataType } from '../model/model';
 import { RelationalModelState } from '../model/model-state';
 
 /**
@@ -32,15 +33,36 @@ export class RelationalLabelEditValidator implements LabelEditValidator {
 
         if (trimmedLabel.length < 1) return { severity: ValidationStatus.Severity.ERROR, message: 'Name must not be empty' };
 
-        // Si es label de transición, validar formato
-        if (element.id.endsWith('_label') && element.type === 'label:transition') {
+        // Validar label de transición
+        if (element.type === 'label:transition') {
             const valid = /^u:[cnrd]\s+d:[cnrd]$/i.test(trimmedLabel);
-            if (!valid) {
+            if (!valid) return {
+                severity: ValidationStatus.Severity.ERROR,
+                message: 'Formato: "u:X d:X" (c=cascade, n=set null, r=restrict, d=set default)'
+            };
+            return { severity: ValidationStatus.Severity.OK };
+        }
+
+        // Validar label de atributo
+        const parentId = element.id.replace(/_label$/, '');
+        const parent   = this.relationalModelState.index.findElement(parentId);
+
+        if (parent && Attribute.is(parent)) {
+            let raw = trimmedLabel;
+            if (raw.startsWith('FK ')) raw = raw.slice(3).trim();
+            if (raw.endsWith(' *'))    raw = raw.slice(0, -2).trim();
+
+            const colonIndex = raw.indexOf(':');
+            if (colonIndex === -1 || !raw.slice(0, colonIndex).trim() || !raw.slice(colonIndex + 1).trim()) {
                 return {
                     severity: ValidationStatus.Severity.ERROR,
-                    message: 'Formato: "u:X d:X" donde X puede ser c (cascade), n (set null), r (restrict), d (set default)'
+                    message: 'Formato: "nombreAtributo: TIPO" (ej: "email: VARCHAR(255)")'
                 };
             }
+
+            const dataType = raw.slice(colonIndex + 1).trim().toUpperCase();
+            const error    = SqlDataType.validate(dataType);
+            if (error) return { severity: ValidationStatus.Severity.ERROR, message: error };
         }
 
         return { severity: ValidationStatus.Severity.OK };
