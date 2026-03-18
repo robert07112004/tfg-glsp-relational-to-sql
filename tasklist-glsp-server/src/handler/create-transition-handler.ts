@@ -40,7 +40,9 @@ export abstract class CreateTransitionBaseHandler extends JsonCreateEdgeOperatio
                 targetId: cleanTargetId,
                 sourcePortId: operation.sourceElementId,
                 targetPortId: operation.targetElementId,
-                kind: this.relationType
+                kind: this.relationType,
+                onUpdate: 'r',  
+                onDelete: 'r'
             };
             this.modelState.sourceModel.transitions.push(transition);
         });

@@ -30,25 +30,18 @@ export class RelationalLabelEditValidator implements LabelEditValidator {
     validate(label: string, element: GModelElement): ValidationStatus {
         const trimmedLabel = label.trim();
 
-        // Etiqueta no puede estar vacía
         if (trimmedLabel.length < 1) return { severity: ValidationStatus.Severity.ERROR, message: 'Name must not be empty' };
 
-        // 2. (Opcional) Si es un atributo, verificar que tenga un formato específico
-        // Asumiendo que el ID del label tiene la forma "id_del_atributo_label" o podemos buscar a su padre
-        // Por simplicidad, si decides forzar el formato "nombre: TIPO", podrías habilitar esto:
-        /*
-        const parentId = element.id.replace('_label', '');
-        const parentNode = this.relationalModelState.index.findElement(parentId);
-        
-        if (parentNode && parentNode.type === 'attribute') {
-            if (!trimmedLabel.includes(':')) {
-                return { 
-                    severity: ValidationStatus.Severity.ERROR, 
-                    message: 'Attributes must specify a type using ":" (e.g., "id: INT")' 
+        // Si es label de transición, validar formato
+        if (element.id.endsWith('_label') && element.type === 'label:transition') {
+            const valid = /^u:[cnrd]\s+d:[cnrd]$/i.test(trimmedLabel);
+            if (!valid) {
+                return {
+                    severity: ValidationStatus.Severity.ERROR,
+                    message: 'Formato: "u:X d:X" donde X puede ser c (cascade), n (set null), r (restrict), d (set default)'
                 };
             }
         }
-        */
 
         return { severity: ValidationStatus.Severity.OK };
     }

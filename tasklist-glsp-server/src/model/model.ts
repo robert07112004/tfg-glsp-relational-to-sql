@@ -82,16 +82,26 @@ export namespace Attribute {
     }
 }
 
+export type ReferentialAction = 'c' | 'n' | 'r' | 'd';
+
 export interface Transition {
     id: string;
     sourceId: string;
     targetId: string;
-    sourcePortId?: string; 
+    sourcePortId?: string;
     targetPortId?: string;
     kind: 'one-to-one' | 'one-to-many' | 'zero-or-one-to-many' | 'one-to-one-or-many' | 'zero-or-one-to-one';
+    onUpdate?: ReferentialAction;
+    onDelete?: ReferentialAction;
 }
 
 export namespace Transition {
+    export function getLabel(t: Transition): string {
+        const u = t.onUpdate ?? 'r';
+        const d = t.onDelete ?? 'r';
+        return `u:${u} d:${d}`;
+    }
+
     export function is(object: any): object is Transition {
         return (
             AnyObject.is(object) &&

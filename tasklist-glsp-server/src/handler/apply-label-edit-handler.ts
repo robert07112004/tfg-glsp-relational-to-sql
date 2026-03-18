@@ -15,8 +15,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
  ********************************************************************************/
 import { ApplyLabelEditOperation } from '@eclipse-glsp/protocol';
-import { Command, GLSPServerError, GNode, JsonOperationHandler, MaybePromise, toTypeGuard } from '@eclipse-glsp/server';
+import { Command, GEdge, GLSPServerError, GNode, JsonOperationHandler, MaybePromise, toTypeGuard } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
+import { ReferentialAction } from '../model/model';
 import { RelationalModelState } from '../model/model-state';
 
 @injectable()
@@ -30,20 +31,37 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
         return this.commandOf(() => {
             const index = this.modelState.index;
             const parentNode = index.findParentElement(operation.labelId, toTypeGuard(GNode));
-            
-            if (!parentNode) throw new GLSPServerError(`Could not find parent node for label with id ${operation.labelId}`);
+            if (parentNode) {
+                if (parentNode.type === 'node:relation') {
+                    const relation = index.findRelation(parentNode.id);
+                    if (!relation) throw new GLSPServerError(`Relation not found: ${parentNode.id}`);
+                    relation.name = operation.text;
+                    return;
+                }
+                if (parentNode.type.includes('node:attribute')) {
+                    const attribute = index.findAttribute(parentNode.id);
+                    if (!attribute) throw new GLSPServerError(`Attribute not found: ${parentNode.id}`);
+                    attribute.name = operation.text;
+                    return;
+                }
+            }
 
-            if (parentNode.type === 'node:relation') {                      // padre === relation
-                const relation = index.findRelation(parentNode.id);
-                if (!relation) throw new GLSPServerError(`Could not retrieve the Relation with id ${parentNode.id}`);
-                relation.name = operation.text;
+            // Intentar padre GEdge (label de transición)
+            const parentEdge = index.findParentElement(operation.labelId, toTypeGuard(GEdge));
+            if (parentEdge) {
+                const transition = index.findTransition(parentEdge.id);
+                if (!transition) throw new GLSPServerError(`Transition not found: ${parentEdge.id}`);
                 
-            } else if (parentNode.type.includes('node:attribute')) {              // padre === attribute
-                const attribute = index.findAttribute(parentNode.id);
-                if (!attribute) throw new GLSPServerError(`Could not retrieve the Attribute with id ${parentNode.id}`);
-                attribute.name = operation.text;
+                // Parsear formato "u:c d:n"
+                const match = operation.text.trim().match(/^u:([cnrd])\s+d:([cnrd])$/i);
+                if (!match) throw new GLSPServerError(`Formato inválido. Usa "u:c d:n" (c=cascade, n=set null, r=restrict, d=set default)`);
                 
-            } else throw new GLSPServerError(`Editing labels for node type '${parentNode.type}' is not supported.`);
+                transition.onUpdate = match[1].toLowerCase() as ReferentialAction;
+                transition.onDelete = match[2].toLowerCase() as ReferentialAction;
+                return;
+            }
+
+            throw new GLSPServerError(`No parent found for label: ${operation.labelId}`);
         });
     }
 }

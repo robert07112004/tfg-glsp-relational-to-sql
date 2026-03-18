@@ -135,6 +135,14 @@ export class RelationalGModelFactory implements GModelFactory {
             .addCssClass(`edge-${transition.kind}`)
             .sourceId(transition.sourcePortId || transition.sourceId)
             .targetId(transition.targetPortId || transition.targetId)
+            .add(
+                GLabel.builder()
+                    .id(`${transition.id}_label`)
+                    .type('label:transition')
+                    .addCssClass('transition-label')
+                    .text(Transition.getLabel(transition))
+                    .build()
+            )
             .build();
     }
 }

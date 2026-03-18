@@ -47,7 +47,39 @@
           "name": "efwe"
         }
       ]
+    },
+    {
+      "id": "1fb5945e-6940-43da-97c6-292523b827b6",
+      "type": "relation",
+      "name": "NewRelation2",
+      "position": {
+        "x": 675,
+        "y": 314
+      },
+      "attributes": [
+        {
+          "id": "0a03b15c-70f6-442f-a243-ca6ad2cb354c",
+          "type": "attribute",
+          "kind": "primary-key",
+          "name": "new_primary-key_1"
+        }
+      ],
+      "size": {
+        "width": 102.481689453125,
+        "height": 29.200000762939453
+      }
     }
   ],
-  "transitions": []
+  "transitions": [
+    {
+      "id": "2f9b8877-44fc-4ce0-bfbe-92adffbaef2e",
+      "sourceId": "33b25b3a-1fe5-45e3-a483-c2980e1b9315",
+      "targetId": "0a03b15c-70f6-442f-a243-ca6ad2cb354c",
+      "sourcePortId": "33b25b3a-1fe5-45e3-a483-c2980e1b9315_port_right",
+      "targetPortId": "0a03b15c-70f6-442f-a243-ca6ad2cb354c_port_left",
+      "kind": "one-to-one-or-many",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
 }

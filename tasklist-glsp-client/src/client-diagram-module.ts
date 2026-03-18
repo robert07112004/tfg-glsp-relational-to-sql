@@ -88,6 +88,7 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
 
     // Labels
     configureModelElement(context, DefaultTypes.LABEL, GLabel, GLabelView, { enable: [editLabelFeature] });
+    configureModelElement(context, 'label:transition', GLabel, GLabelView, { enable: [editLabelFeature] });
 });
 
 export function initializeRelationalDiagramContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
