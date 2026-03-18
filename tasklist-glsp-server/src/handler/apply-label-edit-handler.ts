@@ -42,34 +42,13 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
                     const attribute = index.findAttribute(parentNode.id);
                     if (!attribute) throw new GLSPServerError(`Attribute not found: ${parentNode.id}`);
 
-                    console.log('[LabelEdit] Texto recibido:', operation.text);
-                    console.log('[LabelEdit] Estado ANTES:', {
-                        name: attribute.name,
-                        dataType: attribute.dataType,
-                        isPK: attribute.isPK,
-                        isFK: attribute.isFK,
-                        isNN: attribute.isNN,
-                        isUN: attribute.isUN
-                    });
-
                     try {
                         const parsed       = Attribute.parseDisplayText(operation.text);
                         attribute.name     = parsed.name;
                         attribute.dataType = parsed.dataType;
                         attribute.isFK     = parsed.isFK;
                         attribute.isNN     = parsed.isNN;
-
-                        console.log('[LabelEdit] Parsed:', parsed);
-                        console.log('[LabelEdit] Estado DESPUÉS:', {
-                            name: attribute.name,
-                            dataType: attribute.dataType,
-                            isPK: attribute.isPK,
-                            isFK: attribute.isFK,
-                            isNN: attribute.isNN,
-                            isUN: attribute.isUN
-                        });
                     } catch (msg) {
-                        console.error('[LabelEdit] Error de parseo:', msg);
                         throw new GLSPServerError(String(msg));
                     }
                     return;

@@ -69,7 +69,7 @@ export class CreatePrimaryKeyAttributeHandler extends CreateAttributeBaseHandler
     readonly elementTypeIds = ['node:attribute-primary-key'];
     protected get attributeLabel() { return 'Primary Key'; }
     protected get defaultFlags() {
-        return { isPK: true, isFK: false, isNN: true, isUN: true };
+        return { isPK: true, isFK: false, isNN: true, isUN: false };
     }
 }
 
@@ -103,7 +103,7 @@ export class CreateOptionalAttributeHandler extends CreateAttributeBaseHandler {
 @injectable()
 export class CreateAlternativeKeyHandler extends CreateAttributeBaseHandler {
     readonly elementTypeIds = ['node:attribute-unique'];
-    protected get attributeLabel() { return 'Unique Attribute'; }
+    protected get attributeLabel() { return 'Alternative Key'; }
     protected get defaultFlags() {
         return { isPK: false, isFK: false, isNN: true, isUN: true };
     }

@@ -82,7 +82,7 @@ export class RelationalGModelFactory implements GModelFactory {
 
         if (attribute.isPK) builder.addCssClass('attribute-pk');
         if (attribute.isFK) builder.addCssClass('attribute-fk');
-        if (attribute.isUN && !attribute.isPK) builder.addCssClass('attribute-un');
+        if (attribute.isUN) builder.addCssClass('attribute-un');
 
         builder
             .layout('hbox')
