@@ -52,6 +52,12 @@ export class RelationalLabelEditValidator implements LabelEditValidator {
                 const parsed   = Attribute.parseDisplayText(trimmedLabel);
                 const typeError = SqlDataType.validate(parsed.dataType);
                 if (typeError) return { severity: ValidationStatus.Severity.ERROR, message: typeError };
+                if (parent.isPK && !parsed.isNN) {
+                    return {
+                        severity: ValidationStatus.Severity.ERROR,
+                        message: 'Una Primary Key no puede ser nullable (*)'
+                    };
+                }
             } catch (msg) {
                 return { severity: ValidationStatus.Severity.ERROR, message: String(msg) };
             }
