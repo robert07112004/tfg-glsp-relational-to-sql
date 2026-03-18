@@ -119,16 +119,50 @@ export interface Attribute {
     type: 'attribute';
     name: string;
     dataType: SqlDataType;
-    kind: 'primary-key' | 'alternative-key' | 'normal-attribute' | 'optional-attribute' | 'foreign-key';
+    isPK: boolean;
+    isFK: boolean;
+    isNN: boolean;
+    isUN: boolean;
 }
 
 export namespace Attribute {
+    
+    export function toDisplayText(attr: Attribute): string {
+        const prefix = attr.isFK ? 'FK ' : '';
+        const suffix = !attr.isNN ? ' *' : '';
+        return `${prefix}${attr.name}: ${attr.dataType}${suffix}`;
+    }
+
+    export function parseDisplayText(text: string): Pick<Attribute, 'name' | 'dataType' | 'isFK' | 'isNN'> {
+        let raw = text.trim();
+
+        // Sufijo nullable
+        const isNN = !raw.endsWith(' *');
+        if (!isNN) raw = raw.slice(0, -2).trim();
+
+        // Prefijo FK
+        const isFK = raw.toUpperCase().startsWith('FK ');
+        if (isFK) raw = raw.slice(3).trim();
+
+        // "nombre: TIPO"
+        const colonIndex = raw.indexOf(':');
+        if (colonIndex <= 0 || !raw.slice(colonIndex + 1).trim()) {
+            throw 'Formato: "[FK] nombre: TIPO [*]"';
+        }
+
+        return {
+            name:     raw.slice(0, colonIndex).trim(),
+            dataType: raw.slice(colonIndex + 1).trim().toUpperCase(),
+            isFK,
+            isNN
+        };
+    }
+
     export function is(object: any): object is Attribute {
         return (
-            AnyObject.is(object) && 
-            hasStringProp(object, 'id') && 
+            AnyObject.is(object) &&
+            hasStringProp(object, 'id') &&
             hasStringProp(object, 'type') && (object as Attribute).type === 'attribute' &&
-            hasStringProp(object, 'kind') &&
             hasStringProp(object, 'name') &&
             hasStringProp(object, 'dataType')
         );

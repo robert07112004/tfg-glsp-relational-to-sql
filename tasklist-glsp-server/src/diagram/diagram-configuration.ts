@@ -38,10 +38,10 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
     get shapeTypeHints(): ShapeTypeHint[] {
         const attributeTypeIds = [
             'node:attribute-primary-key',
-            'node:attribute-alternative-key',
+            'node:attribute-foreign-key',
             'node:attribute-normal',
             'node:attribute-optional',
-            'node:attribute-foreign-key'
+            'node:attribute-unique'
         ];
 
         return [

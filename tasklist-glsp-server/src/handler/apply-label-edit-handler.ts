@@ -17,7 +17,7 @@
 import { ApplyLabelEditOperation } from '@eclipse-glsp/protocol';
 import { Command, GEdge, GLSPServerError, GNode, JsonOperationHandler, MaybePromise, toTypeGuard } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { ReferentialAction } from '../model/model';
+import { Attribute, ReferentialAction } from '../model/model';
 import { RelationalModelState } from '../model/model-state';
 
 @injectable()
@@ -38,19 +38,40 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
                     relation.name = operation.text;
                     return;
                 }
-                if (parentNode.type.includes('node:attribute')) {
+                if (parentNode.type === 'node:attribute') {
                     const attribute = index.findAttribute(parentNode.id);
                     if (!attribute) throw new GLSPServerError(`Attribute not found: ${parentNode.id}`);
 
-                    let raw = operation.text.trim();
-                    if (raw.startsWith('FK ')) raw = raw.slice(3).trim();
-                    if (raw.endsWith(' *'))    raw = raw.slice(0, -2).trim();
+                    console.log('[LabelEdit] Texto recibido:', operation.text);
+                    console.log('[LabelEdit] Estado ANTES:', {
+                        name: attribute.name,
+                        dataType: attribute.dataType,
+                        isPK: attribute.isPK,
+                        isFK: attribute.isFK,
+                        isNN: attribute.isNN,
+                        isUN: attribute.isUN
+                    });
 
-                    const colonIndex = raw.indexOf(':');
-                    if (colonIndex === -1) throw new GLSPServerError('Formato inválido. Usa "nombreAtributo: TIPO"');
+                    try {
+                        const parsed       = Attribute.parseDisplayText(operation.text);
+                        attribute.name     = parsed.name;
+                        attribute.dataType = parsed.dataType;
+                        attribute.isFK     = parsed.isFK;
+                        attribute.isNN     = parsed.isNN;
 
-                    attribute.name     = raw.slice(0, colonIndex).trim();
-                    attribute.dataType = raw.slice(colonIndex + 1).trim().toUpperCase();
+                        console.log('[LabelEdit] Parsed:', parsed);
+                        console.log('[LabelEdit] Estado DESPUÉS:', {
+                            name: attribute.name,
+                            dataType: attribute.dataType,
+                            isPK: attribute.isPK,
+                            isFK: attribute.isFK,
+                            isNN: attribute.isNN,
+                            isUN: attribute.isUN
+                        });
+                    } catch (msg) {
+                        console.error('[LabelEdit] Error de parseo:', msg);
+                        throw new GLSPServerError(String(msg));
+                    }
                     return;
                 }
             }

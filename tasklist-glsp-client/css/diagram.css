@@ -57,29 +57,37 @@ svg {
 
 /* --- ATTRIBUTES --- */
 .attribute > .sprotty-node {
-    fill: transparent;         
-    stroke: none;             
+    fill: transparent;
+    stroke: none;
 }
 
-/* Attribute text */
-.attribute > text {
+.attribute text {
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 12px;
-    fill: #5c6bc0;      
+    fill: #5c6bc0;
+    font-style: normal;
+    font-weight: normal;
 }
 
-/* Hover effect on attribute */
-.attribute:hover > .sprotty-node {
-    fill: #e8eaed;            
-    border-radius: 3px;
+/* FK → cursiva */
+.attribute-fk text {
+    font-style: italic;
 }
 
-.attribute-primary-key text { 
-    text-decoration: underline solid; 
+/* UN sin PK → negrita */
+.attribute-un text {
+    font-weight: bold;
 }
 
-.attribute-foreign-key text { 
-    font-style: italic; 
+/* PK → fuente normal, el subrayado lo hace el SVG */
+.attribute-pk text {
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* PK+FK → cursiva */
+.attribute-pk.attribute-fk text {
+    font-style: italic;
 }
 
 .port-left, .port-right {

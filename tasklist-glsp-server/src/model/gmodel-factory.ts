@@ -75,43 +75,32 @@ export class RelationalGModelFactory implements GModelFactory {
     }
 
     protected createAttributeNode(attribute: Attribute): GNode {
-        const typeMap: Record<string, string> = {
-            'primary-key':        'node:attribute-primary-key',
-            'alternative-key':    'node:attribute-alternative-key',
-            'normal-attribute':   'node:attribute-normal',
-            'optional-attribute': 'node:attribute-optional',
-            'foreign-key':        'node:attribute-foreign-key'
-        };
-        const nodeType = typeMap[attribute.kind];
-
         const builder = GNode.builder()
             .id(attribute.id)
-            .type(nodeType)
-            .addCssClass('attribute')
-            .addCssClass(`attribute-${attribute.kind}`)
+            .type('node:attribute')
+            .addCssClass('attribute');
+
+        if (attribute.isPK) builder.addCssClass('attribute-pk');
+        if (attribute.isFK) builder.addCssClass('attribute-fk');
+        if (attribute.isUN && !attribute.isPK) builder.addCssClass('attribute-un');
+
+        builder
             .layout('hbox')
             .addLayoutOption('paddingLeft', 8)
             .addLayoutOption('paddingRight', 8);
-
-        let baseName: string;
-        if (attribute.kind === 'optional-attribute') baseName = `${attribute.name} *`;
-        else if (attribute.kind === 'foreign-key')   baseName = `FK ${attribute.name}`;
-        else                                         baseName = attribute.name;
-
-        const displayName = `${baseName}: ${attribute.dataType}`;
 
         builder.add(GPort.builder()
             .id(`${attribute.id}_port_left`)
             .type('port')
             .size({ width: 10, height: 10 })
             .addCssClass('port-left')
-            .addLayoutOption('position', 'absolute') 
-            .position({ x: -5, y: 0 })             
+            .addLayoutOption('position', 'absolute')
+            .position({ x: -5, y: 0 })
             .build()
         );
 
         builder.add(GLabel.builder()
-            .text(displayName)
+            .text(Attribute.toDisplayText(attribute))
             .id(`${attribute.id}_label`)
             .build()
         );
@@ -121,11 +110,11 @@ export class RelationalGModelFactory implements GModelFactory {
             .type('port')
             .size({ width: 10, height: 10 })
             .addCssClass('port-right')
-            .addLayoutOption('position', 'absolute') 
-            .position({ x: 9999, y: 0 })             
+            .addLayoutOption('position', 'absolute')
+            .position({ x: 9999, y: 0 })
             .build()
         );
-        
+
         return builder.build();
     }
 

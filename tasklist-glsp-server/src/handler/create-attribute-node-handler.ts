@@ -35,7 +35,7 @@ export abstract class CreateAttributeBaseHandler extends JsonCreateNodeOperation
     @inject(RelationalModelState)
     protected override modelState: RelationalModelState;
 
-    protected abstract get attributeType(): Attribute['kind'];
+    protected abstract get defaultFlags(): Pick<Attribute, 'isPK' | 'isFK' | 'isNN' | 'isUN'>;
     protected abstract get attributeLabel(): string;
 
     override createCommand(operation: CreateNodeOperation): MaybePromise<Command | undefined> {
@@ -50,13 +50,14 @@ export abstract class CreateAttributeBaseHandler extends JsonCreateNodeOperation
             if (!targetRelation) throw new GLSPServerError(`Relación destino no encontrada: ${containerId}`);
             if (!targetRelation.attributes) targetRelation.attributes = [];
 
-            targetRelation.attributes.push({
+            const newAttr: Attribute = {
                 id:       uuid.v4(),
                 type:     'attribute',
-                kind:     this.attributeType,
-                name:     `new_attr_${targetRelation.attributes.length + 1}`,
-                dataType: 'VARCHAR(255)'
-            });
+                name:     `attr_${targetRelation.attributes.length + 1}`,
+                dataType: 'VARCHAR(255)',
+                ...this.defaultFlags
+            };
+            targetRelation.attributes.push(newAttr);
         });
     }
 
@@ -66,34 +67,44 @@ export abstract class CreateAttributeBaseHandler extends JsonCreateNodeOperation
 @injectable()
 export class CreatePrimaryKeyAttributeHandler extends CreateAttributeBaseHandler {
     readonly elementTypeIds = ['node:attribute-primary-key'];
-    protected get attributeType(): Attribute['kind'] { return 'primary-key'; }
-    protected get attributeLabel(): string { return 'Primary Key'; }
-}
-
-@injectable()
-export class CreateAlternativeKeyAttributeHandler extends CreateAttributeBaseHandler {
-    readonly elementTypeIds = ['node:attribute-alternative-key'];
-    protected get attributeType(): Attribute['kind'] { return 'alternative-key'; }
-    protected get attributeLabel(): string { return 'Alternative Key'; }
-}
-
-@injectable()
-export class CreateNormalAttributeHandler extends CreateAttributeBaseHandler {
-    readonly elementTypeIds = ['node:attribute-normal'];
-    protected get attributeType(): Attribute['kind'] { return 'normal-attribute'; }
-    protected get attributeLabel(): string { return 'Normal Attribute'; }
-}
-
-@injectable()
-export class CreateOptionalAttributeHandler extends CreateAttributeBaseHandler {
-    readonly elementTypeIds = ['node:attribute-optional'];
-    protected get attributeType(): Attribute['kind'] { return 'optional-attribute'; }
-    protected get attributeLabel(): string { return 'Optional Attribute'; }
+    protected get attributeLabel() { return 'Primary Key'; }
+    protected get defaultFlags() {
+        return { isPK: true, isFK: false, isNN: true, isUN: true };
+    }
 }
 
 @injectable()
 export class CreateForeignKeyAttributeHandler extends CreateAttributeBaseHandler {
     readonly elementTypeIds = ['node:attribute-foreign-key'];
-    protected get attributeType(): Attribute['kind'] { return 'foreign-key'; }
-    protected get attributeLabel(): string { return 'Foreign Key'; }
+    protected get attributeLabel() { return 'Foreign Key'; }
+    protected get defaultFlags() {
+        return { isPK: false, isFK: true, isNN: true, isUN: false };
+    }
+}
+
+@injectable()
+export class CreateNormalAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-normal'];
+    protected get attributeLabel() { return 'Normal Attribute'; }
+    protected get defaultFlags() {
+        return { isPK: false, isFK: false, isNN: true, isUN: false };
+    }
+}
+
+@injectable()
+export class CreateOptionalAttributeHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-optional'];
+    protected get attributeLabel() { return 'Optional Attribute'; }
+    protected get defaultFlags() {
+        return { isPK: false, isFK: false, isNN: false, isUN: false };
+    }
+}
+
+@injectable()
+export class CreateAlternativeKeyHandler extends CreateAttributeBaseHandler {
+    readonly elementTypeIds = ['node:attribute-unique'];
+    protected get attributeLabel() { return 'Unique Attribute'; }
+    protected get defaultFlags() {
+        return { isPK: false, isFK: false, isNN: true, isUN: true };
+    }
 }

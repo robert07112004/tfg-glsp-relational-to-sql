@@ -48,21 +48,13 @@ export class RelationalLabelEditValidator implements LabelEditValidator {
         const parent   = this.relationalModelState.index.findElement(parentId);
 
         if (parent && Attribute.is(parent)) {
-            let raw = trimmedLabel;
-            if (raw.startsWith('FK ')) raw = raw.slice(3).trim();
-            if (raw.endsWith(' *'))    raw = raw.slice(0, -2).trim();
-
-            const colonIndex = raw.indexOf(':');
-            if (colonIndex === -1 || !raw.slice(0, colonIndex).trim() || !raw.slice(colonIndex + 1).trim()) {
-                return {
-                    severity: ValidationStatus.Severity.ERROR,
-                    message: 'Formato: "nombreAtributo: TIPO" (ej: "email: VARCHAR(255)")'
-                };
+            try {
+                const parsed   = Attribute.parseDisplayText(trimmedLabel);
+                const typeError = SqlDataType.validate(parsed.dataType);
+                if (typeError) return { severity: ValidationStatus.Severity.ERROR, message: typeError };
+            } catch (msg) {
+                return { severity: ValidationStatus.Severity.ERROR, message: String(msg) };
             }
-
-            const dataType = raw.slice(colonIndex + 1).trim().toUpperCase();
-            const error    = SqlDataType.validate(dataType);
-            if (error) return { severity: ValidationStatus.Severity.ERROR, message: error };
         }
 
         return { severity: ValidationStatus.Severity.OK };

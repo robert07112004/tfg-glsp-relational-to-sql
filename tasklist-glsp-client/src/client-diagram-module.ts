@@ -43,7 +43,7 @@ import {
 import 'balloon-css/balloon.min.css';
 import { Container, ContainerModule } from 'inversify';
 import '../css/diagram.css';
-import { AlternativeKeyAttributeView, AttributeNodeView } from './attribute-views';
+import { AttributeNodeView } from './attribute-views';
 import { OneToManyEdgeView, OneToOneEdgeView, OneToOneOrManyEdgeView, ZeroOrOneToManyEdgeView, ZeroOrOneToOneEdgeView } from './crow-foot-edge-view';
 
 const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -72,11 +72,7 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
     const attributeFeatures = {
         enable: [boundsFeature, layoutableChildFeature, layoutContainerFeature, selectFeature, hoverFeedbackFeature, connectableFeature, deletableFeature]
     };
-    configureModelElement(context, 'node:attribute-primary-key',     GNode, AttributeNodeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-alternative-key', GNode, AlternativeKeyAttributeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-normal',          GNode, AttributeNodeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-optional',        GNode, AttributeNodeView, attributeFeatures);
-    configureModelElement(context, 'node:attribute-foreign-key',     GNode, AttributeNodeView, attributeFeatures);
+    configureModelElement(context, 'node:attribute', GNode, AttributeNodeView, attributeFeatures);
     
     // Edges
     const edgeFeatures = { enable: [selectFeature, hoverFeedbackFeature, deletableFeature] };

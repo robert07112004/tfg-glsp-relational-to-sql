@@ -31,7 +31,7 @@ import {
 import { injectable } from 'inversify';
 import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-handler';
 import { RelationalChangeBoundsHandler } from '../handler/change-bounds-handler';
-import { CreateAlternativeKeyAttributeHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/create-attribute-node-handler';
+import { CreateAlternativeKeyHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/create-attribute-node-handler';
 import { CreateRelationHandler } from '../handler/create-relation-node-handler';
 import { CreateOneToManyHandler, CreateOneToOneHandler, CreateOneToOneOrManyHandler, CreateZeroOrOneToManyHandler, CreateZeroOrOneToOneHandler } from '../handler/create-transition-handler';
 import { RelationalDeleteElementHandler } from '../handler/delete-element-handler';
@@ -76,7 +76,7 @@ export class RelationalDiagramModule extends DiagramModule {
         super.configureOperationHandlers(binding);
         binding.add(CreateRelationHandler);
         binding.add(CreatePrimaryKeyAttributeHandler);
-        binding.add(CreateAlternativeKeyAttributeHandler);
+        binding.add(CreateAlternativeKeyHandler);
         binding.add(CreateNormalAttributeHandler);
         binding.add(CreateOptionalAttributeHandler);
         binding.add(CreateForeignKeyAttributeHandler);
