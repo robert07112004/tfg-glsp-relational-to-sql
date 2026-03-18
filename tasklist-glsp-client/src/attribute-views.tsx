@@ -1,9 +1,7 @@
-// attribute-views.ts
-import { GNode, GPort, RenderingContext, ShapeView, svg } from '@eclipse-glsp/client';
+import { GLabel, GNode, GPort, RenderingContext, ShapeView, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 
-// Función compartida para reposicionar puertos en los bordes laterales
 function repositionPorts(node: GNode): void {
     const width  = node.bounds.width  || 100;
     const height = node.bounds.height || 20;
@@ -14,13 +12,25 @@ function repositionPorts(node: GNode): void {
             const portH = child.bounds.height || 10;
             const y = (height - portH) / 2;
 
-            if (child.cssClasses?.includes('port-left')) {
-                child.position = { x: -(portW / 2), y };
-            } else if (child.cssClasses?.includes('port-right')) {
-                child.position = { x: width - portW / 2, y };
-            }
+            if (child.cssClasses?.includes('port-left')) child.position = { x: -(portW / 2), y };
+            else if (child.cssClasses?.includes('port-right')) child.position = { x: width - portW / 2, y };
         }
     });
+}
+
+function getLabelUnderline(node: GNode, height: number): { x1: number; x2: number; y: number } | undefined {
+    const label = node.children.find(c => c instanceof GLabel) as GLabel | undefined;
+    if (!label) return undefined;
+
+    const labelX = label.bounds.x ?? 0;
+    const labelW = label.bounds.width ?? 0;
+    const y = (height / 2) + 6;
+
+    return {
+        x1: labelX,
+        x2: labelX + labelW,
+        y
+    };
 }
 
 @injectable()
@@ -34,7 +44,7 @@ export class AttributeNodeView extends ShapeView {
         return (
             <g>
                 <rect x={0} y={0} width={width} height={height}
-                    fill="transparent" stroke="none" /> 
+                    fill="transparent" stroke="none" />
                 {context.renderChildren(node)}
             </g>
         );
@@ -46,22 +56,25 @@ export class AlternativeKeyAttributeView extends ShapeView {
     render(node: GNode, context: RenderingContext): VNode | undefined {
         const width  = node.bounds.width  || 100;
         const height = node.bounds.height || 20;
-        const textBaseline = (height / 2) + 6;
 
-        repositionPorts(node);  // misma lógica
+        repositionPorts(node);
+
+        const underline = getLabelUnderline(node, height);
 
         return (
             <g>
                 <rect x={0} y={0} width={width} height={height}
                     fill="transparent" stroke="none" />
                 {context.renderChildren(node)}
-                <line
-                    x1={4}         y1={textBaseline}
-                    x2={width - 4} y2={textBaseline}
-                    stroke="#283593"
-                    stroke-width="1.2"
-                    stroke-dasharray="4,3"
-                />
+                {underline && (
+                    <line
+                        x1={underline.x1} y1={underline.y}
+                        x2={underline.x2} y2={underline.y}
+                        stroke="#283593"
+                        stroke-width="1.2"
+                        stroke-dasharray="4,3"
+                    />
+                )}
             </g>
         );
     }

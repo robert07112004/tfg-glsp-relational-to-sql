@@ -39,6 +39,12 @@
           "type": "attribute",
           "kind": "primary-key",
           "name": "new_primary-key_5"
+        },
+        {
+          "id": "bc994edc-aa05-4653-bbe0-0e20d918f280",
+          "type": "attribute",
+          "kind": "alternative-key",
+          "name": "efwe"
         }
       ]
     }
