@@ -1,0 +1,26 @@
+{
+  "id": "caba55c0-de39-436d-bc14-a05bceb24c21",
+  "relations": [
+    {
+      "id": "bd664641-ffb0-4513-b125-2701e572e63e",
+      "type": "relation",
+      "name": "Coche",
+      "position": {
+        "x": 177,
+        "y": 353
+      },
+      "attributes": []
+    },
+    {
+      "id": "52e76f38-b3a9-43ee-80ff-7f8f97f83148",
+      "type": "relation",
+      "name": "Moto",
+      "position": {
+        "x": 385,
+        "y": 339
+      },
+      "attributes": []
+    }
+  ],
+  "transitions": []
+}
