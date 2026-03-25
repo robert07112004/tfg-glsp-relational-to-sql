@@ -33,7 +33,7 @@ import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-han
 import { RelationalChangeBoundsHandler } from '../handler/change-bounds-handler';
 import { CreateAlternativeKeyHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/create-attribute-node-handler';
 import { CreateRelationHandler } from '../handler/create-relation-node-handler';
-import { CreateOneToManyHandler, CreateOneToOneHandler, CreateOneToOneOrManyHandler, CreateZeroOrOneToManyHandler, CreateZeroOrOneToOneHandler } from '../handler/create-transition-handler';
+import { CreateTransitionHandler } from '../handler/create-transition-handler';
 import { RelationalDeleteElementHandler } from '../handler/delete-element-handler';
 import { GenerateSqlActionHandler } from '../handler/generate-sql-handler';
 import { SQLGenerator } from '../handler/generator/sql-generator';
@@ -80,11 +80,7 @@ export class RelationalDiagramModule extends DiagramModule {
         binding.add(CreateNormalAttributeHandler);
         binding.add(CreateOptionalAttributeHandler);
         binding.add(CreateForeignKeyAttributeHandler);
-        binding.add(CreateOneToOneHandler);
-        binding.add(CreateOneToManyHandler);
-        binding.add(CreateZeroOrOneToManyHandler);
-        binding.add(CreateOneToOneOrManyHandler);
-        binding.add(CreateZeroOrOneToOneHandler);
+        binding.add(CreateTransitionHandler);
         binding.add(RelationalChangeBoundsHandler);
         binding.add(RelationalApplyLabelEditHandler);
         binding.add(RelationalDeleteElementHandler);

@@ -121,17 +121,50 @@ export class RelationalGModelFactory implements GModelFactory {
     protected createTransitionEdge(transition: Transition): GEdge {
         return GEdge.builder()
             .id(transition.id)
-            .type(`edge:${transition.kind}`)
+            .type('edge:transition')
             .addCssClass('transition')
-            .addCssClass(`edge-${transition.kind}`)
             .sourceId(transition.sourcePortId || transition.sourceId)
             .targetId(transition.targetPortId || transition.targetId)
             .add(
                 GLabel.builder()
-                    .id(`${transition.id}_label`)
+                    .id(`${transition.id}_sourceCard`)
+                    .type('label:cardinality')
+                    .addCssClass('cardinality-label')
+                    .text(transition.sourceCardinality || '1..1')
+                    .edgePlacement({
+                        position: 0.05,
+                        side: 'top',
+                        offset: 5,
+                        rotate: false
+                    })
+                    .build()
+            )
+            .add(
+                GLabel.builder()
+                    .id(`${transition.id}_actions`)
                     .type('label:transition')
                     .addCssClass('transition-label')
                     .text(Transition.getLabel(transition))
+                    .edgePlacement({
+                        position: 0.5,
+                        side: 'top',
+                        offset: 5,
+                        rotate: false
+                    })
+                    .build()
+            )
+            .add(
+                GLabel.builder()
+                    .id(`${transition.id}_targetCard`)
+                    .type('label:cardinality')
+                    .addCssClass('cardinality-label')
+                    .text(transition.targetCardinality || '0..N')
+                    .edgePlacement({
+                        position: 0.90,
+                        side: 'top',
+                        offset: 5,
+                        rotate: false
+                    })
                     .build()
             )
             .build();

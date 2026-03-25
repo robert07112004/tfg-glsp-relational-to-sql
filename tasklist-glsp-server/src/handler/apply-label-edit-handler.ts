@@ -61,12 +61,17 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
                 const transition = index.findTransition(parentEdge.id);
                 if (!transition) throw new GLSPServerError(`Transition not found: ${parentEdge.id}`);
                 
-                // Parsear formato "u:c d:n"
-                const match = operation.text.trim().match(/^u:([cnrd])\s+d:([cnrd])$/i);
-                if (!match) throw new GLSPServerError(`Formato inválido. Usa "u:c d:n" (c=cascade, n=set null, r=restrict, d=set default)`);
-                
-                transition.onUpdate = match[1].toLowerCase() as ReferentialAction;
-                transition.onDelete = match[2].toLowerCase() as ReferentialAction;
+                if (operation.labelId.endsWith('_sourceCard')) {
+                    transition.sourceCardinality = operation.text.trim();
+                } else if (operation.labelId.endsWith('_targetCard')) {
+                    transition.targetCardinality = operation.text.trim();
+                } else if (operation.labelId.endsWith('_actions')) {
+                    const match = operation.text.trim().match(/^u:([cnrd])\s+d:([cnrd])$/i);
+                    if (!match) throw new GLSPServerError(`Formato inválido. Usa "u:c d:n"`);
+                    
+                    transition.onUpdate = match[1].toLowerCase() as ReferentialAction;
+                    transition.onDelete = match[2].toLowerCase() as ReferentialAction;
+                }
                 return;
             }
 

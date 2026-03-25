@@ -115,18 +115,12 @@ svg {
     cursor: crosshair; /* Cambia el cursor para invitar a crear conexión */
 }
 
-.sprotty-edge { stroke: #555; stroke-width: 1.5px; fill: none; }
-.sprotty-edge.selected  { stroke: #e67e22; stroke-width: 3px; }
-.sprotty-edge:hover     { stroke-width: 2.5px; }
+text.cardinality-label {
+    fill: orange !important;
+    font-size: 15px;
+}
 
-.sprotty-edge.edge-one-to-one           { stroke: #2196F3; }
-.sprotty-edge.edge-one-to-many          { stroke: #4CAF50; }
-.sprotty-edge.edge-zero-or-one-to-many  { stroke: #FF9800; }
-.sprotty-edge.edge-one-to-one-or-many   { stroke: #9C27B0; }
-.sprotty-edge.edge-zero-or-one-to-one   { stroke: #F44336; }
-
-.crow-mark     { stroke: inherit; stroke-width: 1.5px; fill: none; }
-.crow-optional { fill: white; stroke: inherit; }
-
-.sprotty-edge:hover .crow-mark,
-.sprotty-edge.selected .crow-mark { stroke-width: 2.5px; }
+text.transition-label {
+    fill: orange !important;
+    font-size: 15px;
+}

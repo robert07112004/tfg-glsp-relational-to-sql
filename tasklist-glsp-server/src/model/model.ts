@@ -175,7 +175,8 @@ export interface Transition {
     targetId: string;
     sourcePortId?: string;
     targetPortId?: string;
-    kind: 'one-to-one' | 'one-to-many' | 'zero-or-one-to-many' | 'one-to-one-or-many' | 'zero-or-one-to-one';
+    sourceCardinality: string;
+    targetCardinality: string;
     onUpdate?: ReferentialAction;
     onDelete?: ReferentialAction;
 }
@@ -193,7 +194,8 @@ export namespace Transition {
             hasStringProp(object, 'id') &&
             hasStringProp(object, 'sourceId') &&
             hasStringProp(object, 'targetId') &&
-            hasStringProp(object, 'kind')
+            hasStringProp(object, 'sourceCardinality') &&
+            hasStringProp(object, 'targetCardinality')
         );
     }
 }

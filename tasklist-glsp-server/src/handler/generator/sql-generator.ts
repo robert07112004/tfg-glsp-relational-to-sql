@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
-import { Relation, RelationalModel } from '../../model/model';
-import { Column, Table, Tables } from './sql-interfaces';
+import { Attribute, Relation, RelationalModel, Transition } from '../../model/model';
+import { Column, ForeignKey, ReferentialActionSQL, Table, Tables, toSQLAction } from './sql-interfaces';
 
 @injectable()
 export class SQLGenerator {
@@ -12,7 +12,7 @@ export class SQLGenerator {
 
         // Mapeo del modelo semántico a la interfaz SQL
         for (const relation of model.relations) {
-            this.buildTableDefinition(relation);
+            this.buildTableDefinition(relation, model);
         }
 
         // Generación de óodigo SQL
@@ -26,8 +26,9 @@ export class SQLGenerator {
         return sql.join('\n');
     }
 
-    private buildTableDefinition(relation: Relation): void {
+    private buildTableDefinition(relation: Relation, model: RelationalModel): void {
         const columns: Column[] = [];
+        const foreignKeys: ForeignKey[] = [];
         const attributes = relation.attributes ?? [];
 
         for (const attr of attributes) {
@@ -41,13 +42,54 @@ export class SQLGenerator {
             });
         }
 
+        const fks = relation.attributes?.filter(attr => attr.isFK) as Attribute[];
+        for (const fk of fks) {
+            const { columnName: column, tableName: table } = this.getTarget(fk, model);
+            foreignKeys.push({
+                sourceColumn: fk.name,
+                targetColumn: column, 
+                targetTable: table,
+                onDelete: this.getOnDelete(fk, model),
+                onUpdate: this.getOnUpdate(fk, model)
+            });
+        }
+
         const table: Table = {
             name: relation.name,
             columns: columns,
-            foreignKeys: []
+            foreignKeys: foreignKeys
         };
 
         this.tables.set(relation.id, table);
+    }
+
+    private getEdge(fk: Attribute, model: RelationalModel): Transition | undefined {
+        return model.transitions.find(t =>
+            t.sourceId === `${fk.id}_port_right` || t.sourceId === fk.id
+        );
+    }
+
+    private getTarget(fk: Attribute, model: RelationalModel) {
+        const edge = this.getEdge(fk, model);
+        if (!edge) return {columnName: '', tableName: ''};
+
+        const targetAttrId = edge.targetId.replace(/_port_(left|right)$/, '');
+
+        for (const relation of model.relations) {
+            const match = relation.attributes?.find(attr => attr.id === targetAttrId && attr.isPK);
+            if (match) return { columnName: match.name, tableName: relation.name };
+        }
+        return { columnName: '', tableName: '' };
+    }
+
+    private getOnDelete(fk: Attribute, model: RelationalModel): ReferentialActionSQL | undefined {
+        const edge = this.getEdge(fk, model);
+        return toSQLAction(edge?.onDelete);
+    }
+
+    private getOnUpdate(fk: Attribute, model: RelationalModel): ReferentialActionSQL | undefined {
+        const edge = this.getEdge(fk, model);
+        return toSQLAction(edge?.onUpdate);
     }
 
     private generateCreateTable(table: Table) {
@@ -63,6 +105,10 @@ export class SQLGenerator {
 
         if (pkColumns.length > 0) {
             lines.push(`    PRIMARY KEY (${pkColumns.join(', ')})`);
+        }
+
+        for (const fk of table.foreignKeys) {
+            lines.push(this.generateFKDef(fk));
         }
 
         const body = lines.join(',\n');
@@ -83,16 +129,23 @@ export class SQLGenerator {
             parts.push('NULL');
         }
 
-        if (column.isNotNull && !column.isPK && column.isUnique && !column.isFK) {
-            parts.push('UNIQUE NOT NULL');
+        if (column.isNotNull && !column.isPK && column.isUnique) {
+            parts.push('NOT NULL UNIQUE');
         }
 
-        if (!column.isNotNull && !column.isPK && column.isUnique && !column.isFK) {
-            parts.push('UNIQUE NULL');
+        if (!column.isNotNull && !column.isPK && column.isUnique) {
+            parts.push('NULL UNIQUE');
         }
 
-        // FK aun no implementadas
+        return parts.join(' ');
+    }
 
+    private generateFKDef(fk: ForeignKey): string {
+        const parts = [
+            `    FOREIGN KEY (${fk.sourceColumn}) REFERENCES ${fk.targetTable}(${fk.targetColumn})`
+        ];
+        if (fk.onDelete) parts.push(`ON DELETE ${fk.onDelete}`);
+        if (fk.onUpdate) parts.push(`ON UPDATE ${fk.onUpdate}`);
         return parts.join(' ');
     }
 

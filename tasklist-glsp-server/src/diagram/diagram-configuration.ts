@@ -72,22 +72,14 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
     }
 
     get edgeTypeHints(): EdgeTypeHint[] {
-
-        const relationTypes = [
-            'one-to-one',
-            'one-to-many',
-            'zero-or-one-to-many',
-            'one-to-one-or-many',
-            'zero-or-one-to-one'
-        ];
-
-        return relationTypes.map(type => ({
-            elementTypeId: `edge:${type}`,
+        return [{
+            elementTypeId: 'edge:transition',
             deletable: true,
             repositionable: true,
             routable: true,
             sourceElementTypeIds: ['port'],
             targetElementTypeIds: ['port']
-        }));
+        }];
     }
+    
 }

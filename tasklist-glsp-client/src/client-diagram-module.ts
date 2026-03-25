@@ -44,7 +44,7 @@ import 'balloon-css/balloon.min.css';
 import { Container, ContainerModule } from 'inversify';
 import '../css/diagram.css';
 import { AttributeNodeView } from './attribute-views';
-import { OneToManyEdgeView, OneToOneEdgeView, OneToOneOrManyEdgeView, ZeroOrOneToManyEdgeView, ZeroOrOneToOneEdgeView } from './crow-foot-edge-view';
+import { TransitionEdgeView } from './transition-edge-view';
 
 const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -76,15 +76,13 @@ const relationalDiagramModule = new ContainerModule((bind, unbind, isBound, rebi
     
     // Edges
     const edgeFeatures = { enable: [selectFeature, hoverFeedbackFeature, deletableFeature] };
-    configureModelElement(context, 'edge:one-to-one',           GEdge, OneToOneEdgeView,          edgeFeatures);
-    configureModelElement(context, 'edge:one-to-many',          GEdge, OneToManyEdgeView,         edgeFeatures);
-    configureModelElement(context, 'edge:zero-or-one-to-many',  GEdge, ZeroOrOneToManyEdgeView,   edgeFeatures);
-    configureModelElement(context, 'edge:one-to-one-or-many',   GEdge, OneToOneOrManyEdgeView,    edgeFeatures);
-    configureModelElement(context, 'edge:zero-or-one-to-one',   GEdge, ZeroOrOneToOneEdgeView,    edgeFeatures);
+    configureModelElement(context, 'edge:transition', GEdge, TransitionEdgeView, edgeFeatures);
 
     // Labels
     configureModelElement(context, DefaultTypes.LABEL, GLabel, GLabelView, { enable: [editLabelFeature] });
     configureModelElement(context, 'label:transition', GLabel, GLabelView, { enable: [editLabelFeature] });
+    configureModelElement(context, 'label:cardinality', GLabel, GLabelView, { enable: [editLabelFeature] });
+
 });
 
 export function initializeRelationalDiagramContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
