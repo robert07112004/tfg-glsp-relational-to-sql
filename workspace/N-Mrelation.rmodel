@@ -1,0 +1,154 @@
+{
+  "id": "7642d7f9-3fe2-4213-85f5-bcd35f47e4e3",
+  "relations": [
+    {
+      "id": "5ccb49b0-4791-46b8-984b-6e4018e89dd7",
+      "type": "relation",
+      "name": "Alumno",
+      "position": {
+        "x": 522,
+        "y": 339
+      },
+      "attributes": [
+        {
+          "id": "a8fd3c00-6198-48d0-997e-d9be476ac6a6",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "fdfa50dc-8b29-4d6b-b0de-850640c97c57",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.96250915527344,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "276960a5-16bd-4eaa-a801-20e887ade56c",
+      "type": "relation",
+      "name": "Asignatura",
+      "position": {
+        "x": 1200,
+        "y": 341
+      },
+      "attributes": [
+        {
+          "id": "a3336eff-df49-42ab-98b4-aef71136c5a2",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "89c75c87-0edb-4faf-a0ea-0886257a390c",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.96250915527344,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "9aebf3d4-5aeb-477e-a8ee-1b66d81ef79b",
+      "type": "relation",
+      "name": "Alumno_Asignatura",
+      "position": {
+        "x": 869,
+        "y": 341
+      },
+      "attributes": [
+        {
+          "id": "41ef10b9-16a1-4b3f-904b-0e0fa4a856a0",
+          "type": "attribute",
+          "name": "id_alumno",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "9287b9e4-4953-4906-883a-d18d9c2035c4",
+          "type": "attribute",
+          "name": "id_asignatura",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "a47d78c2-dea8-468a-91d9-b49287b88a11",
+          "type": "attribute",
+          "name": "nota",
+          "dataType": "FLOAT(2)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "70b83766-c0b2-4878-af0f-794da0133386",
+          "type": "attribute",
+          "name": "numero",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 198.35313415527344,
+        "height": 90.00000190734863
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "7557f47d-9031-45cd-82a5-dfc372aa9d15",
+      "sourceId": "9287b9e4-4953-4906-883a-d18d9c2035c4",
+      "targetId": "a3336eff-df49-42ab-98b4-aef71136c5a2",
+      "sourcePortId": "9287b9e4-4953-4906-883a-d18d9c2035c4_port_right",
+      "targetPortId": "a3336eff-df49-42ab-98b4-aef71136c5a2_port_left",
+      "sourceCardinality": "1..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "f394e063-4df3-4673-8c83-6871f4712c18",
+      "sourceId": "41ef10b9-16a1-4b3f-904b-0e0fa4a856a0",
+      "targetId": "a8fd3c00-6198-48d0-997e-d9be476ac6a6",
+      "sourcePortId": "41ef10b9-16a1-4b3f-904b-0e0fa4a856a0_port_left",
+      "targetPortId": "a8fd3c00-6198-48d0-997e-d9be476ac6a6_port_right",
+      "sourceCardinality": "1..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}

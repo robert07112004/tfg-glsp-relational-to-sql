@@ -1,0 +1,104 @@
+{
+  "id": "e63a5fd6-8782-4eb6-b3cd-11f9c87c915c",
+  "relations": [
+    {
+      "id": "4a14fbf4-5016-421e-b3fe-4f76c9e6f308",
+      "type": "relation",
+      "name": "Pedido",
+      "position": {
+        "x": 538,
+        "y": 335
+      },
+      "attributes": [
+        {
+          "id": "1832b8e3-3eaf-410c-b22a-cc6467170aae",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "3f8c67de-6786-426f-b48b-55ab25056d37",
+          "type": "attribute",
+          "name": "fecha",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "f5baab74-7714-4f6c-978a-cb85d0b207ff",
+          "type": "attribute",
+          "name": "cliente",
+          "dataType": "VARCHAR(20)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 102.13750457763672,
+        "height": 29.200000762939453
+      }
+    },
+    {
+      "id": "e29c2597-66f9-4d47-a68c-1b43d687af59",
+      "type": "relation",
+      "name": "Linea_Pedido",
+      "position": {
+        "x": 911,
+        "y": 329
+      },
+      "attributes": [
+        {
+          "id": "5bf119ff-c696-41e2-a41c-eccb3b61d394",
+          "type": "attribute",
+          "name": "id_pedido",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "32078f9f-22ef-4b8c-a5c3-1c97310aadd8",
+          "type": "attribute",
+          "name": "num_linea",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "44048272-01d2-4250-b7ec-839266b559ff",
+          "type": "attribute",
+          "name": "cantidad",
+          "dataType": "FLOAT(2)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "id": "8e5cd51c-d9db-4ffb-968f-756e266c1071",
+      "sourceId": "5bf119ff-c696-41e2-a41c-eccb3b61d394",
+      "targetId": "1832b8e3-3eaf-410c-b22a-cc6467170aae",
+      "sourcePortId": "5bf119ff-c696-41e2-a41c-eccb3b61d394_port_left",
+      "targetPortId": "1832b8e3-3eaf-410c-b22a-cc6467170aae_port_right",
+      "sourceCardinality": "1..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}

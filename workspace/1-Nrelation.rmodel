@@ -1,0 +1,279 @@
+{
+  "id": "61e605a4-50d4-4216-9742-60e4a03c2c0d",
+  "relations": [
+    {
+      "id": "73bb1bba-e74b-4ab4-b785-1edc02a34583",
+      "type": "relation",
+      "name": "Departamento",
+      "position": {
+        "x": 589,
+        "y": 330
+      },
+      "attributes": [
+        {
+          "id": "2cd4afca-04dd-46a5-9efa-e214c428ad77",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 106.74246215820312,
+        "height": 64.60000133514404
+      }
+    },
+    {
+      "id": "cfa8bc07-0683-479d-b142-a32096b1e9c3",
+      "type": "relation",
+      "name": "Empleado",
+      "position": {
+        "x": 981,
+        "y": 323
+      },
+      "attributes": [
+        {
+          "id": "d851f3bc-8abb-4b8a-bc82-a109d779479e",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "6b52b4e3-9859-4704-8e76-ea9e51842a2a",
+          "type": "attribute",
+          "name": "id_departamento",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ]
+    },
+    {
+      "id": "014440f8-2340-47a7-9f6d-4dd07c800a57",
+      "type": "relation",
+      "name": "Departamento",
+      "position": {
+        "x": 582,
+        "y": 557
+      },
+      "attributes": [
+        {
+          "id": "ccf1cb8b-bc02-4034-8890-40e5a8629245",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ]
+    },
+    {
+      "id": "ce79603d-5ec5-4596-89fe-889da8192643",
+      "type": "relation",
+      "name": "Empleado",
+      "position": {
+        "x": 1023,
+        "y": 553
+      },
+      "attributes": [
+        {
+          "id": "75c6b2ce-0fcd-4a4e-90f4-32a78a6315b3",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "442392a7-d77e-40fc-b958-1f39c21a162b",
+          "type": "attribute",
+          "name": "id_departamento",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 76.27847290039062,
+        "height": 29.200000762939453
+      }
+    },
+    {
+      "id": "a075d779-5850-42a2-bd55-366c17426783",
+      "type": "relation",
+      "name": "Departamento",
+      "position": {
+        "x": 622,
+        "y": 766
+      },
+      "attributes": [
+        {
+          "id": "d6356b62-0b45-466b-8e04-b2ce6e89bb8e",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 102.481689453125,
+        "height": 29.200000762939453
+      }
+    },
+    {
+      "id": "b3ae8d1a-85f9-48dd-9b8e-24f71bae271b",
+      "type": "relation",
+      "name": "Empleado",
+      "position": {
+        "x": 1008,
+        "y": 771
+      },
+      "attributes": [
+        {
+          "id": "717742aa-2fe0-48ef-a0db-2e8d03f05670",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "26ff1a45-7ceb-4c4c-a6b7-c4894f76c89f",
+          "type": "attribute",
+          "name": "id_departamento",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": false,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 102.481689453125,
+        "height": 29.200000762939453
+      }
+    },
+    {
+      "id": "bb895f20-a9bc-4383-9f6d-df309e971327",
+      "type": "relation",
+      "name": "Departamento",
+      "position": {
+        "x": 582,
+        "y": 992
+      },
+      "attributes": [
+        {
+          "id": "cd630fbe-67dc-47b4-882e-79dc6d5f1952",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ]
+    },
+    {
+      "id": "83610aae-c755-4283-a2d4-ac84495ac782",
+      "type": "relation",
+      "name": "Empleado",
+      "position": {
+        "x": 1001,
+        "y": 976
+      },
+      "attributes": [
+        {
+          "id": "e028788c-4ff1-43bb-9319-8fb6d30ee579",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "d8f2a26c-eb05-4c90-a3de-7a28c14c0388",
+          "type": "attribute",
+          "name": "id_departamento",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": false,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 211.54844665527344,
+        "height": 90.00000190734863
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "257b2583-ca79-4a18-b820-3b9b3d1c7d72",
+      "sourceId": "6b52b4e3-9859-4704-8e76-ea9e51842a2a",
+      "targetId": "2cd4afca-04dd-46a5-9efa-e214c428ad77",
+      "sourcePortId": "6b52b4e3-9859-4704-8e76-ea9e51842a2a_port_left",
+      "targetPortId": "2cd4afca-04dd-46a5-9efa-e214c428ad77_port_right",
+      "sourceCardinality": "1..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "47e7fdba-fb82-469c-9889-3c5e832def70",
+      "sourceId": "442392a7-d77e-40fc-b958-1f39c21a162b",
+      "targetId": "ccf1cb8b-bc02-4034-8890-40e5a8629245",
+      "sourcePortId": "442392a7-d77e-40fc-b958-1f39c21a162b_port_left",
+      "targetPortId": "ccf1cb8b-bc02-4034-8890-40e5a8629245_port_right",
+      "sourceCardinality": "1..N",
+      "targetCardinality": "0..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "8408bae0-ddf4-40ee-8831-604a34274dd4",
+      "sourceId": "26ff1a45-7ceb-4c4c-a6b7-c4894f76c89f",
+      "targetId": "d6356b62-0b45-466b-8e04-b2ce6e89bb8e",
+      "sourcePortId": "26ff1a45-7ceb-4c4c-a6b7-c4894f76c89f_port_left",
+      "targetPortId": "d6356b62-0b45-466b-8e04-b2ce6e89bb8e_port_right",
+      "sourceCardinality": "0..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "e9c3a257-6ae5-4f63-9c0c-bd33ddc34256",
+      "sourceId": "d8f2a26c-eb05-4c90-a3de-7a28c14c0388",
+      "targetId": "cd630fbe-67dc-47b4-882e-79dc6d5f1952",
+      "sourcePortId": "d8f2a26c-eb05-4c90-a3de-7a28c14c0388_port_left",
+      "targetPortId": "cd630fbe-67dc-47b4-882e-79dc6d5f1952_port_right",
+      "sourceCardinality": "0..N",
+      "targetCardinality": "0..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}

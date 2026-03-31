@@ -1,0 +1,232 @@
+{
+  "id": "dad0a511-7aee-4f67-b3fd-4b61cb6be7a2",
+  "relations": [
+    {
+      "id": "94bddcf9-da97-4c5b-abb1-7f6dd409961c",
+      "type": "relation",
+      "name": "Persona",
+      "position": {
+        "x": 120,
+        "y": 327
+      },
+      "attributes": [
+        {
+          "id": "42dbb928-e676-4a48-b551-f209d4a787f9",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "f837d45b-8b9c-4e61-b480-34e0e65f1e59",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ]
+    },
+    {
+      "id": "f89d63fa-2c58-4154-a202-09aef1792d00",
+      "type": "relation",
+      "name": "DNI",
+      "position": {
+        "x": 510,
+        "y": 342
+      },
+      "attributes": [
+        {
+          "id": "705aa0c6-77ce-4842-b23c-3491b357cf0a",
+          "type": "attribute",
+          "name": "dni",
+          "dataType": "VARCHAR(20)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "d861a305-7460-4e6f-a765-ff96090868c3",
+          "type": "attribute",
+          "name": "id_persona",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ]
+    },
+    {
+      "id": "e31fd3ac-a6c2-4c98-9ad1-ab1361a42f6f",
+      "type": "relation",
+      "name": "Persona",
+      "position": {
+        "x": 118,
+        "y": 507
+      },
+      "attributes": [
+        {
+          "id": "32d6bbbd-8ec3-4516-b52e-a785c9d8a2c1",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "658c219a-d015-49b6-8892-ea06c5b8f298",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.96250915527344,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "2df3aa07-847c-4ccd-a72e-240c5f30419e",
+      "type": "relation",
+      "name": "DNI",
+      "position": {
+        "x": 504,
+        "y": 509
+      },
+      "attributes": [
+        {
+          "id": "9c252d0c-0eb2-4d9d-af1b-b2e7192dd7d7",
+          "type": "attribute",
+          "name": "dni",
+          "dataType": "VARCHAR(20)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "9425b19e-6b8d-4957-a724-69e7f91a26f5",
+          "type": "attribute",
+          "name": "id_persona",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        }
+      ],
+      "size": {
+        "width": 178.5601577758789,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "a97d84bd-6fbf-4cdd-91e0-2e6bb3b617a0",
+      "type": "relation",
+      "name": "Persona",
+      "position": {
+        "x": 140,
+        "y": 729
+      },
+      "attributes": [
+        {
+          "id": "5a3edbd9-ebef-4c8d-8d13-dd5d19eb9978",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 102.481689453125,
+        "height": 29.200000762939453
+      }
+    },
+    {
+      "id": "ba47b0e7-2eee-4e9b-bb57-a5b7aac32057",
+      "type": "relation",
+      "name": "Pasaporte",
+      "position": {
+        "x": 493,
+        "y": 712
+      },
+      "attributes": [
+        {
+          "id": "4677388f-d09f-4999-b672-db9b6cfb10e6",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "5b1cc1f4-31ff-4686-a307-24933675a186",
+          "type": "attribute",
+          "name": "id_persona",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 178.5601577758789,
+        "height": 90.00000190734863
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "0e7f0286-78bd-4548-9025-c1dcbe261c8f",
+      "sourceId": "d861a305-7460-4e6f-a765-ff96090868c3",
+      "targetId": "42dbb928-e676-4a48-b551-f209d4a787f9",
+      "sourcePortId": "d861a305-7460-4e6f-a765-ff96090868c3_port_left",
+      "targetPortId": "42dbb928-e676-4a48-b551-f209d4a787f9_port_right",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "2c378d89-7131-44f2-8ed5-9c1786c61118",
+      "sourceId": "9425b19e-6b8d-4957-a724-69e7f91a26f5",
+      "targetId": "32d6bbbd-8ec3-4516-b52e-a785c9d8a2c1",
+      "sourcePortId": "9425b19e-6b8d-4957-a724-69e7f91a26f5_port_left",
+      "targetPortId": "32d6bbbd-8ec3-4516-b52e-a785c9d8a2c1_port_right",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "0..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "f72832b0-750f-4672-b762-00fe2cfbef3e",
+      "sourceId": "5b1cc1f4-31ff-4686-a307-24933675a186",
+      "targetId": "5a3edbd9-ebef-4c8d-8d13-dd5d19eb9978",
+      "sourcePortId": "5b1cc1f4-31ff-4686-a307-24933675a186_port_left",
+      "targetPortId": "5a3edbd9-ebef-4c8d-8d13-dd5d19eb9978_port_right",
+      "sourceCardinality": "0..1",
+      "targetCardinality": "0..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}

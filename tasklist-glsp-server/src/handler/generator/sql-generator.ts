@@ -2,29 +2,121 @@ import { injectable } from 'inversify';
 import { Attribute, Relation, RelationalModel, Transition } from '../../model/model';
 import { Column, ForeignKey, ReferentialActionSQL, Table, Tables, toSQLAction } from './sql-interfaces';
 
+/*
+ * Mirar los atributos de las tablas intermedias en N:M (atributos discriminantes) -> lo pongo como PK -> DONE
+ * Dependencias en identificacion -> igual que N:M atributo discriminantes como PK -> DONE
+ * Dependencias en existencia -> Delete CASCADE -> DONE
+ * Recursividad
+ * Ordenar las tablas en funcion de las dependencias
+ */
+
 @injectable()
 export class SQLGenerator {
 
     private tables: Tables = new Map();
+    private mergedIds: Set<string> = new Set();
 
     public generate(model: RelationalModel): string {
         this.tables.clear();
+        this.mergedIds.clear();
+
+        // Primera pasada: detectar fusiones (1, 1) - (1, 1)
+        for (const transition of model.transitions) {
+            const srcCard = transition.sourceCardinality;
+            const tgtCard = transition.targetCardinality;
+
+            if (this.isBothMandatoryOneToOne(srcCard, tgtCard)) {
+                const sourceRel = this.getRelationByPortId(transition.sourceId, model);
+                const targetRel = this.getRelationByPortId(transition.targetId, model);
+
+                if (sourceRel && targetRel && sourceRel.id !== targetRel.id) {
+                    this.buildMergedTable(sourceRel, targetRel);
+                    this.mergedIds.add(sourceRel.id);
+                    this.mergedIds.add(targetRel.id);
+                }
+            }
+        }
 
         // Mapeo del modelo semántico a la interfaz SQL
         for (const relation of model.relations) {
-            this.buildTableDefinition(relation, model);
+            if (!this.mergedIds.has(relation.id)) {
+                this.buildTableDefinition(relation, model);
+            }
         }
 
-        // Generación de óodigo SQL
+        // Generación de código SQL
         const sql: string[] = [this.header()];
 
         for (const table of this.tables.values()) {
             sql.push(this.generateCreateTable(table));
         }
 
-
         return sql.join('\n');
     }
+
+    // HELPERS --- (1, 1) - (1, 1) transitions ---
+
+    private isBothMandatoryOneToOne(srcCard: string, tgtCard: string): boolean {
+        const srcIsOne       = srcCard.includes('1');
+        const tgtIsOne       = tgtCard.includes('1');
+        const srcIsMandatory = srcCard.includes('1..1');
+        const tgtIsMandatory = tgtCard.includes('1..1');
+        return srcIsOne && tgtIsOne && srcIsMandatory && tgtIsMandatory;
+    }
+
+    private getRelationByPortId(portOrAttrId: string, model: RelationalModel): Relation | undefined {
+        const attrId = portOrAttrId.replace(/_port_(left|right)$/, '');
+        return model.relations.find(rel =>
+            rel.attributes?.some(a => a.id === attrId)
+        );
+    }
+
+    private buildMergedTable(source: Relation, target: Relation): void {
+        const sourceColumns = (source.attributes ?? [])
+            .filter(a => !a.isFK)
+            .map(a => this.toColumn(a));
+
+        const targetColumns = (target.attributes ?? [])
+            .filter(a => !a.isFK)
+            .map(a => this.toColumn(a));
+
+        let pkAssigned = false;
+
+        const mergedColumns = [...targetColumns, ...sourceColumns].map(col => {
+            if (col.isPK) {
+                if (!pkAssigned) {
+                    pkAssigned = true;
+                    return col;
+                }
+                return {
+                    ...col,
+                    isPK: false,
+                    isUnique: true,
+                    isNotNull: true
+                };
+            }
+            return col;
+        });
+
+        this.tables.set(`${target.id}_merged`, {
+            name: target.name,
+            columns: mergedColumns,
+            foreignKeys: []
+        });
+    }
+
+    private toColumn(attr: Attribute): Column {
+        return {
+            name:      attr.name,
+            dataType:  attr.dataType,
+            isPK:      attr.isPK,
+            isUnique:  attr.isUN,
+            isNotNull: attr.isNN,
+            isFK:      false
+        };
+    }
+
+    // -------------------------------------------------------------------------------
 
     private buildTableDefinition(relation: Relation, model: RelationalModel): void {
         const columns: Column[] = [];
@@ -32,6 +124,40 @@ export class SQLGenerator {
         const attributes = relation.attributes ?? [];
 
         for (const attr of attributes) {
+            if (attr.isFK) {
+                const edge = this.getEdge(attr, model);
+                if (edge) {
+                    const srcCard = this.getSourceCardinality(attr, model);
+                    const tgtCard = this.getTargetCardinality(attr, model);
+
+                    if (srcCard && tgtCard) {
+                        const srcIsOne       = srcCard.includes('1');
+                        const tgtIsOne       = tgtCard.includes('1');
+                        const srcIsMandatory = srcCard.startsWith('1');
+                        const tgtIsMandatory = tgtCard.startsWith('1');
+
+                        if (srcIsOne && tgtIsOne) {
+                            // (1,1)-(1,1) nunca llega aquí: lo filtra mergedIds en generate()
+                            if (srcIsMandatory || tgtIsMandatory) {
+                                // (1,1)-(0,1) o (0,1)-(1,1) → FK NOT NULL UNIQUE
+                                attr.isNN = true;
+                                attr.isUN = true;
+                            } else {
+                                // (0,1)-(0,1) → FK NULL UNIQUE
+                                attr.isNN = false;
+                                attr.isUN = true;
+                            }
+                        }
+
+                        // 1:N → NOT NULL lo decide el mínimo del lado N (el source)
+                        if (srcCard.includes('N')) {
+                            attr.isNN = srcIsMandatory;
+                            attr.isUN = false;
+                        }
+                    }
+                }
+            }
+
             columns.push({
                 name: attr.name,
                 dataType: attr.dataType,
@@ -49,6 +175,8 @@ export class SQLGenerator {
                 sourceColumn: fk.name,
                 targetColumn: column, 
                 targetTable: table,
+                sourceCardinality: this.getSourceCardinality(fk, model),
+                targetCardinality: this.getTargetCardinality(fk, model),
                 onDelete: this.getOnDelete(fk, model),
                 onUpdate: this.getOnUpdate(fk, model)
             });
@@ -61,6 +189,16 @@ export class SQLGenerator {
         };
 
         this.tables.set(relation.id, table);
+    }
+
+    private getSourceCardinality(fk: Attribute, model: RelationalModel): string | undefined {
+        const edge = this.getEdge(fk, model);
+        return edge?.sourceCardinality;
+    }
+
+    private getTargetCardinality(fk: Attribute, model: RelationalModel): string | undefined {
+        const edge = this.getEdge(fk, model);
+        return edge?.targetCardinality;
     }
 
     private getEdge(fk: Attribute, model: RelationalModel): Transition | undefined {
@@ -92,50 +230,36 @@ export class SQLGenerator {
         return toSQLAction(edge?.onUpdate);
     }
 
+    // Generación SQL
+
     private generateCreateTable(table: Table) {
         const lines: string[] = [];
 
+        const pkColumns = table.columns.filter(c => c.isPK).map(c => c.name);
+        const isCompositePK = pkColumns.length > 1;
+
         for (const col of table.columns) {
-            lines.push('    ' + this.generateColumnDef(col));
+            lines.push('    ' + this.generateColumnDef(col, !isCompositePK));
         }
 
-        const pkColumns = table.columns
-            .filter(c => c.isPK)
-            .map(c => c.name);
-
-        if (pkColumns.length > 0) {
-            lines.push(`    PRIMARY KEY (${pkColumns.join(', ')})`);
-        }
+        if (isCompositePK) lines.push(`    PRIMARY KEY (${pkColumns.join(', ')})`);
 
         for (const fk of table.foreignKeys) {
             lines.push(this.generateFKDef(fk));
         }
 
-        const body = lines.join(',\n');
-        return `CREATE TABLE ${table.name} (\n${body}\n);\n`;
+        return `CREATE TABLE ${table.name} (\n${lines.join(',\n')}\n);\n`;
     }
 
-    private generateColumnDef(column: Column): string {
-        const parts: string[] = [
-            column.name,
-            column.dataType
-        ];
+    private generateColumnDef(column: Column, inlinePK: boolean): string {
+        const parts: string[] = [column.name, column.dataType];        
 
-        if (column.isNotNull && !column.isPK && !column.isUnique && !column.isFK) {
-            parts.push('NOT NULL');
-        }
+        if      (column.isNotNull &&  column.isUnique) parts.push('NOT NULL UNIQUE');
+        else if (column.isNotNull && !column.isUnique) parts.push('NOT NULL');
+        else if (column.isUnique)                      parts.push('NULL UNIQUE');
+        else                                           parts.push('NULL');
 
-        if (!column.isNotNull && !column.isPK && !column.isUnique && !column.isFK) {
-            parts.push('NULL');
-        }
-
-        if (column.isNotNull && !column.isPK && column.isUnique) {
-            parts.push('NOT NULL UNIQUE');
-        }
-
-        if (!column.isNotNull && !column.isPK && column.isUnique) {
-            parts.push('NULL UNIQUE');
-        }
+        if (inlinePK && column.isPK) parts.push('PRIMARY KEY');
 
         return parts.join(' ');
     }

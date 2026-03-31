@@ -1,16 +1,17 @@
 -- ======================================================
--- Script SQL generado por GLSP a las 24/3/2026, 18:26:15
+-- Script SQL generado por GLSP a las 31/3/2026, 18:27:50
 -- ======================================================
 
-CREATE TABLE Persona (
-    dni VARCHAR(9),
-    nombre VARCHAR(250) NOT NULL,
-    PRIMARY KEY (dni)
+CREATE TABLE Pedido (
+    id INT NOT NULL PRIMARY KEY,
+    fecha DATE NOT NULL,
+    cliente VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE Vehiculo (
-    matricula VARCHAR(7),
-    dni VARCHAR(9) NULL UNIQUE,
-    PRIMARY KEY (matricula),
-    FOREIGN KEY (dni) REFERENCES Persona(dni) ON DELETE RESTRICT ON UPDATE RESTRICT
+CREATE TABLE Linea_Pedido (
+    id_pedido INT NOT NULL,
+    num_linea INT NOT NULL,
+    cantidad FLOAT(2) NOT NULL,
+    PRIMARY KEY (id_pedido, num_linea),
+    FOREIGN KEY (id_pedido) REFERENCES Pedido(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
