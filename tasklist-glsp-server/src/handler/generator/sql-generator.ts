@@ -6,8 +6,9 @@ import { Column, ForeignKey, ReferentialActionSQL, Table, Tables, toSQLAction } 
  * Mirar los atributos de las tablas intermedias en N:M (atributos discriminantes) -> lo pongo como PK -> DONE
  * Dependencias en identificacion -> igual que N:M atributo discriminantes como PK -> DONE
  * Dependencias en existencia -> Delete CASCADE -> DONE
- * Recursividad
+ * Recursividad -> DONE
  * Ordenar las tablas en funcion de las dependencias
+ * Arreglar routing points (se tienen que quedar guardados)
  */
 
 @injectable()
@@ -149,10 +150,14 @@ export class SQLGenerator {
                             }
                         }
 
-                        // 1:N → NOT NULL lo decide el mínimo del lado N (el source)
-                        if (srcCard.includes('N')) {
-                            attr.isNN = srcIsMandatory;
+                        // 1:N → NOT NULL lo decide el mínimo del lado N (el source) / depende de si es recursiva o no
+                        if (srcCard.includes('N') || tgtCard.includes('N')) {
+                            attr.isNN = srcIsMandatory; // Si empieza por '0' será false (NULL). Si empieza por '1' será true (NOT NULL).
                             attr.isUN = false;
+                        }
+
+                        if (attr.isPK) {        // Forzar NOT NULL
+                            attr.isNN = true;
                         }
                     }
                 }
@@ -201,22 +206,31 @@ export class SQLGenerator {
         return edge?.targetCardinality;
     }
 
-    private getEdge(fk: Attribute, model: RelationalModel): Transition | undefined {
+   private getEdge(fk: Attribute, model: RelationalModel): Transition | undefined {
         return model.transitions.find(t =>
-            t.sourceId === `${fk.id}_port_right` || t.sourceId === fk.id
+            t.sourceId === `${fk.id}_port_right` || 
+            t.sourceId === `${fk.id}_port_left` || 
+            t.sourceId === fk.id
         );
     }
 
     private getTarget(fk: Attribute, model: RelationalModel) {
         const edge = this.getEdge(fk, model);
-        if (!edge) return {columnName: '', tableName: ''};
+        if (!edge) return { columnName: '', tableName: '' };
 
-        const targetAttrId = edge.targetId.replace(/_port_(left|right)$/, '');
+        const targetBaseId = edge.targetId.replace(/_port_(left|right)$/, '');
+
+        const targetRelation = model.relations.find(rel => rel.id === targetBaseId);
+        if (targetRelation) {
+            const matchPK = targetRelation.attributes?.find(attr => attr.isPK);
+            if (matchPK) return { columnName: matchPK.name, tableName: targetRelation.name };
+        }
 
         for (const relation of model.relations) {
-            const match = relation.attributes?.find(attr => attr.id === targetAttrId && attr.isPK);
+            const match = relation.attributes?.find(attr => attr.id === targetBaseId && attr.isPK);
             if (match) return { columnName: match.name, tableName: relation.name };
         }
+        
         return { columnName: '', tableName: '' };
     }
 

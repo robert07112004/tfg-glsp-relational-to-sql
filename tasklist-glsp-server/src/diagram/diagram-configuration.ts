@@ -78,7 +78,7 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
             repositionable: true,
             routable: true,
             sourceElementTypeIds: ['port'],
-            targetElementTypeIds: ['port']
+            targetElementTypeIds: ['port', 'node:relation']
         }];
     }
     

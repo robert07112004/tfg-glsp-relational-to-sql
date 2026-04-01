@@ -1,0 +1,191 @@
+{
+  "id": "26562bc7-a7d4-4567-a804-b3a8324cc017",
+  "relations": [
+    {
+      "id": "69fd6835-6520-4d1c-a56e-625468cebf77",
+      "type": "relation",
+      "name": "Empleado",
+      "position": {
+        "x": 172,
+        "y": 237
+      },
+      "attributes": [
+        {
+          "id": "a9280850-5143-4b12-b9b5-896174320f24",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "29f1f998-d310-4afc-aac6-8efb91ade3ae",
+          "type": "attribute",
+          "name": "jefe_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": false,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 170.76250457763672,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "62b25bc3-9905-4335-818e-466245c95e56",
+      "type": "relation",
+      "name": "Etapa",
+      "position": {
+        "x": 163.22236238711906,
+        "y": 344.22679295678245
+      },
+      "attributes": [
+        {
+          "id": "9c5214dc-c215-4dbc-9898-d7ca5509a8d6",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "06a165d1-ae41-40c3-b9fc-3862ee7c9bc2",
+          "type": "attribute",
+          "name": "etapa_siguiente_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 231.34141540527344,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "9475f5e5-107b-4603-9f09-47cb06517c96",
+      "type": "relation",
+      "name": "Cursos",
+      "position": {
+        "x": 168.04866017911522,
+        "y": 526.1735036765026
+      },
+      "attributes": [
+        {
+          "id": "39c81b02-74ce-41a3-9de9-e581e6c6852b",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "6cfbaddc-09a7-4ea7-8a79-711e367a30a5",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(20)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 183.3625030517578,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "d1635f02-e62e-441c-afc1-ef2acf55be36",
+      "type": "relation",
+      "name": "Prerrequisitos",
+      "position": {
+        "x": 449.94030075605053,
+        "y": 559.5821761763445
+      },
+      "attributes": [
+        {
+          "id": "425a320b-d388-49e7-ad74-eab6cf8e7dd5",
+          "type": "attribute",
+          "name": "curso_id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "65b5a728-8301-4d71-921c-1e164ab5b9c2",
+          "type": "attribute",
+          "name": "prerrequisito_id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 218.14610290527344,
+        "height": 90.00000190734863
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "4bdc99ae-8acf-4dd6-9594-fe495a434588",
+      "sourceId": "29f1f998-d310-4afc-aac6-8efb91ade3ae",
+      "targetId": "69fd6835-6520-4d1c-a56e-625468cebf77",
+      "sourcePortId": "29f1f998-d310-4afc-aac6-8efb91ade3ae_port_right",
+      "targetPortId": "69fd6835-6520-4d1c-a56e-625468cebf77",
+      "sourceCardinality": "0..1",
+      "targetCardinality": "0..N",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "88bd447a-0df2-45a3-95ce-8d7cf3f6bc86",
+      "sourceId": "06a165d1-ae41-40c3-b9fc-3862ee7c9bc2",
+      "targetId": "62b25bc3-9905-4335-818e-466245c95e56",
+      "sourcePortId": "06a165d1-ae41-40c3-b9fc-3862ee7c9bc2_port_right",
+      "targetPortId": "62b25bc3-9905-4335-818e-466245c95e56",
+      "sourceCardinality": "0..1",
+      "targetCardinality": "0..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "16165755-b460-444b-9236-4d2e4d10c2aa",
+      "sourceId": "425a320b-d388-49e7-ad74-eab6cf8e7dd5",
+      "targetId": "39c81b02-74ce-41a3-9de9-e581e6c6852b",
+      "sourcePortId": "425a320b-d388-49e7-ad74-eab6cf8e7dd5_port_left",
+      "targetPortId": "39c81b02-74ce-41a3-9de9-e581e6c6852b_port_right",
+      "sourceCardinality": "0..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "8c51f1d0-39d5-4b8b-beac-fefdbc265d42",
+      "sourceId": "65b5a728-8301-4d71-921c-1e164ab5b9c2",
+      "targetId": "39c81b02-74ce-41a3-9de9-e581e6c6852b",
+      "sourcePortId": "65b5a728-8301-4d71-921c-1e164ab5b9c2_port_left",
+      "targetPortId": "39c81b02-74ce-41a3-9de9-e581e6c6852b_port_right",
+      "sourceCardinality": "0..N",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}
