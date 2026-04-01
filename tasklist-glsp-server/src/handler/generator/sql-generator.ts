@@ -8,7 +8,8 @@ import { Column, ForeignKey, ReferentialActionSQL, Table, Tables, toSQLAction } 
  * Dependencias en existencia -> Delete CASCADE -> DONE
  * Recursividad -> DONE
  * Ordenar las tablas en funcion de las dependencias -> DONE
- * Arreglar routing points (se tienen que quedar guardados)
+ * Arreglar routing points (se tienen que quedar guardados) -> DONE
+ * refactor
  */
 
 @injectable()
