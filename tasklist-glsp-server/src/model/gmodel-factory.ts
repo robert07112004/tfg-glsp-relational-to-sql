@@ -119,13 +119,18 @@ export class RelationalGModelFactory implements GModelFactory {
     }
 
     protected createTransitionEdge(transition: Transition): GEdge {
-        return GEdge.builder()
+        const builder = GEdge.builder()
             .id(transition.id)
             .type('edge:transition')
             .addCssClass('transition')
             .sourceId(transition.sourcePortId || transition.sourceId)
-            .targetId(transition.targetPortId || transition.targetId)
-            .add(
+            .targetId(transition.targetPortId || transition.targetId);
+            
+        if (transition.routingPoints && transition.routingPoints.length > 0) {
+            builder.addRoutingPoints(transition.routingPoints);
+        }
+
+        return builder.add(
                 GLabel.builder()
                     .id(`${transition.id}_sourceCard`)
                     .type('label:cardinality')

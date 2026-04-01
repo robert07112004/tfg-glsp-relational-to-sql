@@ -31,6 +31,7 @@ import {
 import { injectable } from 'inversify';
 import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-handler';
 import { RelationalChangeBoundsHandler } from '../handler/change-bounds-handler';
+import { ChangeRoutingPointsHandler } from '../handler/change-routing-points-handler';
 import { CreateAlternativeKeyHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/create-attribute-node-handler';
 import { CreateRelationHandler } from '../handler/create-relation-node-handler';
 import { CreateTransitionHandler } from '../handler/create-transition-handler';
@@ -84,6 +85,7 @@ export class RelationalDiagramModule extends DiagramModule {
         binding.add(RelationalChangeBoundsHandler);
         binding.add(RelationalApplyLabelEditHandler);
         binding.add(RelationalDeleteElementHandler);
+        binding.add(ChangeRoutingPointsHandler);
     }
 
     protected override bindModelValidator(): BindingTarget<RelationalModelValidator> | undefined {

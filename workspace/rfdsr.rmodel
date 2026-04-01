@@ -1,0 +1,73 @@
+{
+  "id": "9b59970d-9f5b-4a7c-9d45-f1d2b3073419",
+  "relations": [
+    {
+      "id": "d07ff407-f420-4187-850b-c775e6fb0fef",
+      "type": "relation",
+      "name": "Holaaa",
+      "position": {
+        "x": 394,
+        "y": 307.45118837175687
+      },
+      "attributes": [
+        {
+          "id": "b227214c-50d0-4b0b-a261-d80d7394c53b",
+          "type": "attribute",
+          "name": "attr_1",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "4b8a12cf-4bb3-4140-88d6-9263aa2ca7e1",
+          "type": "attribute",
+          "name": "attr_2",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 209.73956298828125,
+        "height": 89.41732597351074
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "b0d8bfc5-f0f3-4759-a47f-b052c908f40c",
+      "sourceId": "4b8a12cf-4bb3-4140-88d6-9263aa2ca7e1",
+      "targetId": "d07ff407-f420-4187-850b-c775e6fb0fef",
+      "sourcePortId": "4b8a12cf-4bb3-4140-88d6-9263aa2ca7e1_port_right",
+      "targetPortId": "d07ff407-f420-4187-850b-c775e6fb0fef",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 652.0356610375027,
+          "y": 374.08385996509935,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 649.5563742211248,
+          "y": 267.05658103206645,
+          "pointIndex": 1
+        },
+        {
+          "kind": "linear",
+          "x": 504.9574841134024,
+          "y": 266.37385578869754,
+          "pointIndex": 2
+        }
+      ]
+    }
+  ]
+}

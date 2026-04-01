@@ -179,6 +179,7 @@ export interface Transition {
     targetCardinality: string;
     onUpdate?: ReferentialAction;
     onDelete?: ReferentialAction;
+    routingPoints?: { x: number, y: number }[];
 }
 
 export namespace Transition {
