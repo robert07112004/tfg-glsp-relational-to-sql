@@ -1,0 +1,287 @@
+{
+  "id": "6552ab45-18bb-43ba-90cf-bae764dcde59",
+  "relations": [
+    {
+      "id": "002611d7-6ee2-4cf7-8676-64942b13bef4",
+      "type": "relation",
+      "name": "Libro",
+      "position": {
+        "x": 75,
+        "y": 347
+      },
+      "attributes": [
+        {
+          "id": "8aad0b88-4852-4275-a401-bf5f794b1810",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "cd942010-e385-401b-90da-e5678b09c79c",
+          "type": "attribute",
+          "name": "titulo",
+          "dataType": "VARCHAR(20)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "7d8c60b1-f83a-4827-ae49-48a70d88a1d3",
+          "type": "attribute",
+          "name": "autor_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "672fbae8-0500-46aa-9b35-bc14069ec9dc",
+          "type": "attribute",
+          "name": "editorial_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 191.75547790527344,
+        "height": 140.8000030517578
+      }
+    },
+    {
+      "id": "c7f47141-403c-48e3-8dfa-a0d99a71efc7",
+      "type": "relation",
+      "name": "Pais",
+      "position": {
+        "x": 79,
+        "y": 591
+      },
+      "attributes": [
+        {
+          "id": "2d889fca-7523-4e45-b8b7-9b7a1edaafc2",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "4944d878-e784-427f-bdb8-888002167cea",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(20)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 183.3625030517578,
+        "height": 90.00000190734863
+      }
+    },
+    {
+      "id": "85cdec41-2169-4bd6-ab45-5c772f728eb3",
+      "type": "relation",
+      "name": "Edicion",
+      "position": {
+        "x": -194,
+        "y": 292
+      },
+      "attributes": [
+        {
+          "id": "983e2c1e-933b-47bf-bb04-9d44880dd5db",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "cf2ea91b-813a-405f-b340-3ff7b2971d7a",
+          "type": "attribute",
+          "name": "año",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c4bf6dd7-6721-4dec-8970-a779b8ffe55b",
+          "type": "attribute",
+          "name": "libro_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 165.3648452758789,
+        "height": 115.40000247955322
+      }
+    },
+    {
+      "id": "ca4485ab-e35c-4d8a-84d6-71c08c4f94fb",
+      "type": "relation",
+      "name": "Autor",
+      "position": {
+        "x": 369,
+        "y": 545
+      },
+      "attributes": [
+        {
+          "id": "90825ad6-1301-411f-ba13-bea92c1e6950",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ee8c56bc-eb63-4573-8cf4-c8575d879808",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(20)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "78c8bfd7-6678-42cb-94a9-c20edbd05afb",
+          "type": "attribute",
+          "name": "pais_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 183.3625030517578,
+        "height": 115.40000247955322
+      }
+    },
+    {
+      "id": "43f88b7a-4896-41ec-8cef-48890d86ee61",
+      "type": "relation",
+      "name": "Editorial",
+      "position": {
+        "x": -278,
+        "y": 565
+      },
+      "attributes": [
+        {
+          "id": "d4fc0260-7629-4c50-a332-ff8a0cdf838c",
+          "type": "attribute",
+          "name": "id",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "e177e59d-2eba-406c-a7d3-cc7ac2cc228b",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(20)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ca90d4e3-78cd-4504-b116-ab4748b55ef4",
+          "type": "attribute",
+          "name": "pais_id",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 183.3625030517578,
+        "height": 115.40000247955322
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "a7915080-e614-4344-8750-2b137d8959b9",
+      "sourceId": "78c8bfd7-6678-42cb-94a9-c20edbd05afb",
+      "targetId": "2d889fca-7523-4e45-b8b7-9b7a1edaafc2",
+      "sourcePortId": "78c8bfd7-6678-42cb-94a9-c20edbd05afb_port_left",
+      "targetPortId": "2d889fca-7523-4e45-b8b7-9b7a1edaafc2_port_right",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "0..N",
+      "onUpdate": "c",
+      "onDelete": "r"
+    },
+    {
+      "id": "d41e385a-16d8-4020-83fa-4c3590af2873",
+      "sourceId": "ca90d4e3-78cd-4504-b116-ab4748b55ef4",
+      "targetId": "2d889fca-7523-4e45-b8b7-9b7a1edaafc2",
+      "sourcePortId": "ca90d4e3-78cd-4504-b116-ab4748b55ef4_port_right",
+      "targetPortId": "2d889fca-7523-4e45-b8b7-9b7a1edaafc2_port_left",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "0..N",
+      "onUpdate": "c",
+      "onDelete": "r"
+    },
+    {
+      "id": "70e560f9-0a85-4914-8ac8-3c7751aa15f9",
+      "sourceId": "7d8c60b1-f83a-4827-ae49-48a70d88a1d3",
+      "targetId": "90825ad6-1301-411f-ba13-bea92c1e6950",
+      "sourcePortId": "7d8c60b1-f83a-4827-ae49-48a70d88a1d3_port_right",
+      "targetPortId": "90825ad6-1301-411f-ba13-bea92c1e6950_port_left",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "0..N",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "eb411ace-573c-4ae4-af03-c95df670ae33",
+      "sourceId": "672fbae8-0500-46aa-9b35-bc14069ec9dc",
+      "targetId": "d4fc0260-7629-4c50-a332-ff8a0cdf838c",
+      "sourcePortId": "672fbae8-0500-46aa-9b35-bc14069ec9dc_port_left",
+      "targetPortId": "d4fc0260-7629-4c50-a332-ff8a0cdf838c_port_right",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "0..N",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "605e7b0a-00db-42ec-ab88-765a4fa11d30",
+      "sourceId": "c4bf6dd7-6721-4dec-8970-a779b8ffe55b",
+      "targetId": "8aad0b88-4852-4275-a401-bf5f794b1810",
+      "sourcePortId": "c4bf6dd7-6721-4dec-8970-a779b8ffe55b_port_right",
+      "targetPortId": "8aad0b88-4852-4275-a401-bf5f794b1810_port_left",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "0..N",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}

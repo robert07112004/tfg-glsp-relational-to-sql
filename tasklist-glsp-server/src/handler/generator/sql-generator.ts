@@ -7,7 +7,7 @@ import { Column, ForeignKey, ReferentialActionSQL, Table, Tables, toSQLAction } 
  * Dependencias en identificacion -> igual que N:M atributo discriminantes como PK -> DONE
  * Dependencias en existencia -> Delete CASCADE -> DONE
  * Recursividad -> DONE
- * Ordenar las tablas en funcion de las dependencias
+ * Ordenar las tablas en funcion de las dependencias -> DONE
  * Arreglar routing points (se tienen que quedar guardados)
  */
 
@@ -48,7 +48,9 @@ export class SQLGenerator {
         // Generación de código SQL
         const sql: string[] = [this.header()];
 
-        for (const table of this.tables.values()) {
+        const sortedTables = this.sortTablesTopologically();
+
+        for (const table of sortedTables) {
             sql.push(this.generateCreateTable(table));
         }
 
@@ -294,6 +296,48 @@ export class SQLGenerator {
             `-- Script SQL generado por GLSP a las ${now}`,
             '-- ======================================================'
         ].join('\n') + '\n';
+    }
+
+    private sortTablesTopologically(): Table[] {
+        const sorted: Table[] = [];
+        const visited = new Set<string>();
+        const visiting = new Set<string>();
+
+        const tablesByName = new Map<string, Table>();
+        for (const table of this.tables.values()) {
+            tablesByName.set(table.name, table);
+        }
+
+        const visit = (tableName: string) => {
+            if (visited.has(tableName)) return; 
+            
+            if (visiting.has(tableName)) {
+                console.warn(`Ciclo detectado involucrando la tabla: ${tableName}`);
+                return; 
+            }
+
+            visiting.add(tableName);
+
+            const table = tablesByName.get(tableName);
+            if (table) {
+                for (const fk of table.foreignKeys) {
+                    if (fk.targetTable !== tableName) { 
+                        visit(fk.targetTable);
+                    }
+                }
+                
+                visited.add(tableName);
+                sorted.push(table);
+            }
+
+            visiting.delete(tableName);
+        };
+
+        for (const table of this.tables.values()) {
+            visit(table.name);
+        }
+
+        return sorted;
     }
 
 }
