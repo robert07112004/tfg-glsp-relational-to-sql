@@ -1,8 +1,8 @@
 import { Command, CreateEdgeOperation, JsonCreateEdgeOperationHandler, MaybePromise } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
 import * as uuid from 'uuid';
-import { Transition } from '../model/model';
-import { RelationalModelState } from '../model/model-state';
+import { Transition } from '../../model/model';
+import { RelationalModelState } from '../../model/model-state';
 
 @injectable()
 export class CreateTransitionHandler extends JsonCreateEdgeOperationHandler {

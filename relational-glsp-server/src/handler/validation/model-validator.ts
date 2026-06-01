@@ -1,7 +1,7 @@
 import { AbstractModelValidator, GModelElement, Marker } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
-import { RelationalModel } from '../model/model';
-import { RelationalModelState } from '../model/model-state';
+import { RelationalModel } from '../../model/model';
+import { RelationalModelState } from '../../model/model-state';
 
 /*
  * Reglas de validacion:

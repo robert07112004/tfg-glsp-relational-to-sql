@@ -26,20 +26,22 @@ import {
     LabelEditValidator,
     ModelState,
     OperationHandlerConstructor,
+    RequestClipboardDataActionHandler,
     SourceModelStorage
 } from '@eclipse-glsp/server';
 import { injectable } from 'inversify';
 import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-handler';
 import { RelationalChangeBoundsHandler } from '../handler/change-bounds-handler';
 import { ChangeRoutingPointsHandler } from '../handler/change-routing-points-handler';
-import { CreateAlternativeKeyHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/create-attribute-node-handler';
-import { CreateRelationHandler } from '../handler/create-relation-node-handler';
-import { CreateTransitionHandler } from '../handler/create-transition-handler';
 import { RelationalDeleteElementHandler } from '../handler/delete-element-handler';
-import { GenerateSqlActionHandler } from '../handler/generate-sql-handler';
+import { CreateTransitionHandler } from '../handler/edge-handlers/create-transition-handler';
 import { SQLGenerator } from '../handler/generator/sql-generator';
 import { RelationalLabelEditValidator } from '../handler/label-edit-validator';
-import { RelationalModelValidator } from '../handler/model-validator';
+import { CreateAlternativeKeyHandler, CreateForeignKeyAttributeHandler, CreateNormalAttributeHandler, CreateOptionalAttributeHandler, CreatePrimaryKeyAttributeHandler } from '../handler/node-handlers/create-attribute-node-handler';
+import { CreateRelationHandler } from '../handler/node-handlers/create-relation-node-handler';
+import { RelationalPasteOperationHandler } from '../handler/paste-operation-handler';
+import { GenerateSqlActionHandler } from '../handler/sql-handler/generate-sql-handler';
+import { RelationalModelValidator } from '../handler/validation/model-validator';
 import { RelationalGModelFactory } from '../model/gmodel-factory';
 import { RelationalModelIndex } from '../model/model-index';
 import { RelationalModelState } from '../model/model-state';
@@ -48,7 +50,6 @@ import { RelationalDiagramConfiguration } from './diagram-configuration';
 
 @injectable()
 export class RelationalDiagramModule extends DiagramModule {
-    // CRÍTICO: Este string debe coincidir EXACTAMENTE con el tipo de diagrama que registres en el cliente web/theia/vscode.
     readonly diagramType = 'relational-diagram';
 
     protected bindDiagramConfiguration(): BindingTarget<DiagramConfiguration> {
@@ -70,6 +71,7 @@ export class RelationalDiagramModule extends DiagramModule {
     protected override configureActionHandlers(binding: InstanceMultiBinding<ActionHandlerConstructor>): void {
         super.configureActionHandlers(binding);
         binding.add(ComputedBoundsActionHandler);
+        binding.add(RequestClipboardDataActionHandler);
         binding.add(GenerateSqlActionHandler);
     }
 
@@ -86,6 +88,7 @@ export class RelationalDiagramModule extends DiagramModule {
         binding.add(RelationalApplyLabelEditHandler);
         binding.add(RelationalDeleteElementHandler);
         binding.add(ChangeRoutingPointsHandler);
+        binding.add(RelationalPasteOperationHandler);
     }
 
     protected override bindModelValidator(): BindingTarget<RelationalModelValidator> | undefined {

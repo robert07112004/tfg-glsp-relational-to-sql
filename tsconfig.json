@@ -2,7 +2,8 @@
   "extends": "@eclipse-glsp/ts-config",
   "include": [],
   "compilerOptions": {
-    "composite": true
+    "composite": true,
+    "ignoreDeprecations": "6.0"
   },
   "references": [
     {

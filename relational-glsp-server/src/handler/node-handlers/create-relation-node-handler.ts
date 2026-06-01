@@ -23,8 +23,8 @@ import {
 } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
 import * as uuid from 'uuid';
-import { Relation } from '../model/model';
-import { RelationalModelState } from '../model/model-state';
+import { Relation } from '../../model/model';
+import { RelationalModelState } from '../../model/model-state';
 
 @injectable()
 export class CreateRelationHandler extends JsonCreateNodeOperationHandler {

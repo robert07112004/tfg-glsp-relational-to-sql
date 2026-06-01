@@ -3,9 +3,9 @@ import * as fs from 'fs';
 import { inject, injectable } from 'inversify';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { RelationalModel } from '../model/model';
-import { RelationalModelState } from '../model/model-state';
-import { SQLGenerator } from './generator/sql-generator';
+import { RelationalModel } from '../../model/model';
+import { RelationalModelState } from '../../model/model-state';
+import { SQLGenerator } from '../generator/sql-generator';
 
 export interface GenerateSqlAction extends Action {
     kind: typeof GenerateSqlAction.KIND;
