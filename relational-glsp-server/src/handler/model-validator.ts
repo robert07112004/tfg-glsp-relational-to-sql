@@ -7,7 +7,7 @@ import { RelationalModelState } from '../model/model-state';
  * Reglas de validacion:
  * Regla 1: El esquema no puede estar vacío
  * Regla 2: No pueden haber dos tablas con el mismo nombre en el diagrama
- * Regla 3: No se ha puesto nombe a la tabla
+ * Regla 3: No se ha puesto nombre a la tabla
  * Regla 4: La tabla tiene que tener al menos un atributo en su interior
  * Regla 5: La tabla tiene que tener una clave primaria
  * Regla 6: Dentro de una misma tabla no pueden haber atributos que se llamen igual

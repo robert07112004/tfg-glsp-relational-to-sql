@@ -31,7 +31,7 @@
         "title": "Generar SQL",
         "icon": "$(database)",
         "category": "Relational Diagram",
-        "enablement": "activeCustomEditorId == 'relational.glspDiagram'"
+        "enablement": "activeCustomEditorId == 'relational.glspDiagram' && relational.validationClean"
       },
       {
         "command": "relational.fit",
@@ -96,7 +96,7 @@
         {
           "command": "relational.generateSql",
           "group": "navigation",
-          "when": "activeCustomEditorId == 'relational.glspDiagram'"
+          "when": "activeCustomEditorId == 'relational.glspDiagram' && relational.validationClean"
         },
         {
           "submenu": "relational.editor.title",

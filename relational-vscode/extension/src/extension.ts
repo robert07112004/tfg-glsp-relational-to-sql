@@ -15,7 +15,7 @@ export const LOG_DIR = path.join(__dirname, '..', '..', 'logs');
 const DEFAULT_SERVER_PORT = '0';
 
 // VS Code context key that controls whether the Generate SQL button is visible
-const VALIDATION_CLEAN_CONTEXT = 'er.validationClean';
+const VALIDATION_CLEAN_CONTEXT = 'relational.validationClean';
 
 export async function activate(context: vscode.ExtensionContext): Promise<void> {
     // SQL button starts hidden
