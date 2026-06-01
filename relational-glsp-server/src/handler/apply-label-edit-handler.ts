@@ -1,19 +1,3 @@
-/********************************************************************************
- * Copyright (c) 2022 EclipseSource and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied:
- * -- GNU General Public License, version 2 with the GNU Classpath Exception
- * which is available at https://www.gnu.org/software/classpath/license.html
- * -- MIT License which is available at https://opensource.org/license/mit.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
- ********************************************************************************/
 import { ApplyLabelEditOperation } from '@eclipse-glsp/protocol';
 import { Command, GEdge, GLSPServerError, GNode, JsonOperationHandler, MaybePromise, toTypeGuard } from '@eclipse-glsp/server';
 import { inject, injectable } from 'inversify';
@@ -55,17 +39,12 @@ export class RelationalApplyLabelEditHandler extends JsonOperationHandler {
                 }
             }
 
-            // Intentar padre GEdge (label de transición)
             const parentEdge = index.findParentElement(operation.labelId, toTypeGuard(GEdge));
             if (parentEdge) {
                 const transition = index.findTransition(parentEdge.id);
                 if (!transition) throw new GLSPServerError(`Transition not found: ${parentEdge.id}`);
                 
-                if (operation.labelId.endsWith('_sourceCard')) {
-                    transition.sourceCardinality = operation.text.trim();
-                } else if (operation.labelId.endsWith('_targetCard')) {
-                    transition.targetCardinality = operation.text.trim();
-                } else if (operation.labelId.endsWith('_actions')) {
+                if (operation.labelId.endsWith('_actions')) {
                     const match = operation.text.trim().match(/^u:([cnrd])\s+d:([cnrd])$/i);
                     if (!match) throw new GLSPServerError(`Formato inválido. Usa "u:c d:n"`);
                     

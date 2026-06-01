@@ -1,0 +1,319 @@
+{
+  "id": "cc2bcf7e-cdac-49a3-b3c0-2a0d06e554e0",
+  "relations": [
+    {
+      "id": "122c9843-8af3-4f06-8ba1-ec4aa765b60a",
+      "type": "relation",
+      "name": "prerrequisito",
+      "position": {
+        "x": 907,
+        "y": 149
+      },
+      "attributes": [
+        {
+          "id": "2fac6357-36f6-4daf-a794-ade793a93163",
+          "type": "attribute",
+          "name": "codigo_c",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ae3e39fa-0442-4ad3-936e-2ed5c8b5c767",
+          "type": "attribute",
+          "name": "su_prerrequisito",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "a87fb1d2-92bb-413a-9472-e351da2abe6b",
+          "type": "attribute",
+          "name": "opcional",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": false,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 217.74609375,
+        "height": 114
+      }
+    },
+    {
+      "id": "168480e8-7ca5-4246-a762-2b662497fec6",
+      "type": "relation",
+      "name": "curso",
+      "position": {
+        "x": 581,
+        "y": 146
+      },
+      "attributes": [
+        {
+          "id": "428d5f74-2818-4066-8258-50f17b8bdd91",
+          "type": "attribute",
+          "name": "codigo_curso",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "f5380f39-bb2a-4bea-9c19-d376f70854d9",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "849a9bcb-415a-4d21-9162-b5c2655f398d",
+          "type": "attribute",
+          "name": "horas",
+          "dataType": "TIME",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.953125,
+        "height": 114
+      }
+    },
+    {
+      "id": "cde24150-16a1-43a8-b571-a55ee6f4ecb7",
+      "type": "relation",
+      "name": "edicion",
+      "position": {
+        "x": 284,
+        "y": 125
+      },
+      "attributes": [
+        {
+          "id": "0b23d752-fe63-4f4e-a9e6-2a879549bb63",
+          "type": "attribute",
+          "name": "cod_edicion",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "42f1bde1-5b92-480a-aa43-0a7a79d6ee59",
+          "type": "attribute",
+          "name": "cod_c",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        },
+        {
+          "id": "44da76c6-d4f2-463a-bfcc-8ecbd2c7cea7",
+          "type": "attribute",
+          "name": "fecha",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "d11bb54f-c069-4708-952e-def00f68f423",
+          "type": "attribute",
+          "name": "lugar",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 183.359375,
+        "height": 139
+      }
+    },
+    {
+      "id": "a9844273-117a-4c4e-8365-bf9cb326a141",
+      "type": "relation",
+      "name": "participa",
+      "position": {
+        "x": 295,
+        "y": 367
+      },
+      "attributes": [
+        {
+          "id": "a700f912-2865-44d5-94b8-6ed3d5e76152",
+          "type": "attribute",
+          "name": "cod_edicion",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2d934bcc-95ce-4815-9269-c120199fc2c0",
+          "type": "attribute",
+          "name": "codigo_e",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2583d64d-abb7-4c57-984c-43cdc8b311cc",
+          "type": "attribute",
+          "name": "tipo_p",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.953125,
+        "height": 114
+      }
+    },
+    {
+      "id": "04922ea0-14df-4611-be21-5451458a5bab",
+      "type": "relation",
+      "name": "empleado",
+      "position": {
+        "x": 602,
+        "y": 392
+      },
+      "attributes": [
+        {
+          "id": "e055f1c5-57e3-49df-a8b7-8a81722b0279",
+          "type": "attribute",
+          "name": "cod_e",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "5ff295a7-c0b3-49be-b39c-ee1bf9007511",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "36b48c50-50c9-4726-b08d-c36f60ccd998",
+          "type": "attribute",
+          "name": "dir",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2d6e3540-1634-49d9-9d80-12b0a29e2a39",
+          "type": "attribute",
+          "name": "tlf",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.953125,
+        "height": 139
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "a936fbeb-f8cc-421f-89cc-d6b99d559d3e",
+      "sourceId": "2fac6357-36f6-4daf-a794-ade793a93163",
+      "targetId": "428d5f74-2818-4066-8258-50f17b8bdd91",
+      "sourcePortId": "2fac6357-36f6-4daf-a794-ade793a93163_port_left",
+      "targetPortId": "428d5f74-2818-4066-8258-50f17b8bdd91_port_right",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "09b55d76-2b32-4303-8c04-e184be132011",
+      "sourceId": "ae3e39fa-0442-4ad3-936e-2ed5c8b5c767",
+      "targetId": "428d5f74-2818-4066-8258-50f17b8bdd91",
+      "sourcePortId": "ae3e39fa-0442-4ad3-936e-2ed5c8b5c767_port_left",
+      "targetPortId": "428d5f74-2818-4066-8258-50f17b8bdd91_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 839.12890625,
+          "y": 215.5,
+          "pointIndex": 0
+        }
+      ]
+    },
+    {
+      "id": "cac507da-f092-4233-af83-d5a5763b28c5",
+      "sourceId": "42f1bde1-5b92-480a-aa43-0a7a79d6ee59",
+      "targetId": "428d5f74-2818-4066-8258-50f17b8bdd91",
+      "sourcePortId": "42f1bde1-5b92-480a-aa43-0a7a79d6ee59_port_right",
+      "targetPortId": "428d5f74-2818-4066-8258-50f17b8bdd91_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "627d1ccd-4b67-4f27-8388-52b079746601",
+      "sourceId": "2d934bcc-95ce-4815-9269-c120199fc2c0",
+      "targetId": "e055f1c5-57e3-49df-a8b7-8a81722b0279",
+      "sourcePortId": "2d934bcc-95ce-4815-9269-c120199fc2c0_port_right",
+      "targetPortId": "e055f1c5-57e3-49df-a8b7-8a81722b0279_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "a8fbbae2-ee04-4be2-8009-5e0ca1703163",
+      "sourceId": "a700f912-2865-44d5-94b8-6ed3d5e76152",
+      "targetId": "0b23d752-fe63-4f4e-a9e6-2a879549bb63",
+      "sourcePortId": "a700f912-2865-44d5-94b8-6ed3d5e76152_port_left",
+      "targetPortId": "0b23d752-fe63-4f4e-a9e6-2a879549bb63_port_left",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 158.74825758558092,
+          "y": 409,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 156.845703125,
+          "y": 168,
+          "pointIndex": 1
+        }
+      ]
+    }
+  ]
+}

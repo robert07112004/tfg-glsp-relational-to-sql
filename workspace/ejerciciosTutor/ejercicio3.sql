@@ -1,0 +1,75 @@
+Fecha: 1/6/2026, 20:22:53
+
+CREATE TABLE plaza (
+    nombre VARCHAR(255) NOT NULL PRIMARY KEY,
+    localidad VARCHAR(255) NOT NULL,
+    dir VARCHAR(255) NOT NULL,
+    aforo INT NOT NULL
+);
+
+CREATE TABLE corrida (
+    num INT NOT NULL,
+    feria VARCHAR(255) NOT NULL,
+    año DATE NOT NULL,
+    nombre_plaza VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY (num, feria, año),
+    FOREIGN KEY (nombre_plaza) REFERENCES plaza(nombre) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE apoderado (
+    DNI VARCHAR(9) NOT NULL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    dir VARCHAR(255) NOT NULL,
+    tlf VARCHAR(9) NOT NULL
+);
+
+CREATE TABLE torero (
+    DNI VARCHAR(9) NOT NULL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apodo VARCHAR(255) NOT NULL,
+    fecha DATE NOT NULL,
+    DNI_torero VARCHAR(9) NOT NULL UNIQUE,
+    DNI_apod VARCHAR(9) NOT NULL UNIQUE,
+    FOREIGN KEY (DNI_torero) REFERENCES torero(DNI) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (DNI_apod) REFERENCES apoderado(DNI) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE ganaderia (
+    cod INT NOT NULL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    localidad VARCHAR(255) NOT NULL,
+    procedencia VARCHAR(255) NOT NULL,
+    anitguedad INT NOT NULL
+);
+
+CREATE TABLE toro (
+    cod_ganaderia INT NOT NULL,
+    año_nac DATE NOT NULL,
+    num INT NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    col VARCHAR(255) NOT NULL,
+    num_corrida INT NOT NULL UNIQUE,
+    feria VARCHAR(255) NOT NULL UNIQUE,
+    año DATE NOT NULL UNIQUE,
+    ord_torero INT NOT NULL,
+    PRIMARY KEY (cod_ganaderia, año_nac, num),
+    FOREIGN KEY (cod_ganaderia) REFERENCES ganaderia(cod) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (num_corrida) REFERENCES corrida(num) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (feria) REFERENCES corrida(feria) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (año) REFERENCES corrida(año) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE actua (
+    DNI_torero VARCHAR(9) NOT NULL,
+    num_corrida INT NOT NULL,
+    feria VARCHAR(255) NOT NULL,
+    año DATE NOT NULL,
+    orejas INT NOT NULL,
+    rabo INT NOT NULL,
+    salida INT NOT NULL,
+    PRIMARY KEY (DNI_torero, num_corrida, feria, año),
+    FOREIGN KEY (DNI_torero) REFERENCES torero(DNI_torero) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (num_corrida) REFERENCES corrida(num) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (feria) REFERENCES corrida(feria) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (año) REFERENCES corrida(año) ON DELETE CASCADE ON UPDATE CASCADE
+);

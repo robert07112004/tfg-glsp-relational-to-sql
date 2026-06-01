@@ -33,7 +33,7 @@ export class RelationalLabelEditValidator implements LabelEditValidator {
 
         if (trimmedLabel.length < 1) return { severity: ValidationStatus.Severity.ERROR, message: 'Name must not be empty' };
 
-        // Validar label de transición
+        // Transition label
         if (element.type === 'label:transition') {
             const valid = /^u:[cnrd]\s+d:[cnrd]$/i.test(trimmedLabel);
             if (!valid) return {
@@ -43,7 +43,7 @@ export class RelationalLabelEditValidator implements LabelEditValidator {
             return { severity: ValidationStatus.Severity.OK };
         }
 
-        // Validar label de atributo
+        // Attribute label
         const parentId = element.id.replace(/_label$/, '');
         const parent   = this.relationalModelState.index.findElement(parentId);
 

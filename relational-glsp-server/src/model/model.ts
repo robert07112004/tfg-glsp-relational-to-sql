@@ -119,15 +119,12 @@ export namespace Attribute {
     export function parseDisplayText(text: string): Pick<Attribute, 'name' | 'dataType' | 'isFK' | 'isNN'> {
         let raw = text.trim();
 
-        // nullable sufix
         const isNN = !raw.endsWith(' *');
         if (!isNN) raw = raw.slice(0, -2).trim();
 
-        // FK prefix
         const isFK = raw.toUpperCase().startsWith('FK ');
         if (isFK) raw = raw.slice(3).trim();
 
-        // "name: type"
         const colonIndex = raw.indexOf(':');
         if (colonIndex <= 0 || !raw.slice(colonIndex + 1).trim()) {
             throw 'Formato: "[FK] nombre: TIPO [*]"';
@@ -158,8 +155,6 @@ export interface Transition {
     targetId: string;
     sourcePortId?: string;
     targetPortId?: string;
-    sourceCardinality: string;
-    targetCardinality: string;
     onUpdate?: ReferentialAction;
     onDelete?: ReferentialAction;
     routingPoints?: { x: number, y: number }[];
@@ -177,9 +172,7 @@ export namespace Transition {
             AnyObject.is(object) &&
             hasStringProp(object, 'id') &&
             hasStringProp(object, 'sourceId') &&
-            hasStringProp(object, 'targetId') &&
-            hasStringProp(object, 'sourceCardinality') &&
-            hasStringProp(object, 'targetCardinality')
+            hasStringProp(object, 'targetId')
         );
     }
 }

@@ -1,0 +1,484 @@
+{
+  "id": "70a7bc8e-ada4-49d6-83dc-e1e092225a38",
+  "relations": [
+    {
+      "id": "63367727-3e89-43a7-a742-35522fab3c4c",
+      "type": "relation",
+      "name": "director",
+      "position": {
+        "x": 66,
+        "y": 222
+      },
+      "attributes": [
+        {
+          "id": "3dfb656a-ceb0-416a-9a7d-ba8ab8481e69",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c5b77421-ecce-4d70-aaab-c7494c8e5f1e",
+          "type": "attribute",
+          "name": "nacionalidad",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 229.546875,
+        "height": 89
+      }
+    },
+    {
+      "id": "42abbea9-eeb5-4707-82a6-3338d1e3f739",
+      "type": "relation",
+      "name": "pelicula",
+      "position": {
+        "x": 371,
+        "y": 123
+      },
+      "attributes": [
+        {
+          "id": "aac1c04d-796d-407f-a631-0f88bed28bd0",
+          "type": "attribute",
+          "name": "titulo",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c744e8dc-d2c4-4784-8b77-4092576db59f",
+          "type": "attribute",
+          "name": "nacionalidad",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c8b0a6e2-58f4-4238-9b1b-d255781d69e4",
+          "type": "attribute",
+          "name": "productora",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "801df95a-c835-419e-85d4-3d5a8b9d7270",
+          "type": "attribute",
+          "name": "fecha",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1248e22a-5be2-409a-9781-df27236e437e",
+          "type": "attribute",
+          "name": "nombre_director",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        }
+      ],
+      "size": {
+        "width": 269.125,
+        "height": 164
+      }
+    },
+    {
+      "id": "a69aa79d-ba67-41b7-8d0e-2cfb6478a819",
+      "type": "relation",
+      "name": "participa",
+      "position": {
+        "x": 710,
+        "y": 125
+      },
+      "attributes": [
+        {
+          "id": "36438172-4aae-41dd-82eb-ef4d7b05abe8",
+          "type": "attribute",
+          "name": "titulo_pelicula",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ea237f63-7ff4-4fad-963d-93d17d62f9de",
+          "type": "attribute",
+          "name": "nombre_actor",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "3a3ab315-2fed-43ef-8b87-135a5a0d5b2f",
+          "type": "attribute",
+          "name": "tipo_part",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 269.125,
+        "height": 114
+      }
+    },
+    {
+      "id": "a60d3dc2-1112-49dd-b40c-69a8f326b0a7",
+      "type": "relation",
+      "name": "actor",
+      "position": {
+        "x": 1063,
+        "y": 151
+      },
+      "attributes": [
+        {
+          "id": "2a126a65-d2e4-4a32-9baa-d007fb402f2d",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ea24ea80-3340-49f4-a1d1-6df03f19e144",
+          "type": "attribute",
+          "name": "nacionalidad",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "d761d64c-b304-4600-8d0d-e49df9972051",
+          "type": "attribute",
+          "name": "sexo",
+          "dataType": "BIT(1)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 229.546875,
+        "height": 114
+      }
+    },
+    {
+      "id": "0def903e-1d23-40a3-8fd7-eca8967c11b0",
+      "type": "relation",
+      "name": "ejemplar",
+      "position": {
+        "x": 274,
+        "y": 375
+      },
+      "attributes": [
+        {
+          "id": "fefca02d-1c2a-4f63-9177-1097c0e5a924",
+          "type": "attribute",
+          "name": "num_ejemplar",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c220d58a-9540-4a3f-8afd-9282adbdb314",
+          "type": "attribute",
+          "name": "titulo_pelicula",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        },
+        {
+          "id": "ea42781c-b998-4302-98a0-93b19fce2193",
+          "type": "attribute",
+          "name": "conservacion",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 269.125,
+        "height": 114
+      }
+    },
+    {
+      "id": "6cfe871b-b8e0-4cc3-ac7e-0bb67073f37e",
+      "type": "relation",
+      "name": "alquilado",
+      "position": {
+        "x": 728,
+        "y": 345
+      },
+      "attributes": [
+        {
+          "id": "936020d0-a9d4-4c38-9944-75c7a1ba2569",
+          "type": "attribute",
+          "name": "titulo",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "75acab5e-1bb4-4f2a-bd7d-89fb6cc43079",
+          "type": "attribute",
+          "name": "num_ej",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "d842f956-d768-4ef8-b2c7-0e05b2b1603b",
+          "type": "attribute",
+          "name": "DNI_soc",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "a91d6456-2471-4b44-95e8-d5219314f6b5",
+          "type": "attribute",
+          "name": "fecha_c",
+          "dataType": "DATE",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "b044739f-e191-4031-8609-76346bd598bf",
+          "type": "attribute",
+          "name": "fecha_f",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 209.75,
+        "height": 164
+      }
+    },
+    {
+      "id": "362b3df5-3a5b-4e43-a5c7-18936f199d90",
+      "type": "relation",
+      "name": "socio",
+      "position": {
+        "x": 1062,
+        "y": 355
+      },
+      "attributes": [
+        {
+          "id": "16b166b0-3300-4985-9b23-ea3b8e91b081",
+          "type": "attribute",
+          "name": "DNI",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "a16716da-3b05-4d7a-9f04-a825e52d318e",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "5d4b4380-991f-4156-b5a9-d38dc738749e",
+          "type": "attribute",
+          "name": "direccion",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2a8a30af-5a7a-42e8-96a7-54bb4bc1b9cc",
+          "type": "attribute",
+          "name": "tel",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "32f5ae7b-68d6-4a34-94ae-701688615d08",
+          "type": "attribute",
+          "name": "avalado_por",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        }
+      ],
+      "size": {
+        "width": 229.546875,
+        "height": 164
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "b685d37b-fe4b-428a-9e92-8556a01e8070",
+      "sourceId": "36438172-4aae-41dd-82eb-ef4d7b05abe8",
+      "targetId": "aac1c04d-796d-407f-a631-0f88bed28bd0",
+      "sourcePortId": "36438172-4aae-41dd-82eb-ef4d7b05abe8_port_left",
+      "targetPortId": "aac1c04d-796d-407f-a631-0f88bed28bd0_port_right",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "84f8249b-715c-461f-ac47-d88f1cf80197",
+      "sourceId": "ea237f63-7ff4-4fad-963d-93d17d62f9de",
+      "targetId": "2a126a65-d2e4-4a32-9baa-d007fb402f2d",
+      "sourcePortId": "ea237f63-7ff4-4fad-963d-93d17d62f9de_port_right",
+      "targetPortId": "2a126a65-d2e4-4a32-9baa-d007fb402f2d_port_left",
+      "sourceCardinality": "1..1",
+      "targetCardinality": "1..1",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "c1b605e9-8a26-468a-ad86-d5ca097f8ffa",
+      "sourceId": "75acab5e-1bb4-4f2a-bd7d-89fb6cc43079",
+      "targetId": "fefca02d-1c2a-4f63-9177-1097c0e5a924",
+      "sourcePortId": "75acab5e-1bb4-4f2a-bd7d-89fb6cc43079_port_left",
+      "targetPortId": "fefca02d-1c2a-4f63-9177-1097c0e5a924_port_right",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "c513eefd-e714-4368-afa2-a548aee32d8c",
+      "sourceId": "d842f956-d768-4ef8-b2c7-0e05b2b1603b",
+      "targetId": "16b166b0-3300-4985-9b23-ea3b8e91b081",
+      "sourcePortId": "d842f956-d768-4ef8-b2c7-0e05b2b1603b_port_right",
+      "targetPortId": "16b166b0-3300-4985-9b23-ea3b8e91b081_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "bb21142f-909f-4e82-b3f7-0e528d70c0cd",
+      "sourceId": "1248e22a-5be2-409a-9781-df27236e437e",
+      "targetId": "3dfb656a-ceb0-416a-9a7d-ba8ab8481e69",
+      "sourcePortId": "1248e22a-5be2-409a-9781-df27236e437e_port_left",
+      "targetPortId": "3dfb656a-ceb0-416a-9a7d-ba8ab8481e69_port_right",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "d5539585-f12e-49d5-8c9d-d88aa3f86bf5",
+      "sourceId": "c220d58a-9540-4a3f-8afd-9282adbdb314",
+      "targetId": "aac1c04d-796d-407f-a631-0f88bed28bd0",
+      "sourcePortId": "c220d58a-9540-4a3f-8afd-9282adbdb314_port_left",
+      "targetPortId": "aac1c04d-796d-407f-a631-0f88bed28bd0_port_left",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 6.146484375,
+          "y": 441.2518704914098,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 7.29296875,
+          "y": 165.5,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "5a38fdbc-a66b-46b7-b2fe-e0e9920956e2",
+      "sourceId": "936020d0-a9d4-4c38-9944-75c7a1ba2569",
+      "targetId": "c220d58a-9540-4a3f-8afd-9282adbdb314",
+      "sourcePortId": "936020d0-a9d4-4c38-9944-75c7a1ba2569_port_left",
+      "targetPortId": "c220d58a-9540-4a3f-8afd-9282adbdb314_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 640.5625,
+          "y": 441.5,
+          "pointIndex": 0
+        }
+      ]
+    },
+    {
+      "id": "8bae22a9-0bee-47e5-b2d9-24bc6140f5d5",
+      "sourceId": "32f5ae7b-68d6-4a34-94ae-701688615d08",
+      "targetId": "16b166b0-3300-4985-9b23-ea3b8e91b081",
+      "sourcePortId": "32f5ae7b-68d6-4a34-94ae-701688615d08_port_right",
+      "targetPortId": "16b166b0-3300-4985-9b23-ea3b8e91b081_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1384.97099609375,
+          "y": 498.5,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1381.40234375,
+          "y": 397,
+          "pointIndex": 1
+        }
+      ]
+    }
+  ]
+}

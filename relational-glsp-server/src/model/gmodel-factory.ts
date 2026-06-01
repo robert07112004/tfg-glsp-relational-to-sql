@@ -116,40 +116,12 @@ export class RelationalGModelFactory implements GModelFactory {
 
         return builder.add(
                 GLabel.builder()
-                    .id(`${transition.id}_sourceCard`)
-                    .type('label:cardinality')
-                    .addCssClass('cardinality-label')
-                    .text(transition.sourceCardinality || '1..1')
-                    .edgePlacement({
-                        position: 0.05,
-                        side: 'top',
-                        offset: 5,
-                        rotate: false
-                    })
-                    .build()
-            )
-            .add(
-                GLabel.builder()
                     .id(`${transition.id}_actions`)
                     .type('label:transition')
                     .addCssClass('transition-label')
                     .text(Transition.getLabel(transition))
                     .edgePlacement({
                         position: 0.5,
-                        side: 'top',
-                        offset: 5,
-                        rotate: false
-                    })
-                    .build()
-            )
-            .add(
-                GLabel.builder()
-                    .id(`${transition.id}_targetCard`)
-                    .type('label:cardinality')
-                    .addCssClass('cardinality-label')
-                    .text(transition.targetCardinality || '0..N')
-                    .edgePlacement({
-                        position: 0.90,
                         side: 'top',
                         offset: 5,
                         rotate: false

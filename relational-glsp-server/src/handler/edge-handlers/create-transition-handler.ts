@@ -22,9 +22,7 @@ export class CreateTransitionHandler extends JsonCreateEdgeOperationHandler {
                 targetId: cleanTargetId,
                 sourcePortId: operation.sourceElementId,
                 targetPortId: operation.targetElementId,
-                sourceCardinality: '1..1', 
-                targetCardinality: '1..1', 
-                onUpdate: 'c',  
+                onUpdate: 'c',
                 onDelete: 'c'
             };
             this.modelState.sourceModel.transitions.push(transition);

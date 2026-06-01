@@ -18,16 +18,10 @@ export class ChangeRoutingPointsHandler extends JsonOperationHandler {
     override createCommand(operation: ChangeRoutingPointsOperation): MaybePromise<Command | undefined> {
         return this.commandOf(() => {
             const sourceModel = this.modelState.sourceModel as RelationalModel;
-
-            // Recorremos las líneas que el usuario ha movido
             for (const change of operation.newRoutingPoints) {
                 const edgeId = change.elementId;
-                
-                // Buscamos la transición en nuestro modelo semántico
-                const transition = sourceModel.transitions.find(t => t.id === edgeId);
-                
+                const transition = sourceModel.transitions.find(t => t.id === edgeId);    
                 if (transition) {
-                    // Guardamos los nuevos codos de la flecha
                     transition.routingPoints = change.newRoutingPoints;
                 }
             }

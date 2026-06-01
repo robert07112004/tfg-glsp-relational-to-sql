@@ -1,0 +1,683 @@
+{
+  "id": "e6979533-c399-4877-924c-1c0039ac1125",
+  "relations": [
+    {
+      "id": "351a7b15-7bdd-4a46-830c-ce21c97c2009",
+      "type": "relation",
+      "name": "corrida",
+      "position": {
+        "x": 843.4911344679206,
+        "y": 196.113081229351
+      },
+      "attributes": [
+        {
+          "id": "b8d7b7ba-3293-450f-a70c-e2ea890687af",
+          "type": "attribute",
+          "name": "num",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "239cb4ee-6f6b-4934-b785-71323292b76e",
+          "type": "attribute",
+          "name": "feria",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c1801fd4-f3d0-4114-87b7-59f215da59a4",
+          "type": "attribute",
+          "name": "año",
+          "dataType": "DATE",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "9260bb93-156c-45d6-a471-2f019e0d14c6",
+          "type": "attribute",
+          "name": "nombre_plaza",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        }
+      ],
+      "size": {
+        "width": 249.2008056640625,
+        "height": 139
+      }
+    },
+    {
+      "id": "d0afdcf5-7714-4085-9f8e-3209c791083e",
+      "type": "relation",
+      "name": "torero",
+      "position": {
+        "x": 144,
+        "y": 66
+      },
+      "attributes": [
+        {
+          "id": "06a585a1-c2e5-47a6-b829-bba5d0829067",
+          "type": "attribute",
+          "name": "DNI",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "427a6441-07b3-41c7-88dc-e386a6ad1781",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "61e47af3-2997-4b51-8659-70e9424cd7e3",
+          "type": "attribute",
+          "name": "apodo",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "274bb4b3-0ce9-4acf-9777-b4775b9ace73",
+          "type": "attribute",
+          "name": "fecha",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "a411e69c-709a-4b68-8433-df7b8d158b6b",
+          "type": "attribute",
+          "name": "DNI_torero",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        },
+        {
+          "id": "ac533952-c427-417b-89e7-235dc448781f",
+          "type": "attribute",
+          "name": "DNI_apod",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        }
+      ],
+      "size": {
+        "width": 222.953125,
+        "height": 189
+      }
+    },
+    {
+      "id": "64cdff06-fb73-4beb-91fc-2b806bf06385",
+      "type": "relation",
+      "name": "apoderado",
+      "position": {
+        "x": 149,
+        "y": 324
+      },
+      "attributes": [
+        {
+          "id": "0825e316-e064-4ebe-b73e-705369ebbd28",
+          "type": "attribute",
+          "name": "DNI",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1b8420d4-78c6-4544-9186-843113474272",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "830d4934-e74b-45d1-ad22-c4ea45fb3638",
+          "type": "attribute",
+          "name": "dir",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1e12c798-967c-4220-8c3f-62608a986b77",
+          "type": "attribute",
+          "name": "tlf",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.953125,
+        "height": 139
+      }
+    },
+    {
+      "id": "eee3b2cc-0551-429f-ad52-e505384e621a",
+      "type": "relation",
+      "name": "plaza",
+      "position": {
+        "x": 1179,
+        "y": 270
+      },
+      "attributes": [
+        {
+          "id": "6ca3a550-f7c9-4170-afaf-d98e4c088288",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "49824d98-6b3a-4910-9adc-7d6fb1176083",
+          "type": "attribute",
+          "name": "localidad",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "6a1cacce-d942-4df3-8c13-00bdf25e5041",
+          "type": "attribute",
+          "name": "dir",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "d71aab13-5e62-4bb5-8abf-2eb9ec59fcfb",
+          "type": "attribute",
+          "name": "aforo",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 209.75,
+        "height": 139
+      }
+    },
+    {
+      "id": "9c840663-b57e-4a34-b6d6-0d18ac1998e6",
+      "type": "relation",
+      "name": "toro",
+      "position": {
+        "x": 846,
+        "y": 471
+      },
+      "attributes": [
+        {
+          "id": "6be5ddc8-29f4-49a0-9431-bcea5d3ecf9f",
+          "type": "attribute",
+          "name": "cod_ganaderia",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "527a34b9-2b38-41b4-a891-7990d40f1f72",
+          "type": "attribute",
+          "name": "año_nac",
+          "dataType": "DATE",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "706af72b-d2ca-4e3e-bd1a-ea0be131a4db",
+          "type": "attribute",
+          "name": "num",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "008efb5f-4113-4a8c-a84e-b86b9823659a",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1e1b602c-8977-419c-a37e-96a988418d21",
+          "type": "attribute",
+          "name": "col",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "e760ad4c-14a2-4948-8639-ea3ad25b9916",
+          "type": "attribute",
+          "name": "num_corrida",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        },
+        {
+          "id": "9ea11fac-def4-40f6-a0d4-5e1dff77b02b",
+          "type": "attribute",
+          "name": "feria",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        },
+        {
+          "id": "a9762480-fc3f-4c07-a918-b15fecdff8da",
+          "type": "attribute",
+          "name": "año",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": true
+        },
+        {
+          "id": "bca37576-20c1-4668-a006-13e4c1f7abb1",
+          "type": "attribute",
+          "name": "ord_torero",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 203.15625,
+        "height": 264
+      }
+    },
+    {
+      "id": "0ff6dafc-5533-4cc6-8c9a-a0088211e46c",
+      "type": "relation",
+      "name": "ganaderia",
+      "position": {
+        "x": 1165,
+        "y": 469
+      },
+      "attributes": [
+        {
+          "id": "7daeaa24-6ede-4545-853c-1d147de512bb",
+          "type": "attribute",
+          "name": "cod",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "9eb8994c-60af-4efe-b517-50bde97b9a2a",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1b0f311c-4bdc-4703-916d-82fcbea6b341",
+          "type": "attribute",
+          "name": "localidad",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1dd7f4a4-0fc8-4282-802f-5de8364593c2",
+          "type": "attribute",
+          "name": "procedencia",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "b5ac1ed2-25d1-4110-a715-d041b741bb8e",
+          "type": "attribute",
+          "name": "anitguedad",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 222.953125,
+        "height": 164
+      }
+    },
+    {
+      "id": "6b44744e-203c-4c49-93ed-05a33ad605d0",
+      "type": "relation",
+      "name": "actua",
+      "position": {
+        "x": 472,
+        "y": 168
+      },
+      "attributes": [
+        {
+          "id": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1",
+          "type": "attribute",
+          "name": "DNI_torero",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "f2c4cbe1-74f1-4f87-ae2f-3e7277ea157e",
+          "type": "attribute",
+          "name": "num_corrida",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "3d8c6333-87c5-4eb3-8c05-a87be961e986",
+          "type": "attribute",
+          "name": "feria",
+          "dataType": "VARCHAR(255)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "bc91967d-bfef-4486-91f4-564420e4d617",
+          "type": "attribute",
+          "name": "año",
+          "dataType": "DATE",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "8ac78c24-2dfd-4ec5-8d11-3da109b98d69",
+          "type": "attribute",
+          "name": "orejas",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ce5b5ca1-35a8-4177-89e5-906c54247efd",
+          "type": "attribute",
+          "name": "rabo",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "4d8f1378-d68f-4f61-87c4-b5690599559f",
+          "type": "attribute",
+          "name": "salida",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 222.953125,
+        "height": 214
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "1ea4bca9-e099-4d95-8887-ac2ba4d983ee",
+      "sourceId": "9260bb93-156c-45d6-a471-2f019e0d14c6",
+      "targetId": "6ca3a550-f7c9-4170-afaf-d98e4c088288",
+      "sourcePortId": "9260bb93-156c-45d6-a471-2f019e0d14c6_port_right",
+      "targetPortId": "6ca3a550-f7c9-4170-afaf-d98e4c088288_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "4ca0a039-2c35-44e7-a835-9dd462b11fa1",
+      "sourceId": "a411e69c-709a-4b68-8433-df7b8d158b6b",
+      "targetId": "d0afdcf5-7714-4085-9f8e-3209c791083e",
+      "sourcePortId": "a411e69c-709a-4b68-8433-df7b8d158b6b_port_left",
+      "targetPortId": "d0afdcf5-7714-4085-9f8e-3209c791083e",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 53.75,
+          "y": 207.5253725538967,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 53.625,
+          "y": 25.347796755045195,
+          "pointIndex": 1
+        },
+        {
+          "kind": "linear",
+          "x": 255.5,
+          "y": 23.170220956193702,
+          "pointIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "4328eedf-7283-4908-8be7-3dd3fc386a77",
+      "sourceId": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1",
+      "targetId": "a411e69c-709a-4b68-8433-df7b8d158b6b",
+      "sourcePortId": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1_port_left",
+      "targetPortId": "a411e69c-709a-4b68-8433-df7b8d158b6b_port_right",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "440b8cf2-b2cc-462f-8b37-f21b3b0725ea",
+      "sourceId": "6be5ddc8-29f4-49a0-9431-bcea5d3ecf9f",
+      "targetId": "7daeaa24-6ede-4545-853c-1d147de512bb",
+      "sourcePortId": "6be5ddc8-29f4-49a0-9431-bcea5d3ecf9f_port_right",
+      "targetPortId": "7daeaa24-6ede-4545-853c-1d147de512bb_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "9608d800-f125-4fb5-a957-20e8eecd3457",
+      "sourceId": "f2c4cbe1-74f1-4f87-ae2f-3e7277ea157e",
+      "targetId": "b8d7b7ba-3293-450f-a70c-e2ea890687af",
+      "sourcePortId": "f2c4cbe1-74f1-4f87-ae2f-3e7277ea157e_port_right",
+      "targetPortId": "b8d7b7ba-3293-450f-a70c-e2ea890687af_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "f4e17d05-5173-4c5b-bb77-1a5242ebaa57",
+      "sourceId": "3d8c6333-87c5-4eb3-8c05-a87be961e986",
+      "targetId": "239cb4ee-6f6b-4934-b785-71323292b76e",
+      "sourcePortId": "3d8c6333-87c5-4eb3-8c05-a87be961e986_port_right",
+      "targetPortId": "239cb4ee-6f6b-4934-b785-71323292b76e_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "8a101c87-7f38-4639-8452-e95f9d44adda",
+      "sourceId": "bc91967d-bfef-4486-91f4-564420e4d617",
+      "targetId": "c1801fd4-f3d0-4114-87b7-59f215da59a4",
+      "sourcePortId": "bc91967d-bfef-4486-91f4-564420e4d617_port_right",
+      "targetPortId": "c1801fd4-f3d0-4114-87b7-59f215da59a4_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "cdc6cda0-231c-40f8-9f34-4dab932212f5",
+      "sourceId": "e760ad4c-14a2-4948-8639-ea3ad25b9916",
+      "targetId": "b8d7b7ba-3293-450f-a70c-e2ea890687af",
+      "sourcePortId": "e760ad4c-14a2-4948-8639-ea3ad25b9916_port_right",
+      "targetPortId": "b8d7b7ba-3293-450f-a70c-e2ea890687af_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1428.0847595961352,
+          "y": 639.25,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1426.221905123803,
+          "y": 141.5,
+          "pointIndex": 1
+        },
+        {
+          "kind": "linear",
+          "x": 1012.6611328125,
+          "y": 142,
+          "pointIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "21346910-0e6c-476c-83cd-b28a7b4b63b5",
+      "sourceId": "9ea11fac-def4-40f6-a0d4-5e1dff77b02b",
+      "targetId": "239cb4ee-6f6b-4934-b785-71323292b76e",
+      "sourcePortId": "9ea11fac-def4-40f6-a0d4-5e1dff77b02b_port_right",
+      "targetPortId": "239cb4ee-6f6b-4934-b785-71323292b76e_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1413.027179378094,
+          "y": 665.5,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1410.3046875,
+          "y": 259,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "7eecaef6-2be4-4c57-9d76-5de0c9c4feca",
+      "sourceId": "a9762480-fc3f-4c07-a918-b15fecdff8da",
+      "targetId": "c1801fd4-f3d0-4114-87b7-59f215da59a4",
+      "sourcePortId": "a9762480-fc3f-4c07-a918-b15fecdff8da_port_right",
+      "targetPortId": "c1801fd4-f3d0-4114-87b7-59f215da59a4_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1148.237206302472,
+          "y": 690.5,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1142.4169921875,
+          "y": 286,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "ea734804-3428-45f5-ac00-ff19ab6b107e",
+      "sourceId": "ac533952-c427-417b-89e7-235dc448781f",
+      "targetId": "0825e316-e064-4ebe-b73e-705369ebbd28",
+      "sourcePortId": "ac533952-c427-417b-89e7-235dc448781f_port_left",
+      "targetPortId": "0825e316-e064-4ebe-b73e-705369ebbd28_port_left",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 76.046875,
+          "y": 230.5,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 73.93474688653137,
+          "y": 363.75,
+          "pointIndex": 1
+        }
+      ]
+    }
+  ]
+}

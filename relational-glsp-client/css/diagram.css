@@ -1,26 +1,7 @@
-/********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: 
- * -- GNU General Public License, version 2 with the GNU Classpath Exception
- * which is available at https://www.gnu.org/software/classpath/license.html
- * -- MIT License which is available at https://opensource.org/license/mit.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR MIT
- ********************************************************************************/
-
-/* Fondo general del lienzo de dibujo */
 svg {
     background-color: #f4f6f8;
 }
 
-/* --- RELATION --- */
 .relation-node > .sprotty-node {
     fill: #ffffff;             
     stroke: #4a90e2;           
@@ -31,7 +12,6 @@ svg {
     transition: all 0.2s ease-in-out;
 }
 
-/* Relation title */
 .relation-node > text {
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     font-weight: bold;
@@ -39,14 +19,12 @@ svg {
     fill: #2c3e50;        
 }
 
-/* Relation selected state */
 .relation-node.selected > .sprotty-node {
     stroke: #e67e22;          
     stroke-width: 3px;
     filter: drop-shadow(0px 4px 10px rgba(230, 126, 34, 0.3));
 }
 
-/* --- INLINE ATTRIBUTES OF RELATION --- */
 .attributes-compartment > .sprotty-node {
     fill: #fafbfc;            
     stroke: #e1e4e8;       
@@ -55,7 +33,6 @@ svg {
     ry: 4px;
 }
 
-/* --- ATTRIBUTES --- */
 .attribute > .sprotty-node {
     fill: transparent;
     stroke: none;
@@ -69,23 +46,19 @@ svg {
     font-weight: normal;
 }
 
-/* FK → cursiva */
 .attribute-fk text {
     font-style: italic;
 }
 
-/* UN sin PK → negrita */
 .attribute-un text {
     font-weight: bold;
 }
 
-/* PK → fuente normal, el subrayado lo hace el SVG */
 .attribute-pk text {
     font-style: normal;
     font-weight: normal;
 }
 
-/* PK+FK → cursiva */
 .attribute-pk.attribute-fk text {
     font-style: italic;
 }
@@ -93,14 +66,12 @@ svg {
 .port-left, .port-right {
     min-width: 10px;
     min-height: 10px;
-    /* Dibuja un pequeño círculo o cuadrado */
-    background-color: #61afef; /* Color azul, cámbialo al de tu tema */
-    border-radius: 5px; /* Para hacerlo redondo */
-    opacity: 0; /* Oculto por defecto */
+    background-color: #61afef; 
+    border-radius: 5px; 
+    opacity: 0;
     transition: opacity 0.2s;
 }
 
-/* Margen para que no se peguen a la etiqueta */
 .port-left {
     margin-right: 5px;
 }
@@ -108,11 +79,10 @@ svg {
     margin-left: 5px;
 }
 
-/* Mostrar los puertos solo al pasar el ratón por el atributo (opcional pero recomendado) */
 .attribute:hover .port-left,
 .attribute:hover .port-right {
     opacity: 1;
-    cursor: crosshair; /* Cambia el cursor para invitar a crear conexión */
+    cursor: crosshair;
 }
 
 text.cardinality-label {
