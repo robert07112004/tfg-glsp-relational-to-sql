@@ -8,7 +8,7 @@
     "Programming Languages"
   ],
   "publisher": "Eclipse-GLSP",
-  "main": "dist/tasklist-extension.js",
+  "main": "dist/extension.js",
   "files": [
     "lib",
     "server",

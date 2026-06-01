@@ -32,4 +32,4 @@ export async function launch(argv?: string[]): Promise<void> {
     launcher.start({ port: options.port, host: options.host });
 }
 
-launch(process.argv).catch(error => console.error('Error in tasklist server launcher:', error));
+launch(process.argv).catch(error => console.error('Error in relational server launcher:', error));

@@ -1,7 +1,7 @@
 {
-  "name": "tasklist-glsp-server",
+  "name": "relational-glsp-server",
   "version": "2.5.0",
-  "description": "GLSP node server for Tasklist GSLP diagrams",
+  "description": "GLSP node server for Relational GSLP diagrams",
   "keywords": [
     "eclipse",
     "graphics",
@@ -28,7 +28,7 @@
       "url": "https://projects.eclipse.org/projects/ecd.glsp"
     }
   ],
-  "main": "./dist/tasklist-glsp-server.js",
+  "main": "./dist/relational-glsp-server.js",
   "files": [
     "dist"
   ],

@@ -62,82 +62,12 @@
           "dataType": "INT",
           "isPK": false,
           "isFK": true,
-          "isNN": true,
-          "isUN": false
+          "isNN": false,
+          "isUN": true
         }
       ],
       "size": {
         "width": 231.34141540527344,
-        "height": 90.00000190734863
-      }
-    },
-    {
-      "id": "9475f5e5-107b-4603-9f09-47cb06517c96",
-      "type": "relation",
-      "name": "Cursos",
-      "position": {
-        "x": 168.04866017911522,
-        "y": 526.1735036765026
-      },
-      "attributes": [
-        {
-          "id": "39c81b02-74ce-41a3-9de9-e581e6c6852b",
-          "type": "attribute",
-          "name": "id",
-          "dataType": "INT",
-          "isPK": true,
-          "isFK": false,
-          "isNN": true,
-          "isUN": false
-        },
-        {
-          "id": "6cfbaddc-09a7-4ea7-8a79-711e367a30a5",
-          "type": "attribute",
-          "name": "nombre",
-          "dataType": "VARCHAR(20)",
-          "isPK": false,
-          "isFK": false,
-          "isNN": true,
-          "isUN": false
-        }
-      ],
-      "size": {
-        "width": 183.3625030517578,
-        "height": 90.00000190734863
-      }
-    },
-    {
-      "id": "d1635f02-e62e-441c-afc1-ef2acf55be36",
-      "type": "relation",
-      "name": "Prerrequisitos",
-      "position": {
-        "x": 449.94030075605053,
-        "y": 559.5821761763445
-      },
-      "attributes": [
-        {
-          "id": "425a320b-d388-49e7-ad74-eab6cf8e7dd5",
-          "type": "attribute",
-          "name": "curso_id",
-          "dataType": "INT",
-          "isPK": true,
-          "isFK": true,
-          "isNN": true,
-          "isUN": false
-        },
-        {
-          "id": "65b5a728-8301-4d71-921c-1e164ab5b9c2",
-          "type": "attribute",
-          "name": "prerrequisito_id",
-          "dataType": "INT",
-          "isPK": true,
-          "isFK": true,
-          "isNN": true,
-          "isUN": false
-        }
-      ],
-      "size": {
-        "width": 218.14610290527344,
         "height": 90.00000190734863
       }
     }
@@ -152,7 +82,21 @@
       "sourceCardinality": "0..1",
       "targetCardinality": "0..N",
       "onUpdate": "c",
-      "onDelete": "c"
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 459.02020903021105,
+          "y": 217.17807972381314,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 333.2625045776367,
+          "y": 142.55615782637994,
+          "pointIndex": 1
+        }
+      ]
     },
     {
       "id": "88bd447a-0df2-45a3-95ce-8d7cf3f6bc86",
@@ -163,29 +107,21 @@
       "sourceCardinality": "0..1",
       "targetCardinality": "0..1",
       "onUpdate": "c",
-      "onDelete": "c"
-    },
-    {
-      "id": "16165755-b460-444b-9236-4d2e4d10c2aa",
-      "sourceId": "425a320b-d388-49e7-ad74-eab6cf8e7dd5",
-      "targetId": "39c81b02-74ce-41a3-9de9-e581e6c6852b",
-      "sourcePortId": "425a320b-d388-49e7-ad74-eab6cf8e7dd5_port_left",
-      "targetPortId": "39c81b02-74ce-41a3-9de9-e581e6c6852b_port_right",
-      "sourceCardinality": "0..N",
-      "targetCardinality": "1..1",
-      "onUpdate": "c",
-      "onDelete": "c"
-    },
-    {
-      "id": "8c51f1d0-39d5-4b8b-beac-fefdbc265d42",
-      "sourceId": "65b5a728-8301-4d71-921c-1e164ab5b9c2",
-      "targetId": "39c81b02-74ce-41a3-9de9-e581e6c6852b",
-      "sourcePortId": "65b5a728-8301-4d71-921c-1e164ab5b9c2_port_left",
-      "targetPortId": "39c81b02-74ce-41a3-9de9-e581e6c6852b_port_right",
-      "sourceCardinality": "0..N",
-      "targetCardinality": "1..1",
-      "onUpdate": "c",
-      "onDelete": "c"
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 562.3137777923926,
+          "y": 387.37613915919184,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 527.0637777923926,
+          "y": 302.56620614163194,
+          "pointIndex": 1
+        }
+      ]
     }
   ]
 }

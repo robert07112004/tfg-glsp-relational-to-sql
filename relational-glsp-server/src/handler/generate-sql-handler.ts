@@ -1,7 +1,8 @@
-import { Action, ActionHandler, MaybePromise } from '@eclipse-glsp/server';
+import { Action, ActionHandler, MaybePromise, MessageAction, SOURCE_URI_ARG } from '@eclipse-glsp/server';
 import * as fs from 'fs';
 import { inject, injectable } from 'inversify';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import { RelationalModel } from '../model/model';
 import { RelationalModelState } from '../model/model-state';
 import { SQLGenerator } from './generator/sql-generator';
@@ -27,21 +28,32 @@ export class GenerateSqlActionHandler implements ActionHandler {
     execute(action: GenerateSqlAction): MaybePromise<Action[]> {
         const sourceModel = this.modelState.sourceModel as RelationalModel;
         console.log("Validación correcta. Generando SQL desde el modelo semántico...");
+        
+        const modelUri = this.modelState.get(SOURCE_URI_ARG) as string | undefined;
+        if (!modelUri) {
+            return [MessageAction.create('No se pudo determinar la ruta del modelo.', { severity: 'ERROR' })];
+        }
         const sql = this.sqlGenerator.generate(sourceModel);
 
         try {
-            const fileName = 'script_generado.sql';
-            const projectRoot = path.resolve(__dirname, '../../../');
-            const filePath = path.join(projectRoot, fileName);
-            fs.writeFileSync(filePath, sql, 'utf-8');
-            console.log("----------------------------------------------");
-            console.log(`✅ Archivo SQL generado en la raíz del proyecto:`);
-            console.log(filePath);
-            console.log("----------------------------------------------");
-        } catch (err) {
-            console.error("❌ Error al guardar el archivo:", err);
-        }
+            const modelPath = modelUri.startsWith('file://') ? fileURLToPath(modelUri) : modelUri;
+            const modelDir = path.dirname(modelPath);
 
-        return [];
+            let counter = 1;
+            let filePath = path.join(modelDir, `script_generado${counter}.sql`);
+            while (fs.existsSync(filePath)) {
+                counter++;
+                filePath = path.join(modelDir, `script_generado${counter}.sql`);
+            }
+
+            fs.writeFileSync(filePath, sql, 'utf-8');
+
+            return [MessageAction.create(
+                `SQL generado correctamente en: ${path.basename(filePath)}`,
+                { severity: 'INFO' }
+            )];
+        } catch (err) {
+            return [MessageAction.create(`Error al guardar el archivo SQL: ${err}`, { severity: 'ERROR' })];
+        }
     }
 }

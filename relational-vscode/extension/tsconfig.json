@@ -3,7 +3,12 @@
   "compilerOptions": {
     "rootDir": "src",
     "composite": true,
-    "outDir": "lib"
+    "outDir": "lib",
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["src", "server", "dist"]
+  "include": [
+    "src",
+    "server",
+    "dist"
+  ]
 }

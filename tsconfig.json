@@ -6,16 +6,16 @@
   },
   "references": [
     {
-      "path": "./tasklist-glsp-client"
+      "path": "./relational-glsp-client"
     },
     {
-      "path": "./tasklist-glsp-server"
+      "path": "./relational-glsp-server"
     },
     {
-      "path": "./tasklist-vscode/extension"
+      "path": "./relational-vscode/extension"
     },
     {
-      "path": "./tasklist-vscode/webview"
+      "path": "./relational-vscode/webview"
     }
   ]
 }

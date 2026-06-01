@@ -1,8 +1,8 @@
 {
-  "name": "tasklist-glsp-client",
+  "name": "relational-glsp-client",
   "version": "2.5.0",
   "private": "true",
-  "description": "GLSP sprotty diagrams for the Tasklist DSL",
+  "description": "GLSP sprotty diagrams for the Relational DSL",
   "keywords": [
     "glsp",
     "minimal",

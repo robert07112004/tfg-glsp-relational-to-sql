@@ -1,6 +1,7 @@
 {
   "extends": "@eclipse-glsp/ts-config",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "rootDir": "src",
     "outDir": "lib",
     "reactNamespace": "JSX",

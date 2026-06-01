@@ -7,10 +7,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 const config = {
     target: 'node',
 
-    entry: path.resolve(__dirname, 'src/tasklist-extension.ts'),
+    entry: path.resolve(__dirname, 'src/extension.ts'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'tasklist-extension.js',
+        filename: 'extension.js',
         libraryTarget: 'commonjs2'
     },
     devtool: 'source-map',
@@ -41,7 +41,7 @@ const config = {
                     from: path.resolve(__dirname, '..', 'webview', 'dist')
                 },
                 {
-                    from: path.resolve(__dirname, '..', '..', 'tasklist-glsp-server', 'dist')
+                    from: path.resolve(__dirname, '..', '..', 'relational-glsp-server', 'dist')
                 }
             ]
         })

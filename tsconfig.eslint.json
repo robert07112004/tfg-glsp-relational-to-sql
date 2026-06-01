@@ -4,6 +4,13 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "exclude": ["**/node_modules", "**/.eslintrc.js"],
-  "include": ["tasklist-glsp-client/src", "tasklist-glsp-server/src", "tasklist-vscode/*/src"]
+  "exclude": [
+    "**/node_modules",
+    "**/.eslintrc.js"
+  ],
+  "include": [
+    "relational-glsp-client/src",
+    "relational-glsp-server/src",
+    "relational-vscode/*/src"
+  ]
 }

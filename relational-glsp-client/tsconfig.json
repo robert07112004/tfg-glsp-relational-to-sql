@@ -7,7 +7,8 @@
     "types": [],
     "composite": true,
     "jsx": "react",
-    "jsxFactory": "svg"
+    "jsxFactory": "svg",
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "src"
