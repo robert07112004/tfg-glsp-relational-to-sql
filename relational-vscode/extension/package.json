@@ -9,18 +9,13 @@
   ],
   "publisher": "Eclipse-GLSP",
   "main": "dist/extension.js",
-  "files": [
-    "lib",
-    "server",
-    "webview"
-  ],
   "scripts": {
     "build": "tsc -b && yarn bundle",
     "bundle": "webpack",
     "bundle:prod": "webpack --config ./webpack.prod.js",
     "clean": "rimraf lib tsconfig.tsbuildinfo dist",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "package": "vsce package --yarn",
+    "package": "vsce package --allow-missing-repository",
     "watch": "tsc -w",
     "watch:bundle": "webpack --watch"
   },
