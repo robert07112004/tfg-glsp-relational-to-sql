@@ -1,9 +1,8 @@
-/* ─── Canvas ─────────────────────────────────────────────── */
 svg {
     background-color: #111827;
 }
 
-/* ─── Relation (Table Card) ───────────────────────────────── */
+/* Relation */
 .relation-node > .sprotty-node {
     fill: #1E3A5F;
     stroke: #4B7CC8;
@@ -24,7 +23,6 @@ svg {
     filter: drop-shadow(0px 4px 14px rgba(96, 217, 250, 0.3));
 }
 
-/* Title — white on deep blue */
 .relation-node > .sprotty-label,
 .relation-node > text {
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -34,14 +32,13 @@ svg {
     letter-spacing: 0.3px;
 }
 
-/* ─── Attributes Compartment — warm off-white body ─────────── */
+/* Attributes Compartment */
 .attributes-compartment rect {
     fill: #F0F4F8;
     stroke: #4B7CC8;
     stroke-width: 0.8px;
 }
 
-/* ─── Attribute Rows ─────────────────────────────────────── */
 .attribute > rect.sprotty-node {
     fill: transparent;
     stroke: none;
@@ -52,7 +49,6 @@ svg {
     stroke: none;
 }
 
-/* Base attribute text — dark on light background */
 .attribute .sprotty-label {
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -60,24 +56,21 @@ svg {
     fill: #1E293B;
 }
 
-/* Primary Key — red, bold */
 .attribute-pk .sprotty-label {
     fill: #C0392B;
     font-weight: 700;
 }
 
-/* Foreign Key — medium blue, italic */
 .attribute-fk .sprotty-label {
     fill: #2563EB;
     font-style: italic;
 }
 
-/* Alternative / Unique Key — purple */
 .attribute-un .sprotty-label {
     fill: #7C3AED;
 }
 
-/* ─── Ports ──────────────────────────────────────────────── */
+/* Ports */
 .port-left > rect,
 .port-right > rect {
     fill: #4B7CC8;
@@ -94,7 +87,7 @@ svg {
     stroke: #60D9FA;
 }
 
-/* ─── Edges — warm amber ─────────────────────────────────── */
+/* Edges */
 .transition path {
     stroke: #F59E0B;
     stroke-width: 2px;
@@ -124,7 +117,7 @@ svg {
     fill: #60D9FA !important;
 }
 
-/* ─── Edge Labels ────────────────────────────────────────── */
+/* Edge Labels */
 text.cardinality-label {
     fill: #FDE68A !important;
     font-size: 11px;
@@ -139,7 +132,7 @@ text.transition-label {
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
-/* ─── Tool palette group icons ───────────────────────────── */
+/* Tool palette group icons */
 .codicon-rel-relation,
 .codicon-rel-attribute,
 .codicon-rel-edge {
