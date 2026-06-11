@@ -19,6 +19,14 @@ const ATTRIBUTE_TYPE_IDS = [
     'node:attribute-unique'
 ];
 
+const ATTRIBUTE_SORT_ORDER: Record<string, string> = {
+    'node:attribute-primary-key': '1',
+    'node:attribute-unique':      '2',
+    'node:attribute-normal':      '3',
+    'node:attribute-optional':    '4',
+    'node:attribute-foreign-key': '5'
+};
+
 @injectable()
 export class RelationalToolPaletteItemProvider extends ToolPaletteItemProvider {
     @inject(OperationHandlerRegistry) operationHandlerRegistry: OperationHandlerRegistry;
@@ -48,11 +56,13 @@ export class RelationalToolPaletteItemProvider extends ToolPaletteItemProvider {
 
     private toItem(handler: CreateOperationHandler): PaletteItem {
         const action = handler.getTriggerActions()[0];
+        const typeId = handler.elementTypeIds[0];
+        const sortString = ATTRIBUTE_SORT_ORDER[typeId] ?? handler.label.charAt(0);
         return {
             id: `palette-item-${this.counter++}`,
             label: handler.label,
             actions: [action],
-            sortString: handler.label.charAt(0)
+            sortString
         };
     }
 }

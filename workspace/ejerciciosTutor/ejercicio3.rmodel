@@ -41,14 +41,14 @@
           "isUN": false
         },
         {
-          "id": "9260bb93-156c-45d6-a471-2f019e0d14c6",
+          "id": "42f212d1-8ef7-422a-a25e-dbdd7931c9ce",
           "type": "attribute",
           "name": "nombre_plaza",
           "dataType": "VARCHAR(255)",
           "isPK": false,
           "isFK": true,
           "isNN": true,
-          "isUN": true
+          "isUN": false
         }
       ],
       "size": {
@@ -62,7 +62,7 @@
       "name": "torero",
       "position": {
         "x": 144,
-        "y": 66
+        "y": 60
       },
       "attributes": [
         {
@@ -106,29 +106,29 @@
           "isUN": false
         },
         {
-          "id": "a411e69c-709a-4b68-8433-df7b8d158b6b",
+          "id": "05129c6a-e75d-4fb3-97e2-0b46aeae3f6f",
           "type": "attribute",
           "name": "DNI_torero",
           "dataType": "VARCHAR(9)",
           "isPK": false,
           "isFK": true,
           "isNN": true,
-          "isUN": true
+          "isUN": false
         },
         {
-          "id": "ac533952-c427-417b-89e7-235dc448781f",
+          "id": "aeafe532-123e-490a-8bfa-f90e59554969",
           "type": "attribute",
           "name": "DNI_apod",
           "dataType": "VARCHAR(9)",
           "isPK": false,
           "isFK": true,
           "isNN": true,
-          "isUN": true
+          "isUN": false
         }
       ],
       "size": {
         "width": 222.953125,
-        "height": 189
+        "height": 199
       }
     },
     {
@@ -183,7 +183,7 @@
       ],
       "size": {
         "width": 189.953125,
-        "height": 139
+        "height": 145
       }
     },
     {
@@ -191,8 +191,8 @@
       "type": "relation",
       "name": "plaza",
       "position": {
-        "x": 1179,
-        "y": 270
+        "x": 1178,
+        "y": 277
       },
       "attributes": [
         {
@@ -238,7 +238,7 @@
       ],
       "size": {
         "width": 209.75,
-        "height": 139
+        "height": 145
       }
     },
     {
@@ -301,37 +301,37 @@
           "isUN": false
         },
         {
-          "id": "e760ad4c-14a2-4948-8639-ea3ad25b9916",
+          "id": "71beccb0-c3e3-4d75-8055-46c10a0bd69b",
           "type": "attribute",
           "name": "num_corrida",
           "dataType": "INT",
           "isPK": false,
           "isFK": true,
           "isNN": true,
-          "isUN": true
+          "isUN": false
         },
         {
-          "id": "9ea11fac-def4-40f6-a0d4-5e1dff77b02b",
+          "id": "664b9b78-bd99-487c-830e-34b26f2bd6c7",
           "type": "attribute",
           "name": "feria",
           "dataType": "VARCHAR(255)",
           "isPK": false,
           "isFK": true,
           "isNN": true,
-          "isUN": true
+          "isUN": false
         },
         {
-          "id": "a9762480-fc3f-4c07-a918-b15fecdff8da",
+          "id": "eeff62bb-015d-460c-a4a5-f140387a12eb",
           "type": "attribute",
           "name": "año",
           "dataType": "DATE",
           "isPK": false,
           "isFK": true,
           "isNN": true,
-          "isUN": true
+          "isUN": false
         },
         {
-          "id": "bca37576-20c1-4668-a006-13e4c1f7abb1",
+          "id": "1c98041d-85ba-4d27-8f0d-7b2cea82b28e",
           "type": "attribute",
           "name": "ord_torero",
           "dataType": "INT",
@@ -342,7 +342,7 @@
         }
       ],
       "size": {
-        "width": 203.15625,
+        "width": 218.34375,
         "height": 264
       }
     },
@@ -499,53 +499,6 @@
   ],
   "transitions": [
     {
-      "id": "1ea4bca9-e099-4d95-8887-ac2ba4d983ee",
-      "sourceId": "9260bb93-156c-45d6-a471-2f019e0d14c6",
-      "targetId": "6ca3a550-f7c9-4170-afaf-d98e4c088288",
-      "sourcePortId": "9260bb93-156c-45d6-a471-2f019e0d14c6_port_right",
-      "targetPortId": "6ca3a550-f7c9-4170-afaf-d98e4c088288_port_left",
-      "onUpdate": "c",
-      "onDelete": "c"
-    },
-    {
-      "id": "4ca0a039-2c35-44e7-a835-9dd462b11fa1",
-      "sourceId": "a411e69c-709a-4b68-8433-df7b8d158b6b",
-      "targetId": "d0afdcf5-7714-4085-9f8e-3209c791083e",
-      "sourcePortId": "a411e69c-709a-4b68-8433-df7b8d158b6b_port_left",
-      "targetPortId": "d0afdcf5-7714-4085-9f8e-3209c791083e",
-      "onUpdate": "c",
-      "onDelete": "c",
-      "routingPoints": [
-        {
-          "kind": "linear",
-          "x": 53.75,
-          "y": 207.5253725538967,
-          "pointIndex": 0
-        },
-        {
-          "kind": "linear",
-          "x": 53.625,
-          "y": 25.347796755045195,
-          "pointIndex": 1
-        },
-        {
-          "kind": "linear",
-          "x": 255.5,
-          "y": 23.170220956193702,
-          "pointIndex": 2
-        }
-      ]
-    },
-    {
-      "id": "4328eedf-7283-4908-8be7-3dd3fc386a77",
-      "sourceId": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1",
-      "targetId": "a411e69c-709a-4b68-8433-df7b8d158b6b",
-      "sourcePortId": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1_port_left",
-      "targetPortId": "a411e69c-709a-4b68-8433-df7b8d158b6b_port_right",
-      "onUpdate": "c",
-      "onDelete": "c"
-    },
-    {
       "id": "440b8cf2-b2cc-462f-8b37-f21b3b0725ea",
       "sourceId": "6be5ddc8-29f4-49a0-9431-bcea5d3ecf9f",
       "targetId": "7daeaa24-6ede-4545-853c-1d147de512bb",
@@ -582,100 +535,159 @@
       "onDelete": "c"
     },
     {
-      "id": "cdc6cda0-231c-40f8-9f34-4dab932212f5",
-      "sourceId": "e760ad4c-14a2-4948-8639-ea3ad25b9916",
-      "targetId": "b8d7b7ba-3293-450f-a70c-e2ea890687af",
-      "sourcePortId": "e760ad4c-14a2-4948-8639-ea3ad25b9916_port_right",
-      "targetPortId": "b8d7b7ba-3293-450f-a70c-e2ea890687af_port_right",
+      "id": "a0169dae-d099-4e44-8f73-2c360877558a",
+      "sourceId": "05129c6a-e75d-4fb3-97e2-0b46aeae3f6f",
+      "targetId": "d0afdcf5-7714-4085-9f8e-3209c791083e",
+      "sourcePortId": "05129c6a-e75d-4fb3-97e2-0b46aeae3f6f_port_left",
+      "targetPortId": "d0afdcf5-7714-4085-9f8e-3209c791083e",
       "onUpdate": "c",
       "onDelete": "c",
       "routingPoints": [
         {
           "kind": "linear",
-          "x": 1428.0847595961352,
-          "y": 639.25,
+          "x": 76.94481515966298,
+          "y": 209.33020140047344,
           "pointIndex": 0
         },
         {
           "kind": "linear",
-          "x": 1426.221905123803,
-          "y": 141.5,
+          "x": 75.85019354379537,
+          "y": 27.660402800946898,
           "pointIndex": 1
         },
         {
           "kind": "linear",
-          "x": 1012.6611328125,
-          "y": 142,
+          "x": 255.42509677189764,
+          "y": 26.868192464386944,
           "pointIndex": 2
         }
       ]
     },
     {
-      "id": "21346910-0e6c-476c-83cd-b28a7b4b63b5",
-      "sourceId": "9ea11fac-def4-40f6-a0d4-5e1dff77b02b",
-      "targetId": "239cb4ee-6f6b-4934-b785-71323292b76e",
-      "sourcePortId": "9ea11fac-def4-40f6-a0d4-5e1dff77b02b_port_right",
-      "targetPortId": "239cb4ee-6f6b-4934-b785-71323292b76e_port_right",
+      "id": "3e4768a9-6d8e-4985-bc70-157d3f43ecd8",
+      "sourceId": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1",
+      "targetId": "05129c6a-e75d-4fb3-97e2-0b46aeae3f6f",
+      "sourcePortId": "a8909c9f-b1ea-47bd-9de0-a509f56b14e1_port_left",
+      "targetPortId": "05129c6a-e75d-4fb3-97e2-0b46aeae3f6f_port_right",
       "onUpdate": "c",
-      "onDelete": "c",
-      "routingPoints": [
-        {
-          "kind": "linear",
-          "x": 1413.027179378094,
-          "y": 665.5,
-          "pointIndex": 0
-        },
-        {
-          "kind": "linear",
-          "x": 1410.3046875,
-          "y": 259,
-          "pointIndex": 1
-        }
-      ]
+      "onDelete": "c"
     },
     {
-      "id": "7eecaef6-2be4-4c57-9d76-5de0c9c4feca",
-      "sourceId": "a9762480-fc3f-4c07-a918-b15fecdff8da",
-      "targetId": "c1801fd4-f3d0-4114-87b7-59f215da59a4",
-      "sourcePortId": "a9762480-fc3f-4c07-a918-b15fecdff8da_port_right",
-      "targetPortId": "c1801fd4-f3d0-4114-87b7-59f215da59a4_port_right",
-      "onUpdate": "c",
-      "onDelete": "c",
-      "routingPoints": [
-        {
-          "kind": "linear",
-          "x": 1148.237206302472,
-          "y": 690.5,
-          "pointIndex": 0
-        },
-        {
-          "kind": "linear",
-          "x": 1142.4169921875,
-          "y": 286,
-          "pointIndex": 1
-        }
-      ]
-    },
-    {
-      "id": "ea734804-3428-45f5-ac00-ff19ab6b107e",
-      "sourceId": "ac533952-c427-417b-89e7-235dc448781f",
+      "id": "4218f2fe-f8e0-4afe-8438-783c99f6d11d",
+      "sourceId": "aeafe532-123e-490a-8bfa-f90e59554969",
       "targetId": "0825e316-e064-4ebe-b73e-705369ebbd28",
-      "sourcePortId": "ac533952-c427-417b-89e7-235dc448781f_port_left",
+      "sourcePortId": "aeafe532-123e-490a-8bfa-f90e59554969_port_left",
       "targetPortId": "0825e316-e064-4ebe-b73e-705369ebbd28_port_left",
       "onUpdate": "c",
       "onDelete": "c",
       "routingPoints": [
         {
           "kind": "linear",
-          "x": 76.046875,
-          "y": 230.5,
+          "x": 80.04687500000001,
+          "y": 236.5,
           "pointIndex": 0
         },
         {
           "kind": "linear",
-          "x": 73.93474688653137,
-          "y": 363.75,
+          "x": 79.9309404481132,
+          "y": 366.25,
           "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "09912a04-3ef3-49d6-9b35-493be6f5213e",
+      "sourceId": "42f212d1-8ef7-422a-a25e-dbdd7931c9ce",
+      "targetId": "6ca3a550-f7c9-4170-afaf-d98e4c088288",
+      "sourcePortId": "42f212d1-8ef7-422a-a25e-dbdd7931c9ce_port_right",
+      "targetPortId": "6ca3a550-f7c9-4170-afaf-d98e4c088288_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "c0cfcd7b-65c0-4877-ba95-da79081eedb7",
+      "sourceId": "71beccb0-c3e3-4d75-8055-46c10a0bd69b",
+      "targetId": "b8d7b7ba-3293-450f-a70c-e2ea890687af",
+      "sourcePortId": "71beccb0-c3e3-4d75-8055-46c10a0bd69b_port_right",
+      "targetPortId": "b8d7b7ba-3293-450f-a70c-e2ea890687af_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1412.6527937964602,
+          "y": 649.0565406146756,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1408.7038000696903,
+          "y": 181.2841172793552,
+          "pointIndex": 1
+        },
+        {
+          "kind": "linear",
+          "x": 1013.2293032063053,
+          "y": 179.3800148156089,
+          "pointIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "7be60a00-178e-49d2-a184-a74b766b8f74",
+      "sourceId": "664b9b78-bd99-487c-830e-34b26f2bd6c7",
+      "targetId": "239cb4ee-6f6b-4934-b785-71323292b76e",
+      "sourcePortId": "664b9b78-bd99-487c-830e-34b26f2bd6c7_port_right",
+      "targetPortId": "239cb4ee-6f6b-4934-b785-71323292b76e_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1447.02317424198,
+          "y": 671.1728073782484,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1446.2963484839602,
+          "y": 263.0565406146755,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "1e60cfda-e954-4b53-afad-c73b1c21480c",
+      "sourceId": "eeff62bb-015d-460c-a4a5-f140387a12eb",
+      "targetId": "c1801fd4-f3d0-4114-87b7-59f215da59a4",
+      "sourcePortId": "eeff62bb-015d-460c-a4a5-f140387a12eb_port_right",
+      "targetPortId": "c1801fd4-f3d0-4114-87b7-59f215da59a4_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1079.8742267934426,
+          "y": 701.5282703073377,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1077.6414399824516,
+          "y": 417.79240546100664,
+          "pointIndex": 1
+        },
+        {
+          "kind": "linear",
+          "x": 1123.025046576956,
+          "y": 417.92447303784104,
+          "pointIndex": 2
+        },
+        {
+          "kind": "linear",
+          "x": 1124.4086531714604,
+          "y": 292.0565406146755,
+          "pointIndex": 3
         }
       ]
     }

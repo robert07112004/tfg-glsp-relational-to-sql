@@ -1,4 +1,4 @@
-Fecha: 1/6/2026, 20:22:53
+Fecha: 8/6/2026, 19:44:24
 
 CREATE TABLE plaza (
     nombre VARCHAR(255) NOT NULL PRIMARY KEY,
@@ -11,7 +11,7 @@ CREATE TABLE corrida (
     num INT NOT NULL,
     feria VARCHAR(255) NOT NULL,
     año DATE NOT NULL,
-    nombre_plaza VARCHAR(255) NOT NULL UNIQUE,
+    nombre_plaza VARCHAR(255) NOT NULL,
     PRIMARY KEY (num, feria, año),
     FOREIGN KEY (nombre_plaza) REFERENCES plaza(nombre) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -28,8 +28,8 @@ CREATE TABLE torero (
     nombre VARCHAR(255) NOT NULL,
     apodo VARCHAR(255) NOT NULL,
     fecha DATE NOT NULL,
-    DNI_torero VARCHAR(9) NOT NULL UNIQUE,
-    DNI_apod VARCHAR(9) NOT NULL UNIQUE,
+    DNI_torero VARCHAR(9) NOT NULL,
+    DNI_apod VARCHAR(9) NOT NULL,
     FOREIGN KEY (DNI_torero) REFERENCES torero(DNI) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (DNI_apod) REFERENCES apoderado(DNI) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -48,9 +48,9 @@ CREATE TABLE toro (
     num INT NOT NULL,
     nombre VARCHAR(255) NOT NULL,
     col VARCHAR(255) NOT NULL,
-    num_corrida INT NOT NULL UNIQUE,
-    feria VARCHAR(255) NOT NULL UNIQUE,
-    año DATE NOT NULL UNIQUE,
+    num_corrida INT NOT NULL,
+    feria VARCHAR(255) NOT NULL,
+    año DATE NOT NULL,
     ord_torero INT NOT NULL,
     PRIMARY KEY (cod_ganaderia, año_nac, num),
     FOREIGN KEY (cod_ganaderia) REFERENCES ganaderia(cod) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -68,7 +68,6 @@ CREATE TABLE actua (
     rabo INT NOT NULL,
     salida INT NOT NULL,
     PRIMARY KEY (DNI_torero, num_corrida, feria, año),
-    FOREIGN KEY (DNI_torero) REFERENCES torero(DNI_torero) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (num_corrida) REFERENCES corrida(num) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (feria) REFERENCES corrida(feria) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (año) REFERENCES corrida(año) ON DELETE CASCADE ON UPDATE CASCADE
