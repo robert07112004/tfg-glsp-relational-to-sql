@@ -11,7 +11,8 @@ import {
     ModelState,
     OperationHandlerConstructor,
     RequestClipboardDataActionHandler,
-    SourceModelStorage
+    SourceModelStorage,
+    ToolPaletteItemProvider
 } from '@eclipse-glsp/server';
 import { injectable } from 'inversify';
 import { RelationalApplyLabelEditHandler } from '../handler/apply-label-edit-handler';
@@ -31,6 +32,7 @@ import { RelationalModelIndex } from '../model/model-index';
 import { RelationalModelState } from '../model/model-state';
 import { RelationalModelStorage } from '../model/storage';
 import { RelationalDiagramConfiguration } from './diagram-configuration';
+import { RelationalToolPaletteItemProvider } from './tool-palette-item-provider';
 
 @injectable()
 export class RelationalDiagramModule extends DiagramModule {
@@ -84,6 +86,10 @@ export class RelationalDiagramModule extends DiagramModule {
     protected override bindGModelIndex(): BindingTarget<GModelIndex> {
         this.context.bind(RelationalModelIndex).toSelf().inSingletonScope();
         return { service: RelationalModelIndex };
+    }
+
+    protected override bindToolPaletteItemProvider(): BindingTarget<ToolPaletteItemProvider> | undefined {
+        return RelationalToolPaletteItemProvider;
     }
 
     protected override bindLabelEditValidator(): BindingTarget<LabelEditValidator> | undefined {

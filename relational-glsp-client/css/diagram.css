@@ -1,96 +1,186 @@
+/* ─── Canvas ─────────────────────────────────────────────── */
 svg {
-    background-color: #f4f6f8;
+    background-color: #111827;
 }
 
+/* ─── Relation (Table Card) ───────────────────────────────── */
 .relation-node > .sprotty-node {
-    fill: #ffffff;             
-    stroke: #4a90e2;           
-    stroke-width: 2px;
-    rx: 6px;                  
+    fill: #1E3A5F;
+    stroke: #4B7CC8;
+    stroke-width: 1.5px;
+    rx: 6px;
     ry: 6px;
-    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1)); 
-    transition: all 0.2s ease-in-out;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.6));
 }
 
-.relation-node > text {
-    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-    fill: #2c3e50;        
+.relation-node.hover > .sprotty-node {
+    stroke: #7EB3FF;
+    stroke-width: 2px;
 }
 
 .relation-node.selected > .sprotty-node {
-    stroke: #e67e22;          
-    stroke-width: 3px;
-    filter: drop-shadow(0px 4px 10px rgba(230, 126, 34, 0.3));
+    stroke: #60D9FA;
+    stroke-width: 2px;
+    filter: drop-shadow(0px 4px 14px rgba(96, 217, 250, 0.3));
 }
 
-.attributes-compartment > .sprotty-node {
-    fill: #fafbfc;            
-    stroke: #e1e4e8;       
-    stroke-width: 1px;
-    rx: 4px;
-    ry: 4px;
+/* Title — white on deep blue */
+.relation-node > .sprotty-label,
+.relation-node > text {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    fill: #E2E8F0;
+    letter-spacing: 0.3px;
 }
 
-.attribute > .sprotty-node {
+/* ─── Attributes Compartment — warm off-white body ─────────── */
+.attributes-compartment rect {
+    fill: #F0F4F8;
+    stroke: #4B7CC8;
+    stroke-width: 0.8px;
+}
+
+/* ─── Attribute Rows ─────────────────────────────────────── */
+.attribute > rect.sprotty-node {
     fill: transparent;
     stroke: none;
 }
 
-.attribute text {
-    font-family: 'Consolas', 'Courier New', monospace;
+.attribute.hover > rect.sprotty-node {
+    fill: rgba(75, 124, 200, 0.1);
+    stroke: none;
+}
+
+/* Base attribute text — dark on light background */
+.attribute .sprotty-label {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 12px;
-    fill: #5c6bc0;
-    font-style: normal;
-    font-weight: normal;
+    font-weight: 500;
+    fill: #1E293B;
 }
 
-.attribute-fk text {
+/* Primary Key — red, bold */
+.attribute-pk .sprotty-label {
+    fill: #C0392B;
+    font-weight: 700;
+}
+
+/* Foreign Key — medium blue, italic */
+.attribute-fk .sprotty-label {
+    fill: #2563EB;
     font-style: italic;
 }
 
-.attribute-un text {
-    font-weight: bold;
+/* Alternative / Unique Key — purple */
+.attribute-un .sprotty-label {
+    fill: #7C3AED;
 }
 
-.attribute-pk text {
-    font-style: normal;
-    font-weight: normal;
-}
-
-.attribute-pk.attribute-fk text {
-    font-style: italic;
-}
-
-.port-left, .port-right {
-    min-width: 10px;
-    min-height: 10px;
-    background-color: #61afef; 
-    border-radius: 5px; 
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.port-left {
-    margin-right: 5px;
-}
-.port-right {
-    margin-left: 5px;
-}
-
-.attribute:hover .port-left,
-.attribute:hover .port-right {
-    opacity: 1;
+/* ─── Ports ──────────────────────────────────────────────── */
+.port-left > rect,
+.port-right > rect {
+    fill: #4B7CC8;
+    stroke: #2A5298;
+    stroke-width: 1px;
+    rx: 2px;
+    ry: 2px;
     cursor: crosshair;
 }
 
+.port-left.hover > rect,
+.port-right.hover > rect {
+    fill: #60D9FA;
+    stroke: #60D9FA;
+}
+
+/* ─── Edges — warm amber ─────────────────────────────────── */
+.transition path {
+    stroke: #F59E0B;
+    stroke-width: 2px;
+    fill: none;
+}
+
+.transition.hover path {
+    stroke: #FBBF24;
+    stroke-width: 2.5px;
+}
+
+.transition.selected path {
+    stroke: #60D9FA;
+    stroke-width: 2px;
+}
+
+/* Arrow head */
+.transition-arrow {
+    fill: #F59E0B !important;
+}
+
+.transition.hover .transition-arrow {
+    fill: #FBBF24 !important;
+}
+
+.transition.selected .transition-arrow {
+    fill: #60D9FA !important;
+}
+
+/* ─── Edge Labels ────────────────────────────────────────── */
 text.cardinality-label {
-    fill: orange !important;
-    font-size: 15px;
+    fill: #FDE68A !important;
+    font-size: 11px;
+    font-style: italic;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
 text.transition-label {
-    fill: orange !important;
-    font-size: 15px;
+    fill: #FDE68A !important;
+    font-size: 11px;
+    font-style: italic;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+/* ─── Tool palette group icons ───────────────────────────── */
+.codicon-rel-relation,
+.codicon-rel-attribute,
+.codicon-rel-edge {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+.codicon-rel-relation::before,
+.codicon-rel-attribute::before,
+.codicon-rel-edge::before {
+    content: '';
+    display: block;
+}
+
+.codicon-rel-relation::before {
+    width: 13px;
+    height: 10px;
+    border: 1.5px solid currentColor;
+    border-radius: 1px;
+    background: linear-gradient(to bottom, currentColor 35%, transparent 35%);
+}
+
+.codicon-rel-attribute::before {
+    width: 11px;
+    height: 9px;
+    border: 1.5px solid currentColor;
+    border-radius: 1px;
+    background:
+        linear-gradient(to bottom,
+            transparent 30%, currentColor 30%,
+            currentColor 45%, transparent 45%,
+            transparent 70%, currentColor 70%,
+            currentColor 85%, transparent 85%
+        );
+}
+
+.codicon-rel-edge::before {
+    width: 14px;
+    height: 2px;
+    background: currentColor;
 }

@@ -38,16 +38,9 @@ export class GenerateSqlActionHandler implements ActionHandler {
         try {
             const modelPath = modelUri.startsWith('file://') ? fileURLToPath(modelUri) : modelUri;
             const modelDir = path.dirname(modelPath);
-
-            let counter = 1;
-            let filePath = path.join(modelDir, `script_generado${counter}.sql`);
-            while (fs.existsSync(filePath)) {
-                counter++;
-                filePath = path.join(modelDir, `script_generado${counter}.sql`);
-            }
-
+            const baseName = path.basename(modelPath, path.extname(modelPath));
+            const filePath = path.join(modelDir, `${baseName}.sql`);
             fs.writeFileSync(filePath, sql, 'utf-8');
-
             return [MessageAction.create(
                 `SQL generado correctamente en: ${path.basename(filePath)}`,
                 { severity: 'INFO' }

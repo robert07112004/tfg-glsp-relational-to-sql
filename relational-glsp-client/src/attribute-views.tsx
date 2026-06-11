@@ -40,7 +40,7 @@ export class AttributeNodeView extends ShapeView {
                 <line
                     x1={labelX}          y1={y}
                     x2={labelX + labelW} y2={y}
-                    stroke="#283593"
+                    stroke="#C0392B"
                     stroke-width="1.5"
                 />
             );
@@ -49,7 +49,7 @@ export class AttributeNodeView extends ShapeView {
                 <line
                     x1={labelX}          y1={y}
                     x2={labelX + labelW} y2={y}
-                    stroke="#283593"
+                    stroke="#7C3AED"
                     stroke-width="1.2"
                     stroke-dasharray="4,3"
                 />
