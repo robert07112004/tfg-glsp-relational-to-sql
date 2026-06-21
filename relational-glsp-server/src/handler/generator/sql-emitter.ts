@@ -5,7 +5,7 @@ export class SQLEmitter {
     static header(): string {
         const now = new Date().toLocaleString();
         return [
-            `Fecha: ${now}`
+            `-- Fecha: ${now}`
         ].join('\n') + '\n';
     }
 
@@ -13,13 +13,12 @@ export class SQLEmitter {
         const lines: string[] = [];
 
         const pkColumns = table.columns.filter(c => c.isPK).map(c => c.name);
-        const isCompositePK = pkColumns.length > 1;
 
         for (const col of table.columns) {
-            lines.push('    ' + SQLEmitter.columnDef(col, !isCompositePK));
+            lines.push('    ' + SQLEmitter.columnDef(col));
         }
 
-        if (isCompositePK) {
+        if (pkColumns.length > 0) {
             lines.push(`    PRIMARY KEY (${pkColumns.join(', ')})`);
         }
 
@@ -30,14 +29,13 @@ export class SQLEmitter {
         return `CREATE TABLE ${table.name} (\n${lines.join(',\n')}\n);\n`;
     }
 
-    private static columnDef(column: Column, inlinePK: boolean): string {
+    private static columnDef(column: Column): string {
         const parts: string[] = [column.name, column.dataType];
 
         if      (column.isNotNull &&  column.isUnique) parts.push('NOT NULL UNIQUE');
         else if (column.isNotNull && !column.isUnique) parts.push('NOT NULL');
         else if (column.isUnique)                      parts.push('UNIQUE');
-        
-        if (inlinePK && column.isPK) parts.push('PRIMARY KEY');
+        else                                           parts.push('NULL');
 
         return parts.join(' ');
     }

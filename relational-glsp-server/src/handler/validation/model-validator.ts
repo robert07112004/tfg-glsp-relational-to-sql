@@ -12,14 +12,11 @@ import { RelationalModelState } from '../../model/model-state';
  * Rule 5:  The table must have a Primary Key (PK)
  * Rule 6:  Two attributes within the same table cannot share the same name
  * Rule 7:  The attribute must have a user-defined name
- * Rule 8:  The target of a transition must point to a table that has a PK or UNIQUE attribute
- * Rule 9:  Type match between FKs: the FK data type must match the referenced PK data type
- * Rule 10: The attribute from which an edge originates must be marked as FK (isFK = true)
- * Rule 11: A PK attribute cannot be nullable (isNN must be true)
- * Rule 12: An edge must originate from a specific attribute, not from the table node itself
- * Rule 13: An attribute marked as FK must have at least one outgoing edge
- * Rule 14: A table or attribute name cannot be a SQL reserved word
- * Rule 15: Circular references between tables are not allowed
+ * Rule 8:  Type match between FKs: the FK data type must match the referenced attribute data type
+ * Rule 9:  The attribute from which an edge originates must be marked as FK (isFK = true)
+ * Rule 10: An attribute marked as FK must have at least one outgoing edge
+ * Rule 11: A table or attribute name cannot be a SQL reserved word
+ * Rule 12: Circular references between tables are not allowed
  */
 
 const SQL_RESERVED_WORDS = new Set([
@@ -79,7 +76,7 @@ export class RelationalModelValidator extends AbstractModelValidator {
                 });
             }
 
-            // Rule 14: A table or attribute name cannot be a SQL reserved word
+            // Rule 11: A table or attribute name cannot be a SQL reserved word
             if (relation.name && SQL_RESERVED_WORDS.has(relation.name.toUpperCase())) {
                 markers.push({
                     kind: 'error',
@@ -128,17 +125,7 @@ export class RelationalModelValidator extends AbstractModelValidator {
                         });
                     }
 
-                    // Rule 11: A PK attribute cannot be nullable (isNN must be true)
-                    if (attr.isPK && !attr.isNN) {
-                        markers.push({
-                            kind: 'error',
-                            description: `El atributo '${attr.name}' es Clave Primaria y no puede ser nullable. Desmarca la opción nullable.`,
-                            elementId: attr.id,
-                            label: ''
-                        });
-                    }
-
-                    // Rule 14: A table or attribute name cannot be a SQL reserved word
+                    // Rule 11: A table or attribute name cannot be a SQL reserved word
                     if (attr.name && SQL_RESERVED_WORDS.has(attr.name.toUpperCase())) {
                         markers.push({
                             kind: 'error',
@@ -148,7 +135,7 @@ export class RelationalModelValidator extends AbstractModelValidator {
                         });
                     }
 
-                    // Rule 13: An attribute marked as FK must have at least one outgoing edge
+                    // Rule 10: An attribute marked as FK must have at least one outgoing edge
                     if (attr.isFK && model.transitions) {
                         const hasOutgoingEdge = model.transitions.some(t => {
                             const sourceBaseId = t.sourceId.replace(/_port_(left|right)$/, '');
@@ -203,18 +190,7 @@ export class RelationalModelValidator extends AbstractModelValidator {
                     if (sourceAttr) break;
                 }
 
-                // Rule 12: An edge must originate from a specific attribute, not from the table node itself
-                const sourceIsRelationNode = !sourceAttr && model.relations.some(r => r.id === sourceBaseId);
-                if (sourceIsRelationNode) {
-                    markers.push({
-                        kind: 'error',
-                        description: 'La arista de clave foránea debe originarse desde un atributo concreto, no desde el nodo de la tabla.',
-                        elementId: transition.id,
-                        label: ''
-                    });
-                }
-
-                // Rule 10: The attribute from which an edge originates must be marked as FK (isFK = true)
+                // Rule 9: The attribute from which an edge originates must be marked as FK (isFK = true)
                 if (sourceAttr && !sourceAttr.isFK) {
                     markers.push({
                         kind: 'error',
@@ -224,23 +200,12 @@ export class RelationalModelValidator extends AbstractModelValidator {
                     });
                 }
 
-                // Rule 8:  The target of a transition must point to a table that has a PK or UNIQUE attribute
+                // Rule 8: Type match between FKs: the FK data type must match the referenced attribute data type
                 const targetRelation = model.relations.find(r =>
                     r.id === targetBaseId || r.attributes?.some(a => a.id === targetBaseId)
                 );
 
                 if (targetRelation) {
-                    const hasValidTarget = targetRelation.attributes?.some(a => a.isPK || a.isUN);
-                    if (!hasValidTarget) {
-                        markers.push({
-                            kind: 'error',
-                            description: `La tabla destino '${targetRelation.name}' no tiene PK ni campo UNIQUE, por lo que no puede recibir una Clave Foránea.`,
-                            elementId: transition.id,
-                            label: ''
-                        });
-                    }
-
-                    // Rule 9:  Type match between FKs: the FK data type must match the referenced PK data type
                     let targetAttr = undefined;
                     for (const rel of model.relations) {
                         targetAttr = rel.attributes?.find(a => a.id === targetBaseId);
@@ -250,7 +215,7 @@ export class RelationalModelValidator extends AbstractModelValidator {
                     if (sourceAttr && targetAttr && sourceAttr.dataType !== targetAttr.dataType) {
                         markers.push({
                             kind: 'error',
-                            description: `Incompatibilidad de tipos: La FK '${sourceAttr.name}' (${sourceAttr.dataType}) debe tener el mismo tipo que la PK destino '${targetAttr.name}' (${targetAttr.dataType}).`,
+                            description: `Incompatibilidad de tipos: La FK '${sourceAttr.name}' (${sourceAttr.dataType}) debe tener el mismo tipo que el atributo destino '${targetAttr.name}' (${targetAttr.dataType}).`,
                             elementId: transition.id,
                             label: ''
                         });
@@ -259,7 +224,7 @@ export class RelationalModelValidator extends AbstractModelValidator {
             }
         }
 
-        // Rule 15: Circular references between tables are not allowed
+        // Rule 12: Circular references between tables are not allowed
         if (model.transitions && model.transitions.length > 0) {
             const graph = new Map<string, Set<string>>();
             for (const rel of model.relations) {

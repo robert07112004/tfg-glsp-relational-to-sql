@@ -26,33 +26,31 @@ export class SQLGenerator {
 
     private sortTablesTopologically(): Table[] {
         const sorted: Table[] = [];
-        const visited  = new Set<string>();
-        const visiting = new Set<string>();
+        const emitted = new Set<string>();
+        let remaining = Array.from(this.tables.values());
 
-        const byName = new Map<string, Table>();
-        for (const table of this.tables.values()) {
-            byName.set(table.name, table);
+        while (remaining.length > 0) {
+            const before = remaining.length;
+
+            remaining = remaining.filter(table => {
+                const ready = table.foreignKeys.every(
+                    fk => emitted.has(fk.targetTable) || fk.targetTable === table.name);
+                if (ready) {
+                    sorted.push(table);
+                    emitted.add(table.name);
+                    return false;
+                }
+                return true;
+            });
+
+            // Sin progreso => ciclo: se fuerza la emision de una tabla
+            if (remaining.length === before && remaining.length > 0) {
+                const forced = remaining.shift()!;
+                sorted.push(forced);
+                emitted.add(forced.name);
+            }
         }
 
-        const visit = (name: string) => {
-            if (visited.has(name)) return;
-            if (visiting.has(name)) {
-                console.warn(`Ciclo detectado involucrando la tabla: ${name}`);
-                return;
-            }
-            visiting.add(name);
-            const table = byName.get(name);
-            if (table) {
-                for (const fk of table.foreignKeys) {
-                    if (fk.targetTable !== name) visit(fk.targetTable);
-                }
-                visited.add(name);
-                sorted.push(table);
-            }
-            visiting.delete(name);
-        };
-
-        for (const table of this.tables.values()) visit(table.name);
         return sorted;
     }
 }

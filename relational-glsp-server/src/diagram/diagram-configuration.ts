@@ -48,7 +48,7 @@ export class RelationalDiagramConfiguration implements DiagramConfiguration {
             ...attributeTypeIds.map(typeId => ({
                 elementTypeId: typeId,
                 deletable: true,
-                reparentable: true,
+                reparentable: false,
                 repositionable: false,
                 resizable: false
             }))

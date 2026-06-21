@@ -1,0 +1,528 @@
+{
+  "id": "e610f151-f1be-4543-89a3-f7878a3fa609",
+  "relations": [
+    {
+      "id": "d6196544-baa1-417d-a7f2-4ed1498283f7",
+      "type": "relation",
+      "name": "Familia",
+      "position": {
+        "x": 316,
+        "y": 215
+      },
+      "attributes": [
+        {
+          "id": "b1e5ee3f-c103-47b1-b268-0438fee70dd3",
+          "type": "attribute",
+          "name": "codigo",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "aeb1558c-45aa-4961-aaf4-682c186308cd",
+          "type": "attribute",
+          "name": "descripcion",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 208.56640625,
+        "height": 91
+      }
+    },
+    {
+      "id": "7a06d0a7-3792-49b7-bdf6-bfd4d7d00734",
+      "type": "relation",
+      "name": "Laboratorio",
+      "position": {
+        "x": 321,
+        "y": 470
+      },
+      "attributes": [
+        {
+          "id": "81a78f09-d0f6-4c26-b856-3f98fdd348ed",
+          "type": "attribute",
+          "name": "codigo",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "be4604fc-d6f1-4631-bc1c-90ce736bfe14",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "57bb0719-0536-43a2-bf7f-2169a9b33cf7",
+          "type": "attribute",
+          "name": "tlf",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "38ded79e-7ce1-427a-bf8d-e1ee6b53698e",
+          "type": "attribute",
+          "name": "dir",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "c636214d-8340-43ed-8afc-ab71c2fa7b99",
+          "type": "attribute",
+          "name": "fax",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2aa9d1ac-e52b-402f-9305-4dae2e289fd6",
+          "type": "attribute",
+          "name": "contacto",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 193.876953125,
+        "height": 199
+      }
+    },
+    {
+      "id": "28189594-5284-490f-9a5e-45f2bc99a967",
+      "type": "relation",
+      "name": "Medicamento",
+      "position": {
+        "x": 635,
+        "y": 256
+      },
+      "attributes": [
+        {
+          "id": "3fbca273-b0bd-4dff-b698-4ce0756eb428",
+          "type": "attribute",
+          "name": "codigo",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "84db0136-3d31-4aee-a4e3-986aa1ca3768",
+          "type": "attribute",
+          "name": "nombre",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2d070de2-e2b9-4afd-9a14-bd627fc92b48",
+          "type": "attribute",
+          "name": "tipo",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "3e85f4a7-34f6-4bc5-a48c-a9d01da10f00",
+          "type": "attribute",
+          "name": "stock",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "e99da8d9-8a15-486e-95d1-af4d98ee4f3e",
+          "type": "attribute",
+          "name": "vendidas",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": false,
+          "isUN": false
+        },
+        {
+          "id": "f9f2a746-0f7d-4eba-9aa8-7c11bc523c13",
+          "type": "attribute",
+          "name": "precio",
+          "dataType": "DECIMAL(8, 2)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ef195c74-edce-4058-8973-78d4056b5d05",
+          "type": "attribute",
+          "name": "receta",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "574c4968-8937-4004-8b3d-a52be9c16db3",
+          "type": "attribute",
+          "name": "cod_familia",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "9b867a69-45b5-4968-aeb1-87067779f60f",
+          "type": "attribute",
+          "name": "cod_laboratorio",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": true,
+          "isNN": false,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 189.130859375,
+        "height": 280
+      }
+    },
+    {
+      "id": "aab41c10-8fe7-45b8-a620-d73f9bbcb614",
+      "type": "relation",
+      "name": "Comp_cred",
+      "position": {
+        "x": 979,
+        "y": 490
+      },
+      "attributes": [
+        {
+          "id": "d87c17ce-e986-4d70-ad4a-4a7c14ca0d36",
+          "type": "attribute",
+          "name": "cod_medicamento",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "fd60a326-196e-443e-a062-d10fb8bec5da",
+          "type": "attribute",
+          "name": "DNI_cliente",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1b876558-86fa-461f-8db2-1ac3dee3133f",
+          "type": "attribute",
+          "name": "fecha_comp",
+          "dataType": "DATE",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "068ddc19-366a-4056-a318-edc02a810d74",
+          "type": "attribute",
+          "name": "unidades",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "a645db31-87a8-4f44-bf42-6b8f0630d920",
+          "type": "attribute",
+          "name": "fecha_pago",
+          "dataType": "DATE",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 201.375,
+        "height": 172
+      }
+    },
+    {
+      "id": "859410fe-bffd-4234-a309-376bdd3dc12d",
+      "type": "relation",
+      "name": "Comp_efec",
+      "position": {
+        "x": 979,
+        "y": 254
+      },
+      "attributes": [
+        {
+          "id": "bee27ed0-2985-4540-833f-3f823e497aa2",
+          "type": "attribute",
+          "name": "cod_medicamento",
+          "dataType": "INT",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2de21ad1-ff66-413f-97b2-350fdf4b8fbd",
+          "type": "attribute",
+          "name": "DNI_cliente",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "fbc0d7d6-9e41-4870-a8ac-6a02429024d8",
+          "type": "attribute",
+          "name": "Fecha_comp",
+          "dataType": "DATE",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "1f18b703-66fe-4148-84e7-86249fad7ce1",
+          "type": "attribute",
+          "name": "unidades",
+          "dataType": "INT",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 201.375,
+        "height": 145
+      }
+    },
+    {
+      "id": "f90ef187-2ae1-410a-97b2-6564e356006e",
+      "type": "relation",
+      "name": "C_credito",
+      "position": {
+        "x": 1310,
+        "y": 517
+      },
+      "attributes": [
+        {
+          "id": "aa035d0e-38c4-451e-9d87-8db003544637",
+          "type": "attribute",
+          "name": "DNI",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": true,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "2d111d8d-d66f-4c10-83aa-eaf23de7a236",
+          "type": "attribute",
+          "name": "datos_banco",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 214.63671875,
+        "height": 91
+      }
+    },
+    {
+      "id": "c7455c5d-610e-4e7a-8cd8-c178475e3e22",
+      "type": "relation",
+      "name": "Cliente",
+      "position": {
+        "x": 1331,
+        "y": 278
+      },
+      "attributes": [
+        {
+          "id": "20f65e20-b97f-4707-ba6d-77858aa8b1ca",
+          "type": "attribute",
+          "name": "DNI",
+          "dataType": "VARCHAR(9)",
+          "isPK": true,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "f18e2203-3126-472b-a49f-c2cf2106eadb",
+          "type": "attribute",
+          "name": "tlf",
+          "dataType": "VARCHAR(9)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        },
+        {
+          "id": "ebf894f5-6dc6-4bc6-8b9a-4ae9cbde0f10",
+          "type": "attribute",
+          "name": "dir",
+          "dataType": "VARCHAR(255)",
+          "isPK": false,
+          "isFK": false,
+          "isNN": true,
+          "isUN": false
+        }
+      ],
+      "size": {
+        "width": 161.75,
+        "height": 118
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "4fa9c706-de88-4b77-aeb8-e0c31c03a114",
+      "sourceId": "9b867a69-45b5-4968-aeb1-87067779f60f",
+      "targetId": "81a78f09-d0f6-4c26-b856-3f98fdd348ed",
+      "sourcePortId": "9b867a69-45b5-4968-aeb1-87067779f60f_port_left",
+      "targetPortId": "81a78f09-d0f6-4c26-b856-3f98fdd348ed_port_right",
+      "onUpdate": "c",
+      "onDelete": "n",
+      "routingPoints": []
+    },
+    {
+      "id": "e320ec8b-346e-4065-80a7-305344a77a41",
+      "sourceId": "574c4968-8937-4004-8b3d-a52be9c16db3",
+      "targetId": "b1e5ee3f-c103-47b1-b268-0438fee70dd3",
+      "sourcePortId": "574c4968-8937-4004-8b3d-a52be9c16db3_port_left",
+      "targetPortId": "b1e5ee3f-c103-47b1-b268-0438fee70dd3_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 581.4137446363854,
+          "y": 485.25,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 583.00439453125,
+          "y": 257.5,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "14b57ebe-4cd1-43c6-ad2e-3b38d75bbdd9",
+      "sourceId": "d87c17ce-e986-4d70-ad4a-4a7c14ca0d36",
+      "targetId": "3fbca273-b0bd-4dff-b698-4ce0756eb428",
+      "sourcePortId": "d87c17ce-e986-4d70-ad4a-4a7c14ca0d36_port_left",
+      "targetPortId": "3fbca273-b0bd-4dff-b698-4ce0756eb428_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 920.156932969912,
+          "y": 530.6706127212055,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 917.8200952473246,
+          "y": 295.9831916929974,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "27f767e3-4cf5-4162-83ce-7661b67c5e0a",
+      "sourceId": "bee27ed0-2985-4540-833f-3f823e497aa2",
+      "targetId": "3fbca273-b0bd-4dff-b698-4ce0756eb428",
+      "sourcePortId": "bee27ed0-2985-4540-833f-3f823e497aa2_port_left",
+      "targetPortId": "3fbca273-b0bd-4dff-b698-4ce0756eb428_port_right",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "e4078c16-7215-45bd-8aeb-b1a5972f49a4",
+      "sourceId": "aa035d0e-38c4-451e-9d87-8db003544637",
+      "targetId": "20f65e20-b97f-4707-ba6d-77858aa8b1ca",
+      "sourcePortId": "aa035d0e-38c4-451e-9d87-8db003544637_port_right",
+      "targetPortId": "20f65e20-b97f-4707-ba6d-77858aa8b1ca_port_right",
+      "onUpdate": "c",
+      "onDelete": "c",
+      "routingPoints": [
+        {
+          "kind": "linear",
+          "x": 1586.9721598812757,
+          "y": 558.75,
+          "pointIndex": 0
+        },
+        {
+          "kind": "linear",
+          "x": 1587.0732421875,
+          "y": 316.5,
+          "pointIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "fe64f603-c312-4207-b5dc-095cb91d4753",
+      "sourceId": "2de21ad1-ff66-413f-97b2-350fdf4b8fbd",
+      "targetId": "20f65e20-b97f-4707-ba6d-77858aa8b1ca",
+      "sourcePortId": "2de21ad1-ff66-413f-97b2-350fdf4b8fbd_port_right",
+      "targetPortId": "20f65e20-b97f-4707-ba6d-77858aa8b1ca_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    },
+    {
+      "id": "3e28a998-eff8-4a20-b060-a29c063fba6d",
+      "sourceId": "fd60a326-196e-443e-a062-d10fb8bec5da",
+      "targetId": "aa035d0e-38c4-451e-9d87-8db003544637",
+      "sourcePortId": "fd60a326-196e-443e-a062-d10fb8bec5da_port_right",
+      "targetPortId": "aa035d0e-38c4-451e-9d87-8db003544637_port_left",
+      "onUpdate": "c",
+      "onDelete": "c"
+    }
+  ]
+}

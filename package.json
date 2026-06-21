@@ -3,7 +3,7 @@
   "version": "2.5.0",
   "private": true,
   "homepage": "https://www.eclipse.org/glsp/",
-  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
+  "bugs": "https://github.com/robert07112004/tfg-glsp-relational-to-sql/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/robert07112004/tfg-glsp-relational-to-sql"
